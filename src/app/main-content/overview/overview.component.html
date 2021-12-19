@@ -1,0 +1,78 @@
+<header style="margin:20px">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row style="display:block;" class="ion-no-margin ion-no-padding">
+        <ion-icon   style="font-size:20px;padding:5px;font-weight:900" name = "arrow-back"></ion-icon>
+        <ion-icon  (click)="share()" style="font-size:20px;float:right;padding:5px"  name = "share-outline"></ion-icon>
+        <ion-icon  style="font-size:20px;float:right;padding:5px;" name = "star-outline"></ion-icon>
+      </ion-row>
+      <ion-row class="ion-no-margin ion-no-padding" style="padding-top:0px;padding-bottom:0px;">
+        <ion-text style="font-size:14px;padding-left:5px;margin-top:0px;" class="text">{{hit.Code}}</ion-text>
+      </ion-row>
+      <ion-row style="display:block;margin-top:0px">
+        <div > 
+          <ion-text class = "sub-title">
+            {{hit.Name}}
+         </ion-text>
+          <ion-img src={{hit.URL}} style="height:30px;width:30px;float:right;padding:5px"></ion-img>
+        </div>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</header>
+<ion-content  style="margin:20px">
+ 
+  <div style="height:200px;" >
+   <!-- <ngx-charts-bar-vertical 
+    [scheme]="colorScheme"
+    [results]="data"
+    [gradient]="verticalBarOptions.gradient"
+    [xAxis]="verticalBarOptions.showXAxis"
+    [yAxis]="verticalBarOptions.showYAxis"
+    [legend]="verticalBarOptions.showLegend"
+    [showXAxisLabel]="verticalBarOptions.showXAxisLabel"
+    [showYAxisLabel]="verticalBarOptions.showYAxisLabel"
+    [xAxisLabel]="verticalBarOptions.xAxisLabel"
+    [yAxisLabel]="verticalBarOptions.yAxisLabel"
+    [barPadding]="verticalBarOptions.barPadding"
+    [showGridLines]="verticalBarOptions.showGridLines"
+  ></ngx-charts-bar-vertical>-->
+ </div>
+ <ion-grid>
+  <ion-row>
+    <ion-button color="primary button-medium" style="width:80%;margin:30px">Follow</ion-button>
+  </ion-row>
+  <ion-row  style="margin:20px;"> 
+    <ion-col size="2">
+       <ion-text style="float:left;font-size:20px;padding:5px;font-weight:900;float:left">News</ion-text>
+    </ion-col>
+    <ion-col size="4" offset="6">
+      <ion-text style="float:right;color:blue;font-size:14px;" (click)="seeAll()">See all<ion-icon style="padding-left:5px;"name="arrow-forward"></ion-icon></ion-text>
+    </ion-col>
+  </ion-row>
+  <app-news></app-news>
+  <ion-row>
+ </ion-row>
+</ion-grid>
+
+<!--<ion-fab vertical="top" horizontal="end" slot="fixed" color="primary">
+  <ion-fab-button id="trigger-buy" color="success" style=" --border-radius:15px;width:80px;height:30px;color:white">
+    <ion-icon name="add"></ion-icon>
+    <ion-label>Buy</ion-label>
+  </ion-fab-button>
+</ion-fab>
+<ion-fab >
+<ion-fab-button color="secondary" style="--border-radius:15px;width:80px;height:30px;color:white">
+  <ion-icon name="remove"></ion-icon>
+  <ion-label>Sell</ion-label>
+</ion-fab-button>
+</ion-fab>-->
+ </ion-content>
+ <ion-footer style="margin-left:20px;margin-top:10px;font-size:20px;border:1px solid light">
+  <ion-icon routerLink="/main-content/dashboard" name="home-outline"></ion-icon>
+  <ion-icon style="margin-left:70%;" name="person-outline"></ion-icon>
+</ion-footer>
+
+
+ 
+

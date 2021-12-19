@@ -1,0 +1,34 @@
+<ion-header class="ion-text-center">
+  <ion-title *ngIf="previousPage == 'signin'" >Sign in!</ion-title>
+  <ion-title *ngIf="previousPage == 'signup'">Sign up!</ion-title>
+    <div class="card-holder">
+      <ion-card class="ion-padding">
+        <ion-text class= "text">Enter OTP</ion-text>
+        <div id="divOuter">
+          <div id="divInner">
+            <ion-input id="partitioned" [(ngModel)]="otp" type="text" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  onKeyPress="if(this.value.length==6) return false;">
+            </ion-input>
+          </div>
+        </div>
+      </ion-card>
+    </div>
+</ion-header>
+<ion-content class="auth-content">
+<ion-item lines="none">  
+  <ion-grid >
+    <ion-row >
+      <ion-text class= "text">Don't recieve otp?</ion-text>
+    </ion-row>
+    <ion-row class= "ion-margin-bottom" >
+        <ion-text class= "text" style="text-decoration: underline;">Resend OTP</ion-text>
+    </ion-row>
+    <form>
+    <ion-row style="height:20%;">
+      <ion-button color="secondary" *ngIf="previousPage == 'signin'" (click)="submit('signin')">Sign In</ion-button>
+      <ion-button color="secondary" *ngIf="previousPage == 'signup'" (click)="submit('signup')">Register</ion-button>
+    </ion-row>
+    </form>
+  </ion-grid>
+</ion-item>
+</ion-content>
+

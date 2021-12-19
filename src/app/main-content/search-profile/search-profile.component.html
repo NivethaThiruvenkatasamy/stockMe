@@ -1,0 +1,50 @@
+
+  
+ <!-- <ion-content style="--background: #ebf2fb;top:35%;" >
+  <ion-grid style="position:relative;justify-content: center;">
+	<ion-row justify-content-center align-items-center >
+	  <ion-col size-xs="6" offset="0" *ngFor="let company of companiesList" class ="ion-text-center ion-no padding" style="padding:0px;padding-bottom:4px;" >
+		 <ion-card   style="height:130px;align-items: center;display: flex;flex-direction: column;align-items: center; 
+		 justify-content: center;margin-bottom:0px;margin-top:2px;">
+			<img src="{{company.URL}}" alt="logo" align="left" style="height:20px;width:20px;"/>
+			<!--<ion-text class="ion-margin-top">{{company.Name}}</ion-text>
+		</ion-card>
+	  </ion-col>
+	</ion-row>
+	</ion-grid>
+  </ion-content>-->
+ 
+  <ion-content style="--background: #ebf2fb;padding-top:0px;position:absolute;">
+	<ais-instantsearch [config]="config" style="border:1px solid transparent;z-index:0;">
+		<ais-current-refinements></ais-current-refinements>
+		<ais-refinement-list attribute="Code"></ais-refinement-list>
+		<ais-configure [searchParameters]="{ hitsPerPage: 6 }"></ais-configure>
+		<ion-toolbar style="margin-top:-10px;height:30%;position:relative;z-index:1;top:-5%;padding:10px;">
+			<ion-buttons slot="end">
+			  <ion-back-button></ion-back-button>
+			</ion-buttons>
+			<ion-title>Welcome1!</ion-title>
+			<ion-text class="text" style="margin-top:40px;margin-left:23px;">Choose your interests to follow and </ion-text><ion-text class="text" style="margin:23px">trade on your free time!</ion-text>
+			<ais-search-box ></ais-search-box>
+		  </ion-toolbar>
+		<ais-hits>
+		<ng-template let-hits="hits">
+		  <ion-grid style="position:relative;justify-content: center;margin-top:-25px">
+			<ion-row justify-content-center align-items-center  >
+			  <ion-col  size-xs="6" offset="0" *ngFor="let hit of hits"  class="ais-Hits-item" class ="ion-text-center ion-no padding" style="padding:0px;padding-bottom:4px;">
+				<ion-card   style="height:180px;align-items:center;display: flex;flex-direction: column;
+				justify-content: center;margin:6px 8px 2px 10px;background-color:rgba(255,255,255);box-shadow:2px 0px 2px 0px lightgray" (click)="getOverView(hit)">
+	            <div style="border-radius: 50%;border:1px solid rgba(128,128,128,0.1);height:50px;width:50px; text-align: center;
+				align-items: center;">
+				<img src="{{hit.URL}}" alt="logo"  style="height:26px;width:26px;margin-top:25%;"/></div>
+				<ion-text style="font-size:16px" class="ion-margin-top">{{hit.Name}}</ion-text>
+				<ion-button class="button-small" (click)="toggle(hit.Code)" [ngClass]="followList.includes(hit.Code) === true ? 'my_class1' : 'my_class2'" >{{followList.includes(hit.Code) === true ? "followed" : "follow"}}</ion-button>
+			</ion-card>
+			</ion-col>
+			</ion-row >
+		  </ion-grid> 
+		  </ng-template>
+		</ais-hits>
+		<!--<ais-pagination></ais-pagination>-->
+	</ais-instantsearch>
+</ion-content>

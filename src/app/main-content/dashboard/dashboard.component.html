@@ -1,0 +1,51 @@
+<header style="margin:0px 15px 5px 15px;height:20%;align-items:center">
+  <ion-text class="sub-title">Dashboard</ion-text>
+</header>
+<ion-content style="margin:0px 15px 5px 15px;--background: #ebf2fb;">
+  <ion-row  style="margin:0px15px 5px 15px"> 
+    <ion-col size-xs="7">
+       <ion-text style="float:left;font-size:16px;font-weight:900;float:left;margin:0px 15px 5px 15px;">Gainers and Losers</ion-text>
+    </ion-col>
+    <ion-col size-xs="3" offset-xs="2">
+      <ion-text style="float:right;color:blue;font-size:14px;" (click)="seeAll()">See all<ion-icon style="padding-left:5px;"name="arrow-forward"></ion-icon></ion-text>
+    </ion-col>   
+  </ion-row>
+    <ion-grid style="margin:0px 15px 5px 15px;padding-top:0px;">
+    <ion-row  style="display:block;padding:0px;margin:0px" class="ion-no-padding ion-no-margin">
+      <ion-col size-xs="6"  *ngFor="let hit of gainerData | slice:0:1"  class="ais-Hits-item" class ="ion-text-center ion-no padding" style="padding:0px;margin:0px">
+          <ion-card class="flash-card" (click)="getOverView(hit)" style="width:50%">
+            <div style="border-radius: 50%;border:1px solid rgba(128,128,128,0.1);height:50px;width:50px; text-align: center;
+            align-items: center;margin:5px;">
+              <img src="../assets/icon/placeholder.jpeg" alt="logo"  style="height:30px;width:30px;margin-top:25%;"/>
+            </div>
+             <ion-text  class="text" style="margin:2px 2px 0px 5px;font-size:12px;">{{hit.companyName}}</ion-text>
+              <ion-text style="font-weight:normal;margin:2px 2px 0px 5px;" class="text">{{hit.price}}</ion-text>
+            <ion-col>
+                <ion-chip color="success small-text" size="small">+{{hit.changes}}</ion-chip>
+                <ion-text class="small-text">{{hit.changesPercentage | number :0}}%</ion-text>
+            </ion-col>
+         </ion-card>
+      </ion-col>
+    </ion-row >
+  </ion-grid> 
+  <ion-row  style="margin:0px 20px 5px 20px"> 
+    <ion-col size-xs="7">
+       <ion-text style="float:left;font-size:16px;font-weight:900;float:left;margin:0px;">Your Watchlist</ion-text>
+    </ion-col>
+    <ion-col size-xs="3" offset-xs="2">
+      <ion-text style="float:right;color:blue;font-size:14px;" (click)="seeAll()">See all<ion-icon style="padding-left:5px;"name="arrow-forward"></ion-icon></ion-text>
+    </ion-col>   
+  </ion-row>
+  <ion-row class="ion-no-margin ion-no-padding" *ngFor = "let data of companyInfoArray| keyvalue;let i=index">
+    <ion-col size-xs="12">
+    <ion-item style="border:1px solid lightgray;margin:5px 15px 0px 15px;" >
+      <ion-icon id={{i}} color="tertiary" (click)="toggleWatchList(data.value.symbol,i)" style="font-size:20px;float:right;padding:5px;" name={{starName}}></ion-icon>
+      <img src="{{getImage(data)}}" style="width:15px;height:15px"/>
+      <ion-text>{{data.value.symbol}}</ion-text>
+       <ion-chip >{{data.value.previousClose-data.value.price |number:0}}</ion-chip>
+        <ion-text>{{data.value.price}}</ion-text>
+        <!--<ion-icon ios="ios-more" md="md-more"></ion-icon>-->
+    </ion-item>
+  </ion-col>
+  </ion-row>
+</ion-content>

@@ -1,0 +1,29 @@
+
+  <ion-header class="ion-text-center">
+    <ion-title >Sign in!</ion-title>
+      <div class="card-holder">
+        <ion-card class="ion-padding">
+          <ion-text class= "text">Enter Mobile Number</ion-text>
+          <ion-input [(ngModel)]="phoneNumber" type="number" placeholder="444354532452" min="10" max="15"></ion-input>
+        </ion-card>
+      </div>
+  </ion-header>
+<ion-content class="auth-content">
+  <ion-item lines="none">  
+    <ion-grid >
+      <ion-row >
+        <ion-text class= "text">Don't have an account?</ion-text>
+      </ion-row>
+      <ion-row class= "ion-margin-bottom" >
+          <ion-text class= "text" (click)="navigate()" style="text-decoration: underline;">sign up</ion-text>
+      </ion-row>
+      <form>
+      <ion-row style="height:20%;">
+        <ion-button color="secondary" (click)="getOTP()">Submit</ion-button>
+      </ion-row>
+      </form>
+    </ion-grid>
+  </ion-item>
+  <div id="sign-in-button"></div>
+</ion-content>
+

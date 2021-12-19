@@ -1,0 +1,56 @@
+
+
+::ng-deep.ais-SearchBox-input {
+	width:90% !important;
+	border-radius:10px;
+	border:1px solid gray;
+	margin-top:10%;
+	padding-left:42ßpx;
+}
+::ng-deep.ais-SearchBox-submitIcon{
+	background-color: transparent;
+	height:15px;
+	width:15px;
+	position:relative;
+	z-index:1;
+	right:300px;
+	
+}
+::ng-deep.ais-SearchBox-submit{
+	background-color: transparent;
+}
+::ng-deep.ais-SearchBox-reset{
+	background-color: transparent;
+}
+::ng-deep.ais-SearchBox-resetIcon{
+	width:10px;
+	height:10px;
+	position:relative;
+	z-index:1;
+	left:275px;
+	bottom:32px;
+	color:gray;
+}
+.my_class1{
+
+	width:110px;
+	--background:lightgray;
+	--height:20px;
+	border-radius:20px;
+	margin-top:10%;
+	--color:white;
+	font-size: 10px;
+	
+}
+.my_class2{
+
+	--color:white;
+	width:110px;
+	--background: rgba(0,0,0,0.6) ;
+	--height:5px;
+	border-radius:30px;
+	margin-top:10%;
+	font-size: 10px;
+	
+}
+

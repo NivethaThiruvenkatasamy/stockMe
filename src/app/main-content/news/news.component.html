@@ -1,0 +1,25 @@
+<ion-row  style="margin:20px;" *ngIf="limit == 100"> 
+  <ion-col size="2">
+     <ion-text style="float:left;font-size:20px;padding:5px;font-weight:900;float:left">News</ion-text>
+  </ion-col>
+  <!--<ion-col size="4" offset="6">
+    <ion-text style="float:right;color:blue;font-size:14px;" (click)="seeAll()">See less<ion-icon name="arrow-forward"></ion-icon></ion-text>
+  </ion-col>-->
+</ion-row>
+<ion-row *ngFor="let n of news| slice:0:limit" style="margin-left:20px;margin-right:20px;">
+  <ion-item style="border: 1px solid rgba(238,238,238,0.8);height:70px;border-radius:10px"  class="ion-no-padding">
+    <ion-row class="ion-no-padding ion-no-margin">
+      <ion-col size="2" class="ion-no-padding">
+          <ion-img  src="{{n.urlToImage}}" style="height:70px;width:40px;"></ion-img>
+      </ion-col>
+      <ion-col size="9" offset="1"  class="ion-no-margin">
+          <a href="{{n.url}}" style="color:black;font-size:14px;padding:1px;" class="item-text-wrap">{{n.title}}</a>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+     <!--<ion-text>{{n.source['name']}}</ion-text>-->
+    </ion-col>
+    </ion-row>
+  </ion-item>
+</ion-row>

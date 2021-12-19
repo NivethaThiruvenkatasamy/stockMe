@@ -1,0 +1,24 @@
+<ion-header class="ion-text-center">
+  <ion-title >Sign up!</ion-title>
+  <div class="card-holder">
+    <ion-card class="ion-padding">
+      <ion-text class= "text">Enter Mobile Number</ion-text>
+      <ion-input type="number" placeholder="444354532452"></ion-input>
+    </ion-card>
+  </div>
+</ion-header>
+<ion-content class="auth-content">
+  <ion-item lines="none">  
+    <ion-grid >
+      <ion-row >
+        <ion-text class= "text">Already have an account?</ion-text>
+      </ion-row>
+      <ion-row class= "ion-margin-bottom" >
+          <ion-text class= "text" (click)="navigate()" style="text-decoration: underline;">sign in</ion-text>
+      </ion-row>
+      <ion-row style="height:20%;">
+        <ion-button color="secondary" (click)="submit()">Submit</ion-button>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "trading-app-demo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
