@@ -1,0 +1,2 @@
+# stockMe
+trading-app-demo
