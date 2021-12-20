@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
     getImage(code):string{
       console.log(code);
      let company= companyData.filter(data=>{
-        return data.Code == code.value.symbol;
+        return data.Code == code.symbol;
        })
        console.log(company);
        console.log(company[0]['URL']);
@@ -138,5 +138,11 @@ export class DashboardComponent implements OnInit {
         console.log(this.watchList);
         //call a function to update the watch list of the database
       }
+    }
+    seeAll(){
+
+    }
+    getOverView(hit){
+
     }
   }

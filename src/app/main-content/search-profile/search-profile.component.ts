@@ -31,8 +31,8 @@ export class SearchProfileComponent implements OnInit {
   public approvedCountry: any = [];
   public approvedIndustry: any = [];
   public approvedGoodsAndServices: any = [];
-  public followList:Array<string>=['WMT'];
-  public watchList:Array<string>;;
+  public followList:Array<string>=[];
+  public watchList:Array<string>=[];
   public availableBalance:number
   
   companyOptions = {
@@ -74,7 +74,15 @@ export class SearchProfileComponent implements OnInit {
     this.dataService.getUserInformation().subscribe(res=>{
         this.followList = res['followList'];
         this.watchList = res['watchList'];
+        if(this.followList == undefined ){
+          this.followList=[];
+        }
+        if(this.followList == undefined ){
+          this.watchList=[];
+        }
+
         localStorage.setItem("watchList",JSON.stringify(this.watchList));
+        localStorage.setItem("followList",JSON.stringify(this.followList));
         this.availableBalance = res['availableBalance'];
     });
     return;

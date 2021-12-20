@@ -6,8 +6,6 @@ import { subscribeOn } from 'rxjs/operators';
 import { Transaction } from 'src/app/shared/Transaction';
 import { doc, setDoc, Timestamp } from "firebase/firestore"; 
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,14 +13,16 @@ export class DataService {
   //collectionName = "Users"
   public userDoc:any;
   public data1:any;
+  confirmationResult: Observable<any>;
+  userId = localStorage.getItem('userId')
 
   constructor(private fireStore: AngularFirestore) { }
 
 getUserInformation(){
-  return this.fireStore.collection('Users').doc('6589090703').valueChanges();
+  return this.fireStore.collection('Users').doc("6591344009").valueChanges();
 }
 updateFollowList(followList){
-  this.fireStore.collection('Users').doc('6589090703').update({
+  this.fireStore.collection('Users').doc("6591344009").update({
     followList: followList
   })
 }
@@ -41,4 +41,19 @@ createTransaction(transaction: Transaction){
     }, { merge: true }
   )
  }
+setConfirmationResult(confirmationResult){
+  this.confirmationResult = confirmationResult;
+}
+
+getConfirmationResult(){
+  return this.confirmationResult;
+}
+async createDocument(phoneNumber){
+  const ref = this.fireStore.collection("Users").doc(phoneNumber)
+  await ref.set({
+   availableBalance:"1000",
+   followList:[],
+   watchList:[]
+  })
+}
 }

@@ -3,7 +3,7 @@
   <div class="card-holder">
     <ion-card class="ion-padding">
       <ion-text class= "text">Enter Mobile Number</ion-text>
-      <ion-input type="number" placeholder="444354532452"></ion-input>
+      <ion-input [(ngModel)]="phoneNumber" type="number"  placeholder="444354532452"></ion-input>
     </ion-card>
   </div>
 </ion-header>
@@ -17,7 +17,7 @@
           <ion-text class= "text" (click)="navigate()" style="text-decoration: underline;">sign in</ion-text>
       </ion-row>
       <ion-row style="height:20%;">
-        <ion-button color="secondary" (click)="submit()">Submit</ion-button>
+        <ion-button color="secondary" (click)="getOTP()">Submit</ion-button>
       </ion-row>
     </ion-grid>
   </ion-item>

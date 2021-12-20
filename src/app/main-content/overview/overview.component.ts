@@ -8,6 +8,8 @@ import {HttpClient} from  "@angular/common/HTTP"
 import { ModalController } from '@ionic/angular';
 import { BuyComponent } from '../modals/buy/buy.component';
 
+import { DataService } from 'src/app/services/data/data.service';
+//import { ModalPage } from '../modal/modal.page';
 
 @Component({
   selector: 'app-overview',
@@ -15,14 +17,19 @@ import { BuyComponent } from '../modals/buy/buy.component';
   styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent implements OnInit {
-  
-  private alphaApiKey="JRBZPDQLZW3ZCQD0";
+
   public view: any[] = [600, 400];
   public locWData:any[];
   public timeData$: Observable<any>
   public news:any[];
   public hit:any;
-  public verticalBarOptions = {
+  public alphaApiKey="JRBZPDQLZW3ZCQD0";
+  public followList = JSON.parse(localStorage.getItem('followList'));
+  public watchList = JSON.parse(localStorage.getItem('watchList'));
+ 
+ //public local =new Storage();
+
+  verticalBarOptions = {
     showXAxis: true,
     showYAxis: true,
     gradient: false,
@@ -34,7 +41,7 @@ export class OverviewComponent implements OnInit {
     showYAxisLabel: true,
     yAxisLabel: ""
   };
-  public colorScheme = {
+  colorScheme = {
     domain: [
       "#8a918c",
     ]
@@ -42,10 +49,11 @@ export class OverviewComponent implements OnInit {
   public data: { name: string; value: any; }[];
 
  constructor( private router: Router,
-              private detailsService: DetailsService,
+              private dataService: DataService,
               private http: HttpClient,
               public modalCtrl: ModalController
               ) { }
+ 
 
   ngOnInit() {
     console.log("[ngOnInit - OverViewComponent]")
@@ -107,4 +115,13 @@ export class OverviewComponent implements OnInit {
     });  
     return await modal.present();  
   }  
+
+  updateFollowList(){
+    this.followList.push(this.hit.Code);
+    this.dataService.updateFollowList(this.followList);
+  }
+
+  toggleWatchList(){
+
+  }
 }
