@@ -7,6 +7,8 @@ import 'firebase/compat/firestore';
 import {environment} from "src/environments/environment"
 import { initializeApp } from "firebase/app";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { DataService } from 'src/app/services/data/data.service';
+import { window } from 'rxjs/operators';
 
 firebase.initializeApp(environment.firebaseConfig)
 @Component({
@@ -18,48 +20,60 @@ export class LoginComponent implements OnInit {
 
  phoneNumber:string;
  reCaptchaVerifier: firebase.auth.RecaptchaVerifier;
- confirmationResult:any;
  OTP:string='';
 
 
-  constructor(private router:Router,private fireAuth:AngularFireAuth) { }
+constructor(private router:Router,private fireAuth:AngularFireAuth,private dataService: DataService) { }
 
-  ngOnInit() {
-  }
-  navigate(){
+ngOnInit() {
+    console.log("[ngOnint - LoginComponent]");
+
+}
+
+/*---------------------------------------------------
+        navigate to signup page
+-----------------------------------------------------*/
+navigate(){
     this.router.navigateByUrl('/authentication/signup')
-  }
-  async ionViewDidEnter() {
-    this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-      size: 'invisible',
+}
+
+async ionViewDidEnter() {
+  this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+    size: 'invisible',
+    callback: (response) => {
+    },
+      'expired-callback': () => {
+    }
+  });
+}
+
+ionViewDidLoad() {
+  this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+    size: 'invisible',
       callback: (response) => {
 
-      },
+    },
       'expired-callback': () => {
-      }
-    });
-  }
-  ionViewDidLoad() {
-    this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-      size: 'invisible',
-      callback: (response) => {
+    }
+  });
+}
 
-      },
-      'expired-callback': () => {
-      }
-    });
-    console.log(this.reCaptchaVerifier);
-  }
-  getOTP(){
-    console.log(this.phoneNumber);
+/*---------------------------------------------------
+      Call fireauth signIn with phone number
+      Navigate to otp page
+-----------------------------------------------------*/
+getOTP(){
+    this.phoneNumber = '+'+this.phoneNumber;
+    console.log("phoneNumber"+this.phoneNumber);
     return new Promise<any>((resolve, reject) => {
-
-      this.fireAuth.signInWithPhoneNumber('+6589090703',this.reCaptchaVerifier)
+      this.fireAuth.signInWithPhoneNumber(this.phoneNumber,this.reCaptchaVerifier)
         .then((confirmationResult) => {
-          this.confirmationResult = confirmationResult;
+         // window.confirmationResult = confirmationResult;
           console.log(confirmationResult);
-          resolve(confirmationResult);
-          this.router.navigate(['/authentication/otp'],{ state: { currentPage:'signin',confirmationResult: this.confirmationResult } })
+          resolve("confirmation result"+confirmationResult);
+          localStorage.setItem('confirmationResult',JSON.stringify(confirmationResult));
+          this.dataService.setConfirmationResult(confirmationResult);
+          this.router.navigate(['/authentication/otp'],{ state: { currentPage:'signin' } })
         }).catch((error) => {
           console.log(error);
           reject('SMS not sent');

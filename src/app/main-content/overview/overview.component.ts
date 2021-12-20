@@ -6,11 +6,8 @@ import { Observable } from 'rxjs';
 import { Share } from '@capacitor/share';
 import {HttpClient} from  "@angular/common/HTTP"
 import { ModalController } from '@ionic/angular';
+import { DataService } from 'src/app/services/data/data.service';
 //import { ModalPage } from '../modal/modal.page';
-
-
-
-
 
 @Component({
   selector: 'app-overview',
@@ -25,6 +22,8 @@ export class OverviewComponent implements OnInit {
   timeData$: Observable<any>
   news:any[];
   hit:any;
+  public followList = JSON.parse(localStorage.getItem('followList'));
+  public watchList = JSON.parse(localStorage.getItem('watchList'));
  
  //public local =new Storage();
 
@@ -40,19 +39,17 @@ export class OverviewComponent implements OnInit {
     showYAxisLabel: true,
     yAxisLabel: ""
   };
-
-
   colorScheme = {
     domain: [
       "#8a918c",
-     
     ]
   };
   data: { name: string; value: any; }[];
  //console.log("code+code"+code);
- constructor(private router: Router,private myService:DetailsService,private http:HttpClient) { 
- 
+ constructor(private router: Router,private myService:DetailsService,private http:HttpClient,private dataService: DataService) { 
  }
+
+
   ngOnInit() {
     if(this.router.getCurrentNavigation().extras.state != undefined){
       this.hit = this.router.getCurrentNavigation().extras.state.hit?this.router.getCurrentNavigation().extras.state.hit:'';
@@ -84,5 +81,15 @@ export class OverviewComponent implements OnInit {
       url: 'http://ionicframework.com/',
       dialogTitle: 'Share with Friensds',
     });
+  }
+  
+
+  updateFollowList(){
+    this.followList.push(this.hit.Code);
+    this.dataService.updateFollowList(this.followList);
+  }
+
+  toggleWatchList(){
+
   }
 }

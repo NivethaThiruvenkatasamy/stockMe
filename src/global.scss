@@ -34,7 +34,7 @@ ion-header{
 	ion-title{
 		position:relative;
 		top:20%;
-		font-size:40px;
+		font-size:23px;
 	}
 }
 .auth-content{
@@ -51,7 +51,7 @@ ion-header{
 		width:70%;
 		height:50px;
 		--border-radius:50px;
-		font-size:20px;
+		font-size:15px;
 	}
 }
 .text{
@@ -84,7 +84,7 @@ ion-header{
 		}
 	}
 	#partitioned {
-		padding-left: 10%;;
+		padding-left: 6%;
 		letter-spacing: 42px;
 		border: 0;
 		background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
@@ -92,15 +92,17 @@ ion-header{
 		background-size: 50px 1px;
 		background-repeat: repeat-x;
 		background-position-x: 35px;
-		width: 20px;
-		min-width: 220px;
+		width: 400px;
+		min-width: 400px;
+	
 	  }
 	#divInner{
 		left: 0;
 		position: sticky;
+	
 	}
 	#divOuter{
-		width: 230px; 
+		width: 360px; 
 		overflow: hidden;
 	}
 }
