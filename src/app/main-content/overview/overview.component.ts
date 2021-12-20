@@ -6,10 +6,7 @@ import { Observable } from 'rxjs';
 import { Share } from '@capacitor/share';
 import {HttpClient} from  "@angular/common/HTTP"
 import { ModalController } from '@ionic/angular';
-//import { ModalPage } from '../modal/modal.page';
-
-
-
+import { BuyComponent } from '../modals/buy/buy.component';
 
 
 @Component({
@@ -19,16 +16,13 @@ import { ModalController } from '@ionic/angular';
 })
 export class OverviewComponent implements OnInit {
   
-  public alphaApiKey="JRBZPDQLZW3ZCQD0";
-  view: any[] = [600, 400];
-  locWData:any[];
-  timeData$: Observable<any>
-  news:any[];
-  hit:any;
- 
- //public local =new Storage();
-
-  verticalBarOptions = {
+  private alphaApiKey="JRBZPDQLZW3ZCQD0";
+  public view: any[] = [600, 400];
+  public locWData:any[];
+  public timeData$: Observable<any>
+  public news:any[];
+  public hit:any;
+  public verticalBarOptions = {
     showXAxis: true,
     showYAxis: true,
     gradient: false,
@@ -40,20 +34,21 @@ export class OverviewComponent implements OnInit {
     showYAxisLabel: true,
     yAxisLabel: ""
   };
-
-
-  colorScheme = {
+  public colorScheme = {
     domain: [
       "#8a918c",
-     
     ]
   };
-  data: { name: string; value: any; }[];
- //console.log("code+code"+code);
- constructor(private router: Router,private myService:DetailsService,private http:HttpClient) { 
- 
- }
+  public data: { name: string; value: any; }[];
+
+ constructor( private router: Router,
+              private detailsService: DetailsService,
+              private http: HttpClient,
+              public modalCtrl: ModalController
+              ) { }
+
   ngOnInit() {
+    console.log("[ngOnInit - OverViewComponent]")
     if(this.router.getCurrentNavigation().extras.state != undefined){
       this.hit = this.router.getCurrentNavigation().extras.state.hit?this.router.getCurrentNavigation().extras.state.hit:'';
       localStorage.setItem('hit',JSON.stringify(this.hit));
@@ -74,9 +69,17 @@ export class OverviewComponent implements OnInit {
     });*/
   }
   
-  seeAll(){
-    this.router.navigate(['/main-content/news'],{ state: { isShowAll:'true'  }});
+  /*---------------------------------------------
+    Expand the news component
+  -----------------------------------------------*/
+  seeAll(): void{
+    this.router.navigate(['/main-content/news'],{ state: { isShowAll:'true'}});
+    return;
   }
+
+  /*---------------------------------------------
+    share with friends
+  -----------------------------------------------*/
   async share(){
     await Share.share({
       title: 'Share with friends',
@@ -85,4 +88,23 @@ export class OverviewComponent implements OnInit {
       dialogTitle: 'Share with Friensds',
     });
   }
+  
+  /*---------------------------------------------
+    To display buy/sell modal box
+  -----------------------------------------------*/
+  async showModal() {  
+    const modal = await this.modalCtrl.create({  
+    component: BuyComponent,
+    cssClass: 'my-custom-modal-css',
+    componentProps: {
+      'details':{
+        Code: 'AMZN',
+        volume: '100',
+        price: '80'
+      }
+    },
+    backdropDismiss:false
+    });  
+    return await modal.present();  
+  }  
 }

@@ -15,6 +15,8 @@ import { DataService } from '../services/data/data.service';
 import { NewsComponent } from './news/news.component';
 import { DetailsService } from '../services/details/details.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BuyComponent } from './modals/buy/buy.component';
+import { SellComponent } from './modals/sell/sell.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
                   SearchProfileComponent,
                   OverviewComponent,
                   NewsComponent,
-                  DashboardComponent],
+                  DashboardComponent,
+                  BuyComponent,
+                  SellComponent],
   providers:[DataService,DetailsService]
 })
 export class MainContentPageModule {}

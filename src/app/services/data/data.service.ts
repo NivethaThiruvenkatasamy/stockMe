@@ -3,6 +3,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
 import { subscribeOn } from 'rxjs/operators';
+import { Transaction } from 'src/app/shared/Transaction';
+import { doc, setDoc, Timestamp } from "firebase/firestore"; 
 
 
 
@@ -24,4 +26,19 @@ updateFollowList(followList){
     followList: followList
   })
 }
+
+createTransaction(transaction: Transaction){
+  console.log("inside create transaction");
+  this.fireStore.collection('Transactions').doc('transaction').set(
+    {
+       code: transaction.code,
+       phoneNo: transaction.phoneNo,
+       quantity: transaction.quantity,
+       total: transaction.total,
+       price: transaction.price,
+       createDate: Timestamp.fromDate(transaction.createdDate),
+       isBuy: transaction.isBuy
+    }, { merge: true }
+  )
+ }
 }

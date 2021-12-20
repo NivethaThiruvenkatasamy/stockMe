@@ -124,7 +124,6 @@ ion-header{
 		color:gray;
 		//
 	}
-
 }
 
 .header{
@@ -137,3 +136,28 @@ ion-header{
 	padding:5px;
 	font-weight:900;
 }
+.my-custom-modal-css {
+	height: 40%;
+	top: 25%;
+	width:90%;
+	position: absolute; 
+	display: block; 
+	margin:10px 15px 0px 15px;
+	border:1px solid rgba(233, 231, 231, 0.9);
+	box-shadow: 1px 1px 1px 1px #e6e4e4; 
+	.header{
+		padding:20px 20px 20px 20px;
+		background-color:green;
+		height:30%;
+		color:white;
+	}
+	.content{
+		--background: white;
+		align-items:center !important;
+		justify-content:center !important;
+	}
+     ion-backdrop{
+		 background-color: white;
+		 border-radius: 15px; 
+	 }
+ }
