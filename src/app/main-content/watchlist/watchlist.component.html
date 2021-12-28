@@ -1,0 +1,12 @@
+<ion-row class="ion-no-margin ion-no-padding" *ngFor = "let data of companyInfoArray|slice:0 :limit;let i=index ">
+  <ion-col size-xs="12">
+  <div style="border:1px solid lightgray;margin:5px 15px 0px 15px;display: flex;flex-direction: row;justify-content: space-evenly;background-color: white;font-size:13px;vertical-align: middle;align-items:center;border-radius:5px;height:100%;" >
+    <ion-icon id={{i}} color="tertiary" (click)="toggleWatchList(data.symbol,i)" style="font-size:15px"  name={{starName}}></ion-icon>
+    <img src="{{getImage(data)}}" style="width:15px;height:15px" />             
+    <ion-text>{{data.symbol}}</ion-text>
+     <ion-text class="small"  [ngClass]="data.previousClose>data.price ? 'text-success' : 'text-danger'">{{data.previousClose-data.price |number:0}}</ion-text>
+      <ion-text>{{data.price}}</ion-text>
+      <!--<ion-icon ios="ios-more" md="md-more"></ion-icon>-->
+  </div>
+</ion-col>
+</ion-row>

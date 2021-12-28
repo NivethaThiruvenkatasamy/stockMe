@@ -1,0 +1,30 @@
+<ion-grid class="gain-grid">
+  <ion-row  class="ion-no-padding ion-no-margin">
+    <ion-col size-xs="6" offset="0" *ngFor="let hit of gainerData | slice:0:limit"  class="ais-Hits-item" class ="ion-text-center ion-no padding" >
+        <ion-card class="flash-card" style="width:90%;">
+          <div class="div-card">
+            <img src="../assets/icon/placeholder.jpeg" alt="logo">
+          </div>
+           <ion-text  class="text" style="margin:2px 2px 0px 5px;font-size:12px;">{{hit.companyName}}</ion-text>
+            <ion-text style="font-weight:normal;margin:2px 2px 0px 5px;" class="text">{{hit.price}}</ion-text>
+          <ion-col>
+              <ion-chip color="success small-text" size="small">+{{hit.changes}}</ion-chip>
+              <ion-text class="small-text">{{hit.changesPercentage | number :0}}%</ion-text>
+          </ion-col>
+       </ion-card>
+    </ion-col>
+    <ion-col size-xs="6" offset="0" *ngFor="let hit of loserData | slice:0:limit"  class="ais-Hits-item" class ="ion-text-center ion-no padding" >
+      <ion-card class="flash-card"  style="width:90%;">
+        <div class="div-card">
+          <img src="../assets/icon/placeholder.jpeg" alt="logo" />
+        </div>
+         <ion-text  class="text" style="margin:2px 2px 0px 5px;font-size:12px;">{{hit.companyName}}</ion-text>
+          <ion-text style="font-weight:normal;margin:2px 2px 0px 5px;" class="text">{{hit.price}}</ion-text>
+        <ion-col>
+            <ion-chip color="danger small-text" size="small">-{{hit.changes}}</ion-chip>
+            <ion-text class="small-text">{{hit.changesPercentage | number :0}}%</ion-text>
+        </ion-col>
+     </ion-card>
+    </ion-col>
+  </ion-row >
+</ion-grid> 
