@@ -58,7 +58,8 @@ export class SearchProfileComponent implements OnInit {
   toggle(code:string): void{
     let indx = this.followList.indexOf(code);
     if(indx == -1){
-      this.followList.push(code)
+      this.followList.push(code);
+    
     }
     else{
       this.followList.splice(indx,1);
@@ -72,14 +73,15 @@ export class SearchProfileComponent implements OnInit {
   ---------------------------------------------------*/
   getUserInformation(): void{
     this.dataService.getUserInformation().subscribe(res=>{
+      if(res['followList'] == undefined ){
+        this.followList=[];
+      }
+      if(res['watchList'] == undefined ){
+        this.watchList=[];
+      }
         this.followList = res['followList'];
         this.watchList = res['watchList'];
-        if(this.followList == undefined ){
-          this.followList=[];
-        }
-        if(this.followList == undefined ){
-          this.watchList=[];
-        }
+      
 
         localStorage.setItem("watchList",JSON.stringify(this.watchList));
         localStorage.setItem("followList",JSON.stringify(this.followList));

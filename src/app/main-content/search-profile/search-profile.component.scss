@@ -1,11 +1,26 @@
 
-
 ::ng-deep.ais-SearchBox-input {
 	width:90% !important;
 	border-radius:10px;
 	border:1px solid gray;
 	margin-top:10%;
-	padding-left:42ßpx;
+	padding-left:42px;
+	@media only screen and (min-width: 369px) {
+		right:490px;
+		margin-top: 8% !important;
+	  }
+	  @media only screen and (min-width: 587px) {
+		  right:690px;
+		  margin-top: 8% !important;
+		}
+	  @media only screen and (min-width: 815px) {
+		  right:890px;
+		  margin-top: 5% !important;
+	  }
+	  @media only screen and (min-width: 1025px) {
+		  margin-top: 5% !important;
+	  }
+
 }
 ::ng-deep.ais-SearchBox-submitIcon{
 	background-color: transparent;
@@ -13,8 +28,12 @@
 	width:15px;
 	position:relative;
 	z-index:1;
-	right:300px;
+	right:290px;
+	@media only screen and (min-width: 1025px) {
+		right:1248px;
+	}
 	
+  
 }
 ::ng-deep.ais-SearchBox-submit{
 	background-color: transparent;
@@ -27,7 +46,7 @@
 	height:10px;
 	position:relative;
 	z-index:1;
-	left:275px;
+	left:265px;
 	bottom:32px;
 	color:gray;
 }

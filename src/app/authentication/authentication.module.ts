@@ -11,6 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { OtpComponent } from './otp/otp.component';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { NgOtpInputModule } from 'ng-otp-input';
+import {Ng2TelInputModule} from 'ng2-tel-input';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
     FormsModule,
     IonicModule,
     AuthenticationPageRoutingModule,
-   
+    NgOtpInputModule,
+    Ng2TelInputModule
+
   ],
   declarations: [AuthenticationPage,LoginComponent,SignupComponent,OtpComponent]
 })

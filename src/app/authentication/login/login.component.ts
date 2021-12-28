@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
  phoneNumber:string;
  reCaptchaVerifier: firebase.auth.RecaptchaVerifier;
  OTP:string='';
+ countryCode:string;
 
 
 constructor(private router:Router,private fireAuth:AngularFireAuth,private dataService: DataService) { }
@@ -58,11 +59,17 @@ ionViewDidLoad() {
   });
 }
 
+getCountryCode(event){
+  this.countryCode = event;
+}
+
 /*---------------------------------------------------
       Call fireauth signIn with phone number
       Navigate to otp page
 -----------------------------------------------------*/
 getOTP(){
+  this.phoneNumber = this.countryCode+this.phoneNumber;
+   localStorage.setItem('phoneNo',JSON.stringify(this.phoneNumber))
     this.phoneNumber = '+'+this.phoneNumber;
     console.log("phoneNumber"+this.phoneNumber);
     return new Promise<any>((resolve, reject) => {

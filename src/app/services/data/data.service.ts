@@ -4,7 +4,9 @@ import firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
 import { subscribeOn } from 'rxjs/operators';
 import { Transaction } from 'src/app/shared/Transaction';
-import { doc, setDoc, Timestamp } from "firebase/firestore"; 
+import { doc, Firestore, setDoc, Timestamp } from "firebase/firestore"; 
+import { IonicSafeString } from '@ionic/angular';
+import { collection, query, where ,} from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -14,31 +16,45 @@ export class DataService {
   public userDoc:any;
   public data1:any;
   confirmationResult: Observable<any>;
-  userId = localStorage.getItem('userId')
+  userId = localStorage.getItem('userId');
+  phoneNo =localStorage.getItem('phoneNo');
+ 
 
   constructor(private fireStore: AngularFirestore) { }
 
 getUserInformation(){
-  return this.fireStore.collection('Users').doc("6591344009").valueChanges();
+  return this.fireStore.collection('Users').doc(this.userId).valueChanges();
 }
+
 updateFollowList(followList){
-  this.fireStore.collection('Users').doc("6591344009").update({
+  this.fireStore.collection('Users').doc(this.userId).update({
     followList: followList
   })
 }
+updatewatchList(watchList){
+  this.fireStore.collection('Users').doc(this.userId).update({
+    watchList: watchList
+  })
+}
+async setDocument(){
+  await this.fireStore.collection("Users").doc(this.phoneNo).set({
+    availableBalance:"10000",
+    followList:[],
+    watchList:[]
+  })
+}
 
-createTransaction(transaction: Transaction){
-  console.log("inside create transaction");
-  this.fireStore.collection('Transactions').doc('transaction').set(
+async createTransactionBuy(transaction: Transaction){
+    await this.fireStore.collection('Transactions').doc().set(
     {
        code: transaction.code,
-       phoneNo: transaction.phoneNo,
        quantity: transaction.quantity,
        total: transaction.total,
        price: transaction.price,
-       createDate: Timestamp.fromDate(transaction.createdDate),
-       isBuy: transaction.isBuy
-    }, { merge: true }
+       createDate:Timestamp.fromDate(transaction.createdDate),
+       phoneNo:this.phoneNo,
+       isBuy:true
+    }, 
   )
  }
 setConfirmationResult(confirmationResult){
@@ -55,5 +71,9 @@ async createDocument(phoneNumber){
    followList:[],
    watchList:[]
   })
+}
+
+getTransactionDetails(): Observable<any>{
+    return this.fireStore.collection('Transactions', ref => ref.where('phoneNo', '==', this.phoneNo)).valueChanges();
 }
 }

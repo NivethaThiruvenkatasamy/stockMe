@@ -18,6 +18,8 @@ import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { FormsModule } from '@angular/forms';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/auth';
+import {Ng2TelInputModule} from 'ng2-tel-input';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +33,8 @@ import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/aut
             AngularFireModule.initializeApp(environment.firebaseConfig),
             AngularFireDatabaseModule,
             AngularFirestoreModule,
-            FormsModule
+            FormsModule,
+            Ng2TelInputModule
             ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

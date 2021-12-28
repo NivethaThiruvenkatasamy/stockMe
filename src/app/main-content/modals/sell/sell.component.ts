@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sell',
@@ -6,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sell.component.scss'],
 })
 export class SellComponent implements OnInit {
+  @Input() details;
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.details['Code']);
+  }
+
+  dismiss() { 
+    console.log("inside"); 
+    this.modalCtrl.dismiss();  
+  }
 
 }

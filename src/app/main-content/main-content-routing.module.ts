@@ -7,7 +7,10 @@ import { BuyComponent } from './modals/buy/buy.component';
 import { SellComponent } from './modals/sell/sell.component';
 import { NewsComponent } from './news/news.component';
 import { OverviewComponent } from './overview/overview.component';
+import { PortfolioComponent } from '../portfolio/portfolio.component';
 import { SearchProfileComponent } from './search-profile/search-profile.component';
+import { GainLossComponent } from './gain-loss/gain-loss.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
 
 const routes: Routes = [
   {
@@ -36,6 +39,20 @@ const routes: Routes = [
   {
     path: 'sell',
     component: SellComponent
+  },
+  {
+   path:'portfolio',
+   component: PortfolioComponent
+
+  },
+  {
+    path:'gain-loss',
+    component: GainLossComponent
+ 
+  },
+  {
+     path: 'watch-list',
+     component: WatchlistComponent
   }
 ];
 

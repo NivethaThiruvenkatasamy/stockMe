@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
   phoneNumber:string;
   reCaptchaVerifier: firebase.auth.RecaptchaVerifier;
   OTP:string='';
+  countryCode: any;
  
  
  constructor(private router:Router,private fireAuth:AngularFireAuth,private dataService: DataService) { }
@@ -56,12 +57,18 @@ export class SignupComponent implements OnInit {
      }
    });
  }
+
+ getCountryCode(event){
+  this.countryCode = event;
+}
  
  /*---------------------------------------------------
        Call fireauth signIn with phone number
        Navigate to otp page
  -----------------------------------------------------*/
  getOTP(){
+  this.phoneNumber = this.countryCode+this.phoneNumber;
+  localStorage.setItem('phoneNo',JSON.stringify(this.phoneNumber))
      this.phoneNumber = '+'+this.phoneNumber;
      console.log("phoneNumber"+this.phoneNumber);
      return new Promise<any>((resolve, reject) => {
@@ -72,7 +79,7 @@ export class SignupComponent implements OnInit {
            resolve("confirmation result"+confirmationResult);
            localStorage.setItem('confirmationResult',JSON.stringify(confirmationResult));
            this.dataService.setConfirmationResult(confirmationResult);
-           this.dataService.createDocument(this.phoneNumber);
+           //this.dataService.createDocument(this.phoneNumber);
            this.router.navigate(['/authentication/otp'],{ state: { currentPage:'signup' } })
          }).catch((error) => {
            console.log(error);

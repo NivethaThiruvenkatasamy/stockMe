@@ -1,6 +1,7 @@
-<header style="text-align: left;display:flex;flex-direction:column" class="header">
-  <ion-text style="font-weight:900">{{details.Code}}</ion-text>
-  <ion-text style="font-size:12px;">Max Buy Capacity: {{details.volume}}</ion-text>
+<header  class="header" style="z-index:1000">
+    <ion-text style="font-weight:900">{{details.Code}}</ion-text>
+    <ion-label style="font-size:12px;">Max Buy Capacity: {{details.volume}}</ion-label>
+    <ion-icon name='close-circle' (click)='dismiss()' style='height:20px;width:20px;float:right'></ion-icon> 
 </header>
 <ion-content class="content">
   <ion-grid>
@@ -15,6 +16,7 @@
         </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button id="buyBtn" color="success" style="margin-left:35%;color:white" ng-click="buy()">Buy Now</ion-button>
+  <ion-button id="buyBtn" color="success" style="margin-left:35%;color:white" (click)="buy()">Buy Now</ion-button>
 </ion-content>  
+
 

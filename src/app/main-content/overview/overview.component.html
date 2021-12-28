@@ -2,9 +2,9 @@
   <ion-toolbar>
     <ion-grid>
       <ion-row style="display:block;" class="ion-no-margin ion-no-padding">
-        <ion-icon style="font-size:20px;padding:5px;font-weight:900" name = "arrow-back"></ion-icon>
+        <ion-icon style="font-size:20px;padding:5px;font-weight:900" name = "arrow-back" (click) = "back();"></ion-icon>
         <ion-icon  (click)="share()" style="font-size:20px;float:right;padding:5px"  name = "share-outline"></ion-icon>
-        <ion-icon  style="font-size:20px;float:right;padding:5px;"  (click)="toggleWatchList()" name = "star-outline"></ion-icon>
+        <ion-icon  style="font-size:20px;float:right;padding:5px;border-color: black;" color="tertiary" (click)="toggleWatchList()" name = {{starName}}></ion-icon>
       </ion-row>
       <ion-row class="ion-no-margin ion-no-padding" style="padding-top:0px;padding-bottom:0px;">
         <ion-text style="font-size:14px;padding-left:5px;margin-top:0px;" class="text">{{hit.Code}}</ion-text>
@@ -33,25 +33,32 @@
   </ion-fab>
  
   <div style="height:200px;" >
-   <!-- <ngx-charts-bar-vertical 
+    <div style="display:flex;flex-direction:row;padding:20px;align-items:center;justify-content: space-evenly;">
+      <ion-button color="light" class="button-small" style="font-size:10px" (click)="changeTime('daily')">1d</ion-button>
+      <ion-button color="light" class="button-small" style="font-size:10px" (click)="changeTime('TIME_SERIES_DAILY',7)">7d</ion-button>
+      <ion-button color="light" class="button-small" style="font-size:10px" (click)="changeTime('TIME_SERIES_DAILY',30)">30d</ion-button>
+      <ion-button color="light" class="button-small" style="font-size:10px" (click)="changeTime('TIME_SERIES_DAILY',90)">90d</ion-button>
+      <ion-button color="light" class="button-small" style="font-size:10px" (click)="changeTime('TIME_SERIES_WEEKLY',24)">6m</ion-button>
+      <ion-button color="light" class="button-small" style="font-size:10px" (click)="changeTime('TIME_SERIES_WEEKLY',52)">1y</ion-button>
+      <ion-button color="light" class="button-small" style="font-size:10px" (click)="changeTime('TIME_SERIES_MONTHLY')">All</ion-button>
+    </div>
+    <ngx-charts-line-chart
+    [view]="view"
     [scheme]="colorScheme"
-    [results]="data"
-    [gradient]="verticalBarOptions.gradient"
-    [xAxis]="verticalBarOptions.showXAxis"
-    [yAxis]="verticalBarOptions.showYAxis"
-    [legend]="verticalBarOptions.showLegend"
-    [showXAxisLabel]="verticalBarOptions.showXAxisLabel"
-    [showYAxisLabel]="verticalBarOptions.showYAxisLabel"
-    [xAxisLabel]="verticalBarOptions.xAxisLabel"
-    [yAxisLabel]="verticalBarOptions.yAxisLabel"
-    [barPadding]="verticalBarOptions.barPadding"
-    [showGridLines]="verticalBarOptions.showGridLines"
-  ></ngx-charts-bar-vertical>-->
+    [legend]="legend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxis]="xAxis"
+    [yAxis]="yAxis"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [timeline]="timeline"
+    [results]="ngxData.data"
+    [rangeFillOpacity] ="rangeFillOpacity"
+></ngx-charts-line-chart>
  </div>
  <ion-grid>
-  <ion-row>
-    <ion-button color="primary button-medium" style="width:80%;margin:30px" [ngClass]="followList.includes(hit.Code) === true ? 'my_class1' : 'my_class2'" (click)="updateFollowList()">{{followList.includes(hit.Code) === true ? "Followed" : "Follow"}}</ion-button>
-  </ion-row>
+    <ion-button color="primary button-medium" style="width:80%;margin-left:10%;" [ngClass]="followList.includes(hit.Code) === true ? 'my_class1' : 'my_class2'" (click)="updateFollowList()">{{followList.includes(hit.Code) === true ? "Followed" : "Follow"}}</ion-button>
   <ion-row  style="margin:20px;"> 
     <ion-col size="2">
        <ion-text style="float:left;font-size:20px;padding:5px;font-weight:900;float:left">News</ion-text>
@@ -78,9 +85,8 @@
 </ion-fab-button>
 </ion-fab>-->
  </ion-content>
- <ion-footer style="margin-left:20px;margin-top:10px;font-size:20px;border:1px solid light">
-  <ion-icon routerLink="/main-content/dashboard" name="home-outline"></ion-icon>
-  <ion-icon style="margin-left:70%;" name="person-outline"></ion-icon>
+ <ion-footer >
+     <app-tab></app-tab>
 </ion-footer>
 
 

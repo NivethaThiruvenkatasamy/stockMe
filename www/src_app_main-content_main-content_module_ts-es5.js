@@ -3,22 +3,6 @@
 
   function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf2(object); if (object === null) break; } return object; }
 
-  function _inherits2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf2(subClass, superClass); }
-
-  function _setPrototypeOf2(o, p) { _setPrototypeOf2 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf2(o, p); }
-
-  function _createSuper2(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct2(); return function _createSuperInternal() { var Super = _getPrototypeOf2(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf2(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn2(this, result); }; }
-
-  function _possibleConstructorReturn2(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized2(self); }
-
-  function _assertThisInitialized2(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-  function _isNativeReflectConstruct2() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-  function _getPrototypeOf2(o) { _getPrototypeOf2 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf2(o); }
-
-  function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
   function _createClass2(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -35,7 +19,947 @@
 
   function _arrayLikeToArray2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+  function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+  function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+  function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _inherits2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf2(subClass, superClass); }
+
+  function _createSuper2(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct2(); return function _createSuperInternal() { var Super = _getPrototypeOf2(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf2(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn2(this, result); }; }
+
+  function _possibleConstructorReturn2(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized2(self); }
+
+  function _assertThisInitialized2(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+  function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf2(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf2(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+
+  function _construct(Parent, args, Class) { if (_isNativeReflectConstruct2()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf2(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+  function _isNativeReflectConstruct2() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+  function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
+
+  function _setPrototypeOf2(o, p) { _setPrototypeOf2 = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf2(o, p); }
+
+  function _getPrototypeOf2(o) { _getPrototypeOf2 = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf2(o); }
+
   (self["webpackChunktrading_app_demo"] = self["webpackChunktrading_app_demo"] || []).push([["src_app_main-content_main-content_module_ts"], {
+    /***/
+    68384:
+    /*!****************************************************!*\
+      !*** ./node_modules/@capacitor/core/dist/index.js ***!
+      \****************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "Capacitor": function Capacitor() {
+          return (
+            /* binding */
+            _Capacitor
+          );
+        },
+
+        /* harmony export */
+        "CapacitorException": function CapacitorException() {
+          return (
+            /* binding */
+            _CapacitorException
+          );
+        },
+
+        /* harmony export */
+        "CapacitorPlatforms": function CapacitorPlatforms() {
+          return (
+            /* binding */
+            _CapacitorPlatforms
+          );
+        },
+
+        /* harmony export */
+        "ExceptionCode": function ExceptionCode() {
+          return (
+            /* binding */
+            _ExceptionCode
+          );
+        },
+
+        /* harmony export */
+        "Plugins": function Plugins() {
+          return (
+            /* binding */
+            _Plugins
+          );
+        },
+
+        /* harmony export */
+        "WebPlugin": function WebPlugin() {
+          return (
+            /* binding */
+            _WebPlugin
+          );
+        },
+
+        /* harmony export */
+        "WebView": function WebView() {
+          return (
+            /* binding */
+            _WebView
+          );
+        },
+
+        /* harmony export */
+        "addPlatform": function addPlatform() {
+          return (
+            /* binding */
+            _addPlatform
+          );
+        },
+
+        /* harmony export */
+        "registerPlugin": function registerPlugin() {
+          return (
+            /* binding */
+            _registerPlugin
+          );
+        },
+
+        /* harmony export */
+        "registerWebPlugin": function registerWebPlugin() {
+          return (
+            /* binding */
+            _registerWebPlugin
+          );
+        },
+
+        /* harmony export */
+        "setPlatform": function setPlatform() {
+          return (
+            /* binding */
+            _setPlatform
+          );
+        }
+        /* harmony export */
+
+      });
+      /*! Capacitor: https://capacitorjs.com/ - MIT License */
+
+
+      var createCapacitorPlatforms = function createCapacitorPlatforms(win) {
+        var defaultPlatformMap = new Map();
+        defaultPlatformMap.set('web', {
+          name: 'web'
+        });
+        var capPlatforms = win.CapacitorPlatforms || {
+          currentPlatform: {
+            name: 'web'
+          },
+          platforms: defaultPlatformMap
+        };
+
+        var addPlatform = function addPlatform(name, platform) {
+          capPlatforms.platforms.set(name, platform);
+        };
+
+        var setPlatform = function setPlatform(name) {
+          if (capPlatforms.platforms.has(name)) {
+            capPlatforms.currentPlatform = capPlatforms.platforms.get(name);
+          }
+        };
+
+        capPlatforms.addPlatform = addPlatform;
+        capPlatforms.setPlatform = setPlatform;
+        return capPlatforms;
+      };
+
+      var initPlatforms = function initPlatforms(win) {
+        return win.CapacitorPlatforms = createCapacitorPlatforms(win);
+      };
+      /**
+       * @deprecated Set `CapacitorCustomPlatform` on the window object prior to runtime executing in the web app instead
+       */
+
+
+      var _CapacitorPlatforms = /*#__PURE__*/initPlatforms(typeof globalThis !== 'undefined' ? globalThis : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {});
+      /**
+       * @deprecated Set `CapacitorCustomPlatform` on the window object prior to runtime executing in the web app instead
+       */
+
+
+      var _addPlatform = _CapacitorPlatforms.addPlatform;
+      /**
+       * @deprecated Set `CapacitorCustomPlatform` on the window object prior to runtime executing in the web app instead
+       */
+
+      var _setPlatform = _CapacitorPlatforms.setPlatform;
+
+      var legacyRegisterWebPlugin = function legacyRegisterWebPlugin(cap, webPlugin) {
+        var _a;
+
+        var config = webPlugin.config;
+        var Plugins = cap.Plugins;
+
+        if (!config || !config.name) {
+          // TODO: add link to upgrade guide
+          throw new Error("Capacitor WebPlugin is using the deprecated \"registerWebPlugin()\" function, but without the config. Please use \"registerPlugin()\" instead to register this web plugin.\"");
+        } // TODO: add link to upgrade guide
+
+
+        console.warn("Capacitor plugin \"".concat(config.name, "\" is using the deprecated \"registerWebPlugin()\" function"));
+
+        if (!Plugins[config.name] || ((_a = config === null || config === void 0 ? void 0 : config.platforms) === null || _a === void 0 ? void 0 : _a.includes(cap.getPlatform()))) {
+          // Add the web plugin into the plugins registry if there already isn't
+          // an existing one. If it doesn't already exist, that means
+          // there's no existing native implementation for it.
+          // - OR -
+          // If we already have a plugin registered (meaning it was defined in the native layer),
+          // then we should only overwrite it if the corresponding web plugin activates on
+          // a certain platform. For example: Geolocation uses the WebPlugin on Android but not iOS
+          Plugins[config.name] = webPlugin;
+        }
+      };
+
+      var _ExceptionCode;
+
+      (function (ExceptionCode) {
+        /**
+         * API is not implemented.
+         *
+         * This usually means the API can't be used because it is not implemented for
+         * the current platform.
+         */
+        ExceptionCode["Unimplemented"] = "UNIMPLEMENTED";
+        /**
+         * API is not available.
+         *
+         * This means the API can't be used right now because:
+         *   - it is currently missing a prerequisite, such as network connectivity
+         *   - it requires a particular platform or browser version
+         */
+
+        ExceptionCode["Unavailable"] = "UNAVAILABLE";
+      })(_ExceptionCode || (_ExceptionCode = {}));
+
+      var _CapacitorException = /*#__PURE__*/function (_Error) {
+        _inherits2(_CapacitorException, _Error);
+
+        var _super2 = _createSuper2(_CapacitorException);
+
+        function _CapacitorException(message, code) {
+          var _this6;
+
+          _classCallCheck2(this, _CapacitorException);
+
+          _this6 = _super2.call(this, message);
+          _this6.message = message;
+          _this6.code = code;
+          return _this6;
+        }
+
+        return _CapacitorException;
+      }( /*#__PURE__*/_wrapNativeSuper(Error));
+
+      var getPlatformId = function getPlatformId(win) {
+        var _a, _b;
+
+        if (win === null || win === void 0 ? void 0 : win.androidBridge) {
+          return 'android';
+        } else if ((_b = (_a = win === null || win === void 0 ? void 0 : win.webkit) === null || _a === void 0 ? void 0 : _a.messageHandlers) === null || _b === void 0 ? void 0 : _b.bridge) {
+          return 'ios';
+        } else {
+          return 'web';
+        }
+      };
+
+      var createCapacitor = function createCapacitor(win) {
+        var _a, _b, _c, _d, _e;
+
+        var capCustomPlatform = win.CapacitorCustomPlatform || null;
+        var cap = win.Capacitor || {};
+        var Plugins = cap.Plugins = cap.Plugins || {};
+        /**
+         * @deprecated Use `capCustomPlatform` instead, default functions like registerPlugin will function with the new object.
+         */
+
+        var capPlatforms = win.CapacitorPlatforms;
+
+        var defaultGetPlatform = function defaultGetPlatform() {
+          return capCustomPlatform !== null ? capCustomPlatform.name : getPlatformId(win);
+        };
+
+        var getPlatform = ((_a = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _a === void 0 ? void 0 : _a.getPlatform) || defaultGetPlatform;
+
+        var defaultIsNativePlatform = function defaultIsNativePlatform() {
+          return getPlatform() !== 'web';
+        };
+
+        var isNativePlatform = ((_b = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _b === void 0 ? void 0 : _b.isNativePlatform) || defaultIsNativePlatform;
+
+        var defaultIsPluginAvailable = function defaultIsPluginAvailable(pluginName) {
+          var plugin = registeredPlugins.get(pluginName);
+
+          if (plugin === null || plugin === void 0 ? void 0 : plugin.platforms.has(getPlatform())) {
+            // JS implementation available for the current platform.
+            return true;
+          }
+
+          if (getPluginHeader(pluginName)) {
+            // Native implementation available.
+            return true;
+          }
+
+          return false;
+        };
+
+        var isPluginAvailable = ((_c = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _c === void 0 ? void 0 : _c.isPluginAvailable) || defaultIsPluginAvailable;
+
+        var defaultGetPluginHeader = function defaultGetPluginHeader(pluginName) {
+          var _a;
+
+          return (_a = cap.PluginHeaders) === null || _a === void 0 ? void 0 : _a.find(function (h) {
+            return h.name === pluginName;
+          });
+        };
+
+        var getPluginHeader = ((_d = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _d === void 0 ? void 0 : _d.getPluginHeader) || defaultGetPluginHeader;
+
+        var handleError = function handleError(err) {
+          return win.console.error(err);
+        };
+
+        var pluginMethodNoop = function pluginMethodNoop(_target, prop, pluginName) {
+          return Promise.reject("".concat(pluginName, " does not have an implementation of \"").concat(prop, "\"."));
+        };
+
+        var registeredPlugins = new Map();
+
+        var defaultRegisterPlugin = function defaultRegisterPlugin(pluginName) {
+          var jsImplementations = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+          var registeredPlugin = registeredPlugins.get(pluginName);
+
+          if (registeredPlugin) {
+            console.warn("Capacitor plugin \"".concat(pluginName, "\" already registered. Cannot register plugins twice."));
+            return registeredPlugin.proxy;
+          }
+
+          var platform = getPlatform();
+          var pluginHeader = getPluginHeader(pluginName);
+          var jsImplementation;
+
+          var loadPluginImplementation = /*#__PURE__*/function () {
+            var _ref17 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      if (!(!jsImplementation && platform in jsImplementations)) {
+                        _context.next = 11;
+                        break;
+                      }
+
+                      if (!(typeof jsImplementations[platform] === 'function')) {
+                        _context.next = 7;
+                        break;
+                      }
+
+                      _context.next = 4;
+                      return jsImplementations[platform]();
+
+                    case 4:
+                      _context.t0 = jsImplementation = _context.sent;
+                      _context.next = 8;
+                      break;
+
+                    case 7:
+                      _context.t0 = jsImplementation = jsImplementations[platform];
+
+                    case 8:
+                      jsImplementation = _context.t0;
+                      _context.next = 20;
+                      break;
+
+                    case 11:
+                      if (!(capCustomPlatform !== null && !jsImplementation && 'web' in jsImplementations)) {
+                        _context.next = 20;
+                        break;
+                      }
+
+                      if (!(typeof jsImplementations['web'] === 'function')) {
+                        _context.next = 18;
+                        break;
+                      }
+
+                      _context.next = 15;
+                      return jsImplementations['web']();
+
+                    case 15:
+                      _context.t1 = jsImplementation = _context.sent;
+                      _context.next = 19;
+                      break;
+
+                    case 18:
+                      _context.t1 = jsImplementation = jsImplementations['web'];
+
+                    case 19:
+                      jsImplementation = _context.t1;
+
+                    case 20:
+                      return _context.abrupt("return", jsImplementation);
+
+                    case 21:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee);
+            }));
+
+            return function loadPluginImplementation() {
+              return _ref17.apply(this, arguments);
+            };
+          }();
+
+          var createPluginMethod = function createPluginMethod(impl, prop) {
+            var _a, _b;
+
+            if (pluginHeader) {
+              var methodHeader = pluginHeader === null || pluginHeader === void 0 ? void 0 : pluginHeader.methods.find(function (m) {
+                return prop === m.name;
+              });
+
+              if (methodHeader) {
+                if (methodHeader.rtype === 'promise') {
+                  return function (options) {
+                    return cap.nativePromise(pluginName, prop.toString(), options);
+                  };
+                } else {
+                  return function (options, callback) {
+                    return cap.nativeCallback(pluginName, prop.toString(), options, callback);
+                  };
+                }
+              } else if (impl) {
+                return (_a = impl[prop]) === null || _a === void 0 ? void 0 : _a.bind(impl);
+              }
+            } else if (impl) {
+              return (_b = impl[prop]) === null || _b === void 0 ? void 0 : _b.bind(impl);
+            } else {
+              throw new _CapacitorException("\"".concat(pluginName, "\" plugin is not implemented on ").concat(platform), _ExceptionCode.Unimplemented);
+            }
+          };
+
+          var createPluginMethodWrapper = function createPluginMethodWrapper(prop) {
+            var remove;
+
+            var wrapper = function wrapper() {
+              for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+                args[_key3] = arguments[_key3];
+              }
+
+              var p = loadPluginImplementation().then(function (impl) {
+                var fn = createPluginMethod(impl, prop);
+
+                if (fn) {
+                  var _p = fn.apply(void 0, args);
+
+                  remove = _p === null || _p === void 0 ? void 0 : _p.remove;
+                  return _p;
+                } else {
+                  throw new _CapacitorException("\"".concat(pluginName, ".").concat(prop, "()\" is not implemented on ").concat(platform), _ExceptionCode.Unimplemented);
+                }
+              });
+
+              if (prop === 'addListener') {
+                p.remove = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+                  return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                    while (1) {
+                      switch (_context2.prev = _context2.next) {
+                        case 0:
+                          return _context2.abrupt("return", remove());
+
+                        case 1:
+                        case "end":
+                          return _context2.stop();
+                      }
+                    }
+                  }, _callee2);
+                }));
+              }
+
+              return p;
+            }; // Some flair ✨
+
+
+            wrapper.toString = function () {
+              return "".concat(prop.toString(), "() { [capacitor code] }");
+            };
+
+            Object.defineProperty(wrapper, 'name', {
+              value: prop,
+              writable: false,
+              configurable: false
+            });
+            return wrapper;
+          };
+
+          var addListener = createPluginMethodWrapper('addListener');
+          var removeListener = createPluginMethodWrapper('removeListener');
+
+          var addListenerNative = function addListenerNative(eventName, callback) {
+            var call = addListener({
+              eventName: eventName
+            }, callback);
+
+            var remove = /*#__PURE__*/function () {
+              var _ref19 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+                var callbackId;
+                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        _context3.next = 2;
+                        return call;
+
+                      case 2:
+                        callbackId = _context3.sent;
+                        removeListener({
+                          eventName: eventName,
+                          callbackId: callbackId
+                        }, callback);
+
+                      case 4:
+                      case "end":
+                        return _context3.stop();
+                    }
+                  }
+                }, _callee3);
+              }));
+
+              return function remove() {
+                return _ref19.apply(this, arguments);
+              };
+            }();
+
+            var p = new Promise(function (resolve) {
+              return call.then(function () {
+                return resolve({
+                  remove: remove
+                });
+              });
+            });
+            p.remove = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      console.warn("Using addListener() without 'await' is deprecated.");
+                      _context4.next = 3;
+                      return remove();
+
+                    case 3:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4);
+            }));
+            return p;
+          };
+
+          var proxy = new Proxy({}, {
+            get: function get(_, prop) {
+              switch (prop) {
+                // https://github.com/facebook/react/issues/20030
+                case '$$typeof':
+                  return undefined;
+
+                case 'toJSON':
+                  return function () {
+                    return {};
+                  };
+
+                case 'addListener':
+                  return pluginHeader ? addListenerNative : addListener;
+
+                case 'removeListener':
+                  return removeListener;
+
+                default:
+                  return createPluginMethodWrapper(prop);
+              }
+            }
+          });
+          Plugins[pluginName] = proxy;
+          registeredPlugins.set(pluginName, {
+            name: pluginName,
+            proxy: proxy,
+            platforms: new Set([].concat(_toConsumableArray2(Object.keys(jsImplementations)), _toConsumableArray2(pluginHeader ? [platform] : [])))
+          });
+          return proxy;
+        };
+
+        var registerPlugin = ((_e = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _e === void 0 ? void 0 : _e.registerPlugin) || defaultRegisterPlugin; // Add in convertFileSrc for web, it will already be available in native context
+
+        if (!cap.convertFileSrc) {
+          cap.convertFileSrc = function (filePath) {
+            return filePath;
+          };
+        }
+
+        cap.getPlatform = getPlatform;
+        cap.handleError = handleError;
+        cap.isNativePlatform = isNativePlatform;
+        cap.isPluginAvailable = isPluginAvailable;
+        cap.pluginMethodNoop = pluginMethodNoop;
+        cap.registerPlugin = registerPlugin;
+        cap.Exception = _CapacitorException;
+        cap.DEBUG = !!cap.DEBUG;
+        cap.isLoggingEnabled = !!cap.isLoggingEnabled; // Deprecated props
+
+        cap.platform = cap.getPlatform();
+        cap.isNative = cap.isNativePlatform();
+        return cap;
+      };
+
+      var initCapacitorGlobal = function initCapacitorGlobal(win) {
+        return win.Capacitor = createCapacitor(win);
+      };
+
+      var _Capacitor = /*#__PURE__*/initCapacitorGlobal(typeof globalThis !== 'undefined' ? globalThis : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {});
+
+      var _registerPlugin = _Capacitor.registerPlugin;
+      /**
+       * @deprecated Provided for backwards compatibility for Capacitor v2 plugins.
+       * Capacitor v3 plugins should import the plugin directly. This "Plugins"
+       * export is deprecated in v3, and will be removed in v4.
+       */
+
+      var _Plugins = _Capacitor.Plugins;
+      /**
+       * Provided for backwards compatibility. Use the registerPlugin() API
+       * instead, and provide the web plugin as the "web" implmenetation.
+       * For example
+       *
+       * export const Example = registerPlugin('Example', {
+       *   web: () => import('./web').then(m => new m.Example())
+       * })
+       *
+       * @deprecated Deprecated in v3, will be removed from v4.
+       */
+
+      var _registerWebPlugin = function _registerWebPlugin(plugin) {
+        return legacyRegisterWebPlugin(_Capacitor, plugin);
+      };
+      /**
+       * Base class web plugins should extend.
+       */
+
+
+      var _WebPlugin = /*#__PURE__*/function () {
+        function _WebPlugin(config) {
+          _classCallCheck2(this, _WebPlugin);
+
+          this.listeners = {};
+          this.windowListeners = {};
+
+          if (config) {
+            // TODO: add link to upgrade guide
+            console.warn("Capacitor WebPlugin \"".concat(config.name, "\" config object was deprecated in v3 and will be removed in v4."));
+            this.config = config;
+          }
+        }
+
+        _createClass2(_WebPlugin, [{
+          key: "addListener",
+          value: function addListener(eventName, listenerFunc) {
+            var _this7 = this;
+
+            var listeners = this.listeners[eventName];
+
+            if (!listeners) {
+              this.listeners[eventName] = [];
+            }
+
+            this.listeners[eventName].push(listenerFunc); // If we haven't added a window listener for this event and it requires one,
+            // go ahead and add it
+
+            var windowListener = this.windowListeners[eventName];
+
+            if (windowListener && !windowListener.registered) {
+              this.addWindowListener(windowListener);
+            }
+
+            var remove = /*#__PURE__*/function () {
+              var _ref21 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+                return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                  while (1) {
+                    switch (_context5.prev = _context5.next) {
+                      case 0:
+                        return _context5.abrupt("return", _this7.removeListener(eventName, listenerFunc));
+
+                      case 1:
+                      case "end":
+                        return _context5.stop();
+                    }
+                  }
+                }, _callee5);
+              }));
+
+              return function remove() {
+                return _ref21.apply(this, arguments);
+              };
+            }();
+
+            var p = Promise.resolve({
+              remove: remove
+            });
+            Object.defineProperty(p, 'remove', {
+              value: function () {
+                var _value = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+                  return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                    while (1) {
+                      switch (_context6.prev = _context6.next) {
+                        case 0:
+                          console.warn("Using addListener() without 'await' is deprecated.");
+                          _context6.next = 3;
+                          return remove();
+
+                        case 3:
+                        case "end":
+                          return _context6.stop();
+                      }
+                    }
+                  }, _callee6);
+                }));
+
+                function value() {
+                  return _value.apply(this, arguments);
+                }
+
+                return value;
+              }()
+            });
+            return p;
+          }
+        }, {
+          key: "removeAllListeners",
+          value: function () {
+            var _removeAllListeners = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+              var listener;
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                while (1) {
+                  switch (_context7.prev = _context7.next) {
+                    case 0:
+                      this.listeners = {};
+
+                      for (listener in this.windowListeners) {
+                        this.removeWindowListener(this.windowListeners[listener]);
+                      }
+
+                      this.windowListeners = {};
+
+                    case 3:
+                    case "end":
+                      return _context7.stop();
+                  }
+                }
+              }, _callee7, this);
+            }));
+
+            function removeAllListeners() {
+              return _removeAllListeners.apply(this, arguments);
+            }
+
+            return removeAllListeners;
+          }()
+        }, {
+          key: "notifyListeners",
+          value: function notifyListeners(eventName, data) {
+            var listeners = this.listeners[eventName];
+
+            if (listeners) {
+              listeners.forEach(function (listener) {
+                return listener(data);
+              });
+            }
+          }
+        }, {
+          key: "hasListeners",
+          value: function hasListeners(eventName) {
+            return !!this.listeners[eventName].length;
+          }
+        }, {
+          key: "registerWindowListener",
+          value: function registerWindowListener(windowEventName, pluginEventName) {
+            var _this8 = this;
+
+            this.windowListeners[pluginEventName] = {
+              registered: false,
+              windowEventName: windowEventName,
+              pluginEventName: pluginEventName,
+              handler: function handler(event) {
+                _this8.notifyListeners(pluginEventName, event);
+              }
+            };
+          }
+        }, {
+          key: "unimplemented",
+          value: function unimplemented() {
+            var msg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'not implemented';
+            return new _Capacitor.Exception(msg, _ExceptionCode.Unimplemented);
+          }
+        }, {
+          key: "unavailable",
+          value: function unavailable() {
+            var msg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'not available';
+            return new _Capacitor.Exception(msg, _ExceptionCode.Unavailable);
+          }
+        }, {
+          key: "removeListener",
+          value: function () {
+            var _removeListener = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(eventName, listenerFunc) {
+              var listeners, index;
+              return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                while (1) {
+                  switch (_context8.prev = _context8.next) {
+                    case 0:
+                      listeners = this.listeners[eventName];
+
+                      if (listeners) {
+                        _context8.next = 3;
+                        break;
+                      }
+
+                      return _context8.abrupt("return");
+
+                    case 3:
+                      index = listeners.indexOf(listenerFunc);
+                      this.listeners[eventName].splice(index, 1); // If there are no more listeners for this type of event,
+                      // remove the window listener
+
+                      if (!this.listeners[eventName].length) {
+                        this.removeWindowListener(this.windowListeners[eventName]);
+                      }
+
+                    case 6:
+                    case "end":
+                      return _context8.stop();
+                  }
+                }
+              }, _callee8, this);
+            }));
+
+            function removeListener(_x, _x2) {
+              return _removeListener.apply(this, arguments);
+            }
+
+            return removeListener;
+          }()
+        }, {
+          key: "addWindowListener",
+          value: function addWindowListener(handle) {
+            window.addEventListener(handle.windowEventName, handle.handler);
+            handle.registered = true;
+          }
+        }, {
+          key: "removeWindowListener",
+          value: function removeWindowListener(handle) {
+            if (!handle) {
+              return;
+            }
+
+            window.removeEventListener(handle.windowEventName, handle.handler);
+            handle.registered = false;
+          }
+        }]);
+
+        return _WebPlugin;
+      }();
+
+      var _WebView = /*#__PURE__*/_registerPlugin('WebView'); //# sourceMappingURL=index.js.map
+
+      /***/
+
+    },
+
+    /***/
+    13509:
+    /*!***************************************************************!*\
+      !*** ./node_modules/@capacitor/share/dist/esm/definitions.js ***!
+      \***************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__); //# sourceMappingURL=definitions.js.map
+
+      /***/
+
+    },
+
+    /***/
+    16380:
+    /*!*********************************************************!*\
+      !*** ./node_modules/@capacitor/share/dist/esm/index.js ***!
+      \*********************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "Share": function Share() {
+          return (
+            /* binding */
+            _Share
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! @capacitor/core */
+      68384);
+      /* harmony import */
+
+
+      var _definitions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./definitions */
+      13509);
+
+      var _Share = (0, _capacitor_core__WEBPACK_IMPORTED_MODULE_0__.registerPlugin)('Share', {
+        web: function web() {
+          return __webpack_require__.e(
+          /*! import() */
+          "node_modules_capacitor_share_dist_esm_web_js").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./web */
+          54648)).then(function (m) {
+            return new m.ShareWeb();
+          });
+        }
+      }); //# sourceMappingURL=index.js.map
+
+      /***/
+
+    },
+
     /***/
     60028:
     /*!****************************************************!*\
@@ -8758,12 +9682,12 @@
       } // See https://github.com/algolia/instantsearch.js/blob/9296022fecadfbf82f15e837c215a1356eac4bc5/src/lib/utils/range.ts
 
 
-      function range(_ref17) {
-        var _ref17$start = _ref17.start,
-            start = _ref17$start === void 0 ? 0 : _ref17$start,
-            end = _ref17.end,
-            _ref17$step = _ref17.step,
-            step = _ref17$step === void 0 ? 1 : _ref17$step;
+      function range(_ref22) {
+        var _ref22$start = _ref22.start,
+            start = _ref22$start === void 0 ? 0 : _ref22$start,
+            end = _ref22.end,
+            _ref22$step = _ref22.step,
+            step = _ref22$step === void 0 ? 1 : _ref22$step;
         // We can't divide by 0 so we re-assign the step to 1 if it happens.
         var limitStep = step === 0 ? 1 : step; // In some cases the array to create has a decimal length.
         // We therefore need to round the value.
@@ -8786,17 +9710,17 @@
 
       var _TypedBaseWidget = /*#__PURE__*/function () {
         function _TypedBaseWidget(widgetName) {
-          var _this6 = this;
+          var _this9 = this;
 
           _classCallCheck2(this, _TypedBaseWidget);
 
           this.updateState = function (state, isFirstRendering) {
             if (isFirstRendering) {
               Promise.resolve().then(function () {
-                _this6.state = state;
+                _this9.state = state;
               });
             } else {
-              _this6.state = state;
+              _this9.state = state;
             }
           };
 
@@ -8871,7 +9795,7 @@
 
       var _NgAisInstantSearch = /*#__PURE__*/function () {
         function _NgAisInstantSearch(platformId) {
-          var _this7 = this;
+          var _this10 = this;
 
           _classCallCheck2(this, _NgAisInstantSearch);
 
@@ -8880,9 +9804,9 @@
           this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
 
           this.onRender = function () {
-            _this7.change.emit({
-              results: _this7.instantSearchInstance.helper.lastResults,
-              state: _this7.instantSearchInstance.helper.state
+            _this10.change.emit({
+              results: _this10.instantSearchInstance.helper.lastResults,
+              state: _this10.instantSearchInstance.helper.state
             });
           };
         }
@@ -9165,17 +10089,17 @@
       var NgAisBreadcrumb = /*#__PURE__*/function (_TypedBaseWidget2) {
         _inherits2(NgAisBreadcrumb, _TypedBaseWidget2);
 
-        var _super2 = _createSuper2(NgAisBreadcrumb);
+        var _super3 = _createSuper2(NgAisBreadcrumb);
 
         function NgAisBreadcrumb(parentIndex, instantSearchInstance) {
-          var _this8;
+          var _this11;
 
           _classCallCheck2(this, NgAisBreadcrumb);
 
-          _this8 = _super2.call(this, 'Breadcrumb');
-          _this8.parentIndex = parentIndex;
-          _this8.instantSearchInstance = instantSearchInstance;
-          _this8.state = {
+          _this11 = _super3.call(this, 'Breadcrumb');
+          _this11.parentIndex = parentIndex;
+          _this11.instantSearchInstance = instantSearchInstance;
+          _this11.state = {
             createURL: function createURL() {
               return '#';
             },
@@ -9183,7 +10107,7 @@
             refine: noop,
             canRefine: false
           };
-          return _this8;
+          return _this11;
         }
 
         _createClass2(NgAisBreadcrumb, [{
@@ -9194,12 +10118,12 @@
         }, {
           key: "items",
           get: function get() {
-            var _this9 = this;
+            var _this12 = this;
 
             return this.state.items.map(function (item, idx) {
               return Object.assign(Object.assign({}, item), {
                 separator: idx !== 0,
-                isLast: idx === _this9.state.items.length - 1
+                isLast: idx === _this12.state.items.length - 1
               });
             });
           }
@@ -9388,19 +10312,19 @@
       var NgAisClearRefinements = /*#__PURE__*/function (_TypedBaseWidget3) {
         _inherits2(NgAisClearRefinements, _TypedBaseWidget3);
 
-        var _super3 = _createSuper2(NgAisClearRefinements);
+        var _super4 = _createSuper2(NgAisClearRefinements);
 
         function NgAisClearRefinements(parentIndex, instantSearchInstance) {
-          var _this10;
+          var _this13;
 
           _classCallCheck2(this, NgAisClearRefinements);
 
-          _this10 = _super3.call(this, 'ClearRefinements');
-          _this10.parentIndex = parentIndex;
-          _this10.instantSearchInstance = instantSearchInstance; // rendering options
+          _this13 = _super4.call(this, 'ClearRefinements');
+          _this13.parentIndex = parentIndex;
+          _this13.instantSearchInstance = instantSearchInstance; // rendering options
 
-          _this10.resetLabel = 'Clear refinements';
-          _this10.state = {
+          _this13.resetLabel = 'Clear refinements';
+          _this13.state = {
             hasRefinements: false,
             canRefine: false,
             refine: noop,
@@ -9408,7 +10332,7 @@
               return '#';
             }
           };
-          return _this10;
+          return _this13;
         }
 
         _createClass2(NgAisClearRefinements, [{
@@ -9599,17 +10523,17 @@
       var NgAisCurrentRefinements = /*#__PURE__*/function (_TypedBaseWidget4) {
         _inherits2(NgAisCurrentRefinements, _TypedBaseWidget4);
 
-        var _super4 = _createSuper2(NgAisCurrentRefinements);
+        var _super5 = _createSuper2(NgAisCurrentRefinements);
 
         function NgAisCurrentRefinements(parentIndex, instantSearchInstance) {
-          var _this11;
+          var _this14;
 
           _classCallCheck2(this, NgAisCurrentRefinements);
 
-          _this11 = _super4.call(this, 'CurrentRefinements');
-          _this11.parentIndex = parentIndex;
-          _this11.instantSearchInstance = instantSearchInstance;
-          _this11.state = {
+          _this14 = _super5.call(this, 'CurrentRefinements');
+          _this14.parentIndex = parentIndex;
+          _this14.instantSearchInstance = instantSearchInstance;
+          _this14.state = {
             createURL: function createURL() {
               return '#';
             },
@@ -9617,7 +10541,7 @@
             items: [],
             canRefine: false
           };
-          return _this11;
+          return _this14;
         }
 
         _createClass2(NgAisCurrentRefinements, [{
@@ -9799,17 +10723,17 @@
       var NgAisHierarchicalMenu = /*#__PURE__*/function (_TypedBaseWidget5) {
         _inherits2(NgAisHierarchicalMenu, _TypedBaseWidget5);
 
-        var _super5 = _createSuper2(NgAisHierarchicalMenu);
+        var _super6 = _createSuper2(NgAisHierarchicalMenu);
 
         function NgAisHierarchicalMenu(parentIndex, instantSearchInstance) {
-          var _this12;
+          var _this15;
 
           _classCallCheck2(this, NgAisHierarchicalMenu);
 
-          _this12 = _super5.call(this, 'HierarchicalMenu');
-          _this12.parentIndex = parentIndex;
-          _this12.instantSearchInstance = instantSearchInstance;
-          _this12.state = {
+          _this15 = _super6.call(this, 'HierarchicalMenu');
+          _this15.parentIndex = parentIndex;
+          _this15.instantSearchInstance = instantSearchInstance;
+          _this15.state = {
             createURL: function createURL() {
               return '#';
             },
@@ -9821,7 +10745,7 @@
             canToggleShowMore: false,
             sendEvent: noop
           };
-          return _this12;
+          return _this15;
         }
 
         _createClass2(NgAisHierarchicalMenu, [{
@@ -10197,23 +11121,23 @@
       var NgAisHitsPerPage = /*#__PURE__*/function (_TypedBaseWidget6) {
         _inherits2(NgAisHitsPerPage, _TypedBaseWidget6);
 
-        var _super6 = _createSuper2(NgAisHitsPerPage);
+        var _super7 = _createSuper2(NgAisHitsPerPage);
 
         function NgAisHitsPerPage(parentIndex, instantSearchInstance) {
-          var _this13;
+          var _this16;
 
           _classCallCheck2(this, NgAisHitsPerPage);
 
-          _this13 = _super6.call(this, 'HitsPerPage');
-          _this13.parentIndex = parentIndex;
-          _this13.instantSearchInstance = instantSearchInstance;
-          _this13.state = {
+          _this16 = _super7.call(this, 'HitsPerPage');
+          _this16.parentIndex = parentIndex;
+          _this16.instantSearchInstance = instantSearchInstance;
+          _this16.state = {
             items: [],
             refine: noop,
             hasNoResults: true // TODO: disable <select> when true
 
           };
-          return _this13;
+          return _this16;
         }
 
         _createClass2(NgAisHitsPerPage, [{
@@ -10525,29 +11449,29 @@
       var NgAisHits = /*#__PURE__*/function (_TypedBaseWidget7) {
         _inherits2(NgAisHits, _TypedBaseWidget7);
 
-        var _super7 = _createSuper2(NgAisHits);
+        var _super8 = _createSuper2(NgAisHits);
 
         function NgAisHits(parentIndex, instantSearchInstance) {
-          var _this14;
+          var _this17;
 
           _classCallCheck2(this, NgAisHits);
 
-          _this14 = _super7.call(this, 'Hits');
-          _this14.parentIndex = parentIndex;
-          _this14.instantSearchInstance = instantSearchInstance;
-          _this14.state = {
+          _this17 = _super8.call(this, 'Hits');
+          _this17.parentIndex = parentIndex;
+          _this17.instantSearchInstance = instantSearchInstance;
+          _this17.state = {
             hits: [],
             results: undefined,
             bindEvent: undefined,
             sendEvent: undefined
           };
 
-          _this14.updateState = function (state, isFirstRendering) {
+          _this17.updateState = function (state, isFirstRendering) {
             if (isFirstRendering) return;
-            _this14.state = state;
+            _this17.state = state;
           };
 
-          return _this14;
+          return _this17;
         }
 
         _createClass2(NgAisHits, [{
@@ -10801,20 +11725,20 @@
       var NgAisInfiniteHits = /*#__PURE__*/function (_TypedBaseWidget8) {
         _inherits2(NgAisInfiniteHits, _TypedBaseWidget8);
 
-        var _super8 = _createSuper2(NgAisInfiniteHits);
+        var _super9 = _createSuper2(NgAisInfiniteHits);
 
         function NgAisInfiniteHits(parentIndex, instantSearchInstance) {
-          var _this15;
+          var _this18;
 
           _classCallCheck2(this, NgAisInfiniteHits);
 
-          _this15 = _super8.call(this, 'InfiniteHits');
-          _this15.parentIndex = parentIndex;
-          _this15.instantSearchInstance = instantSearchInstance;
-          _this15.showPrevious = false;
-          _this15.showPreviousLabel = 'Show previous results';
-          _this15.showMoreLabel = 'Show more results';
-          _this15.state = {
+          _this18 = _super9.call(this, 'InfiniteHits');
+          _this18.parentIndex = parentIndex;
+          _this18.instantSearchInstance = instantSearchInstance;
+          _this18.showPrevious = false;
+          _this18.showPreviousLabel = 'Show previous results';
+          _this18.showMoreLabel = 'Show more results';
+          _this18.state = {
             hits: [],
             results: undefined,
             currentPageHits: [],
@@ -10828,12 +11752,12 @@
             }
           };
 
-          _this15.updateState = function (state, isFirstRendering) {
+          _this18.updateState = function (state, isFirstRendering) {
             if (isFirstRendering) return;
-            _this15.state = state;
+            _this18.state = state;
           };
 
-          return _this15;
+          return _this18;
         }
 
         _createClass2(NgAisInfiniteHits, [{
@@ -11132,20 +12056,20 @@
       var NgAisMenu = /*#__PURE__*/function (_TypedBaseWidget9) {
         _inherits2(NgAisMenu, _TypedBaseWidget9);
 
-        var _super9 = _createSuper2(NgAisMenu);
+        var _super10 = _createSuper2(NgAisMenu);
 
         function NgAisMenu(parentIndex, instantSearchInstance) {
-          var _this16;
+          var _this19;
 
           _classCallCheck2(this, NgAisMenu);
 
-          _this16 = _super9.call(this, 'Menu');
-          _this16.parentIndex = parentIndex;
-          _this16.instantSearchInstance = instantSearchInstance; // rendering options
+          _this19 = _super10.call(this, 'Menu');
+          _this19.parentIndex = parentIndex;
+          _this19.instantSearchInstance = instantSearchInstance; // rendering options
 
-          _this16.showMoreLabel = 'Show more';
-          _this16.showLessLabel = 'Show less';
-          _this16.state = {
+          _this19.showMoreLabel = 'Show more';
+          _this19.showLessLabel = 'Show less';
+          _this19.state = {
             items: [],
             refine: noop,
             createURL: function createURL() {
@@ -11157,7 +12081,7 @@
             toggleShowMore: noop,
             sendEvent: noop
           };
-          return _this16;
+          return _this19;
         }
 
         _createClass2(NgAisMenu, [{
@@ -11388,17 +12312,17 @@
       var NgAisNumericMenu = /*#__PURE__*/function (_TypedBaseWidget10) {
         _inherits2(NgAisNumericMenu, _TypedBaseWidget10);
 
-        var _super10 = _createSuper2(NgAisNumericMenu);
+        var _super11 = _createSuper2(NgAisNumericMenu);
 
         function NgAisNumericMenu(parentIndex, instantSearchInstance) {
-          var _this17;
+          var _this20;
 
           _classCallCheck2(this, NgAisNumericMenu);
 
-          _this17 = _super10.call(this, 'NumericMenu');
-          _this17.parentIndex = parentIndex;
-          _this17.instantSearchInstance = instantSearchInstance;
-          _this17.state = {
+          _this20 = _super11.call(this, 'NumericMenu');
+          _this20.parentIndex = parentIndex;
+          _this20.instantSearchInstance = instantSearchInstance;
+          _this20.state = {
             items: [],
             refine: noop,
             createURL: function createURL() {
@@ -11407,7 +12331,7 @@
             hasNoResults: true,
             sendEvent: noop
           };
-          return _this17;
+          return _this20;
         }
 
         _createClass2(NgAisNumericMenu, [{
@@ -11589,25 +12513,25 @@
       var NgAisPagination = /*#__PURE__*/function (_TypedBaseWidget11) {
         _inherits2(NgAisPagination, _TypedBaseWidget11);
 
-        var _super11 = _createSuper2(NgAisPagination);
+        var _super12 = _createSuper2(NgAisPagination);
 
         function NgAisPagination(parentIndex, instantSearchInstance) {
-          var _this18;
+          var _this21;
 
           _classCallCheck2(this, NgAisPagination);
 
-          _this18 = _super11.call(this, 'Pagination');
-          _this18.parentIndex = parentIndex;
-          _this18.instantSearchInstance = instantSearchInstance; // rendering options
+          _this21 = _super12.call(this, 'Pagination');
+          _this21.parentIndex = parentIndex;
+          _this21.instantSearchInstance = instantSearchInstance; // rendering options
 
-          _this18.showFirst = true;
-          _this18.showLast = true;
-          _this18.showPrevious = true;
-          _this18.showNext = true; // instance options
+          _this21.showFirst = true;
+          _this21.showLast = true;
+          _this21.showPrevious = true;
+          _this21.showNext = true; // instance options
 
-          _this18.padding = 3; // TODO: check if this works, padding and totalPages are most likely strings when passed to the template
+          _this21.padding = 3; // TODO: check if this works, padding and totalPages are most likely strings when passed to the template
 
-          _this18.state = {
+          _this21.state = {
             createURL: function createURL() {
               return '#';
             },
@@ -11620,7 +12544,7 @@
             isFirstPage: false,
             isLastPage: false
           };
-          return _this18;
+          return _this21;
         }
 
         _createClass2(NgAisPagination, [{
@@ -11903,20 +12827,20 @@
       var NgAisRangeSlider = /*#__PURE__*/function (_TypedBaseWidget12) {
         _inherits2(NgAisRangeSlider, _TypedBaseWidget12);
 
-        var _super12 = _createSuper2(NgAisRangeSlider);
+        var _super13 = _createSuper2(NgAisRangeSlider);
 
         function NgAisRangeSlider(parentIndex, instantSearchInstance) {
-          var _this19;
+          var _this22;
 
           _classCallCheck2(this, NgAisRangeSlider);
 
-          _this19 = _super12.call(this, 'RangeSlider');
-          _this19.parentIndex = parentIndex;
-          _this19.instantSearchInstance = instantSearchInstance; // rendering options
+          _this22 = _super13.call(this, 'RangeSlider');
+          _this22.parentIndex = parentIndex;
+          _this22.instantSearchInstance = instantSearchInstance; // rendering options
 
-          _this19.pips = true;
-          _this19.tooltips = true;
-          _this19.state = {
+          _this22.pips = true;
+          _this22.tooltips = true;
+          _this22.state = {
             canRefine: false,
             format: {
               from: function from() {
@@ -11935,7 +12859,7 @@
             sendEvent: noop
           };
 
-          _this19.updateState = function (state, isFirstRendering) {
+          _this22.updateState = function (state, isFirstRendering) {
             if (isFirstRendering) {
               // create slider
               var config = {
@@ -11947,15 +12871,15 @@
                   max: 1
                 },
                 start: [0, 1],
-                step: _this19.step,
-                tooltips: _this19.tooltips && [{
-                  to: _this19.formatTooltip
+                step: _this22.step,
+                tooltips: _this22.tooltips && [{
+                  to: _this22.formatTooltip
                 }, {
-                  to: _this19.formatTooltip
+                  to: _this22.formatTooltip
                 }]
               }; // tslint:disable-next-line: no-boolean-literal-compare (pips is @Input, so could be not a boolean)
 
-              if (_this19.pips === true || typeof _this19.pips === 'undefined') {
+              if (_this22.pips === true || typeof _this22.pips === 'undefined') {
                 Object.assign(config, {
                   pips: {
                     density: 3,
@@ -11964,19 +12888,19 @@
                     values: [0, 50, 100]
                   }
                 });
-              } else if (_this19.pips !== undefined) {
+              } else if (_this22.pips !== undefined) {
                 Object.assign(config, {
-                  pips: _this19.pips
+                  pips: _this22.pips
                 });
               }
 
-              _this19.slider = nouislider__WEBPACK_IMPORTED_MODULE_0__.create(_this19.sliderContainer.nativeElement, config); // register listen events
+              _this22.slider = nouislider__WEBPACK_IMPORTED_MODULE_0__.create(_this22.sliderContainer.nativeElement, config); // register listen events
 
-              _this19.sliderContainer.nativeElement.noUiSlider.on('change', _this19.handleChange);
+              _this22.sliderContainer.nativeElement.noUiSlider.on('change', _this22.handleChange);
             } // update component inner state
 
 
-            _this19.state = state; // update the slider state
+            _this22.state = state; // update the slider state
 
             var _state$range = state.range,
                 min = _state$range.min,
@@ -11993,21 +12917,21 @@
             // it seems the API has changed: slider.setAttribute('disabled', true) / slider.removeAttribute('disabled');
             // see: https://refreshless.com/nouislider/more/#section-disable
 
-            _this19.slider.updateOptions({
+            _this22.slider.updateOptions({
               range: range,
               start: start
             });
           };
 
-          _this19.handleChange = function (values) {
-            _this19.state.refine(values);
+          _this22.handleChange = function (values) {
+            _this22.state.refine(values);
           };
 
-          _this19.formatTooltip = function (value) {
-            return value.toFixed(parseNumberInput(_this19.precision));
+          _this22.formatTooltip = function (value) {
+            return value.toFixed(parseNumberInput(_this22.precision));
           };
 
-          return _this19;
+          return _this22;
         }
 
         _createClass2(NgAisRangeSlider, [{
@@ -12240,21 +13164,21 @@
       var NgAisRefinementList = /*#__PURE__*/function (_TypedBaseWidget13) {
         _inherits2(NgAisRefinementList, _TypedBaseWidget13);
 
-        var _super13 = _createSuper2(NgAisRefinementList);
+        var _super14 = _createSuper2(NgAisRefinementList);
 
         function NgAisRefinementList(parentIndex, instantSearchInstance) {
-          var _this20;
+          var _this23;
 
           _classCallCheck2(this, NgAisRefinementList);
 
-          _this20 = _super13.call(this, 'RefinementList');
-          _this20.parentIndex = parentIndex;
-          _this20.instantSearchInstance = instantSearchInstance; // rendering options
+          _this23 = _super14.call(this, 'RefinementList');
+          _this23.parentIndex = parentIndex;
+          _this23.instantSearchInstance = instantSearchInstance; // rendering options
 
-          _this20.showMoreLabel = 'Show more';
-          _this20.showLessLabel = 'Show less';
-          _this20.searchPlaceholder = 'Search here...';
-          _this20.state = {
+          _this23.showMoreLabel = 'Show more';
+          _this23.showLessLabel = 'Show less';
+          _this23.searchPlaceholder = 'Search here...';
+          _this23.state = {
             canRefine: false,
             canToggleShowMore: false,
             createURL: function createURL() {
@@ -12269,7 +13193,7 @@
             hasExhaustiveItems: false,
             sendEvent: noop
           };
-          return _this20;
+          return _this23;
         }
 
         _createClass2(NgAisRefinementList, [{
@@ -12671,39 +13595,39 @@
       var NgAisSearchBox = /*#__PURE__*/function (_TypedBaseWidget14) {
         _inherits2(NgAisSearchBox, _TypedBaseWidget14);
 
-        var _super14 = _createSuper2(NgAisSearchBox);
+        var _super15 = _createSuper2(NgAisSearchBox);
 
         function NgAisSearchBox(parentIndex, instantSearchInstance) {
-          var _this21;
+          var _this24;
 
           _classCallCheck2(this, NgAisSearchBox);
 
-          _this21 = _super14.call(this, 'SearchBox');
-          _this21.parentIndex = parentIndex;
-          _this21.instantSearchInstance = instantSearchInstance;
-          _this21.placeholder = 'Search';
-          _this21.submitTitle = 'Submit';
-          _this21.resetTitle = 'Reset';
-          _this21.searchAsYouType = true;
-          _this21.autofocus = false; // Output events
+          _this24 = _super15.call(this, 'SearchBox');
+          _this24.parentIndex = parentIndex;
+          _this24.instantSearchInstance = instantSearchInstance;
+          _this24.placeholder = 'Search';
+          _this24.submitTitle = 'Submit';
+          _this24.resetTitle = 'Reset';
+          _this24.searchAsYouType = true;
+          _this24.autofocus = false; // Output events
           // form
 
-          _this21.submit = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
-          _this21.reset = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter(); // input
+          _this24.submit = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
+          _this24.reset = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter(); // input
 
-          _this21.change = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
-          _this21.focus = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
-          _this21.blur = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
-          _this21.state = {
+          _this24.change = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
+          _this24.focus = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
+          _this24.blur = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
+          _this24.state = {
             query: '',
             refine: noop,
             clear: noop,
             isSearchStalled: false
           };
 
-          _this21.createWidget(instantsearch_js_es_connectors__WEBPACK_IMPORTED_MODULE_19__["default"], {});
+          _this24.createWidget(instantsearch_js_es_connectors__WEBPACK_IMPORTED_MODULE_19__["default"], {});
 
-          return _this21;
+          return _this24;
         }
 
         _createClass2(NgAisSearchBox, [{
@@ -13057,23 +13981,23 @@
       var NgAisSortBy = /*#__PURE__*/function (_TypedBaseWidget15) {
         _inherits2(NgAisSortBy, _TypedBaseWidget15);
 
-        var _super15 = _createSuper2(NgAisSortBy);
+        var _super16 = _createSuper2(NgAisSortBy);
 
         function NgAisSortBy(parentIndex, instantSearchInstance) {
-          var _this22;
+          var _this25;
 
           _classCallCheck2(this, NgAisSortBy);
 
-          _this22 = _super15.call(this, 'SortBy');
-          _this22.parentIndex = parentIndex;
-          _this22.instantSearchInstance = instantSearchInstance;
-          _this22.state = {
+          _this25 = _super16.call(this, 'SortBy');
+          _this25.parentIndex = parentIndex;
+          _this25.instantSearchInstance = instantSearchInstance;
+          _this25.state = {
             currentRefinement: null,
             options: [],
             refine: noop,
             hasNoResults: false
           };
-          return _this22;
+          return _this25;
         }
 
         _createClass2(NgAisSortBy, [{
@@ -13255,19 +14179,19 @@
       var NgAisRatingMenu = /*#__PURE__*/function (_TypedBaseWidget16) {
         _inherits2(NgAisRatingMenu, _TypedBaseWidget16);
 
-        var _super16 = _createSuper2(NgAisRatingMenu);
+        var _super17 = _createSuper2(NgAisRatingMenu);
 
         function NgAisRatingMenu(parentIndex, instantSearchInstance) {
-          var _this23;
+          var _this26;
 
           _classCallCheck2(this, NgAisRatingMenu);
 
-          _this23 = _super16.call(this, 'RatingMenu');
-          _this23.parentIndex = parentIndex;
-          _this23.instantSearchInstance = instantSearchInstance; // rendering options
+          _this26 = _super17.call(this, 'RatingMenu');
+          _this26.parentIndex = parentIndex;
+          _this26.instantSearchInstance = instantSearchInstance; // rendering options
 
-          _this23.andUpLabel = '& Up';
-          _this23.state = {
+          _this26.andUpLabel = '& Up';
+          _this26.state = {
             createURL: function createURL() {
               return '#';
             },
@@ -13277,7 +14201,7 @@
             canRefine: false,
             sendEvent: noop
           };
-          return _this23;
+          return _this26;
         }
 
         _createClass2(NgAisRatingMenu, [{
@@ -13458,17 +14382,17 @@
       var NgAisStats = /*#__PURE__*/function (_TypedBaseWidget17) {
         _inherits2(NgAisStats, _TypedBaseWidget17);
 
-        var _super17 = _createSuper2(NgAisStats);
+        var _super18 = _createSuper2(NgAisStats);
 
         function NgAisStats(parentIndex, instantSearchInstance) {
-          var _this24;
+          var _this27;
 
           _classCallCheck2(this, NgAisStats);
 
-          _this24 = _super17.call(this, 'Stats');
-          _this24.parentIndex = parentIndex;
-          _this24.instantSearchInstance = instantSearchInstance;
-          _this24.state = {
+          _this27 = _super18.call(this, 'Stats');
+          _this27.parentIndex = parentIndex;
+          _this27.instantSearchInstance = instantSearchInstance;
+          _this27.state = {
             nbHits: 0,
             nbPages: 0,
             page: 0,
@@ -13477,9 +14401,9 @@
             areHitsSorted: false
           };
 
-          _this24.createWidget(instantsearch_js_es_connectors__WEBPACK_IMPORTED_MODULE_22__["default"], {});
+          _this27.createWidget(instantsearch_js_es_connectors__WEBPACK_IMPORTED_MODULE_22__["default"], {});
 
-          return _this24;
+          return _this27;
         }
 
         _createClass2(NgAisStats, [{
@@ -13659,17 +14583,17 @@
       var NgAisToggle = /*#__PURE__*/function (_TypedBaseWidget18) {
         _inherits2(NgAisToggle, _TypedBaseWidget18);
 
-        var _super18 = _createSuper2(NgAisToggle);
+        var _super19 = _createSuper2(NgAisToggle);
 
         function NgAisToggle(parentIndex, instantSearchInstance) {
-          var _this25;
+          var _this28;
 
           _classCallCheck2(this, NgAisToggle);
 
-          _this25 = _super18.call(this, 'ToggleRefinement');
-          _this25.parentIndex = parentIndex;
-          _this25.instantSearchInstance = instantSearchInstance;
-          _this25.state = {
+          _this28 = _super19.call(this, 'ToggleRefinement');
+          _this28.parentIndex = parentIndex;
+          _this28.instantSearchInstance = instantSearchInstance;
+          _this28.state = {
             canRefine: false,
             sendEvent: undefined,
             value: {
@@ -13684,7 +14608,7 @@
             },
             refine: noop
           };
-          return _this25;
+          return _this28;
         }
 
         _createClass2(NgAisToggle, [{
@@ -13921,22 +14845,22 @@
       var NgAisRangeInput = /*#__PURE__*/function (_TypedBaseWidget19) {
         _inherits2(NgAisRangeInput, _TypedBaseWidget19);
 
-        var _super19 = _createSuper2(NgAisRangeInput);
+        var _super20 = _createSuper2(NgAisRangeInput);
 
         function NgAisRangeInput(parentIndex, instantSearchInstance) {
-          var _this26;
+          var _this29;
 
           _classCallCheck2(this, NgAisRangeInput);
 
-          _this26 = _super19.call(this, 'RangeInput');
-          _this26.parentIndex = parentIndex;
-          _this26.instantSearchInstance = instantSearchInstance; // rendering options
+          _this29 = _super20.call(this, 'RangeInput');
+          _this29.parentIndex = parentIndex;
+          _this29.instantSearchInstance = instantSearchInstance; // rendering options
 
-          _this26.currency = '$';
-          _this26.separator = 'to';
-          _this26.submitLabel = 'Go';
-          _this26.precision = 0;
-          _this26.state = {
+          _this29.currency = '$';
+          _this29.separator = 'to';
+          _this29.submitLabel = 'Go';
+          _this29.precision = 0;
+          _this29.state = {
             range: {
               min: undefined,
               max: undefined
@@ -13955,7 +14879,7 @@
             },
             sendEvent: undefined
           };
-          return _this26;
+          return _this29;
         }
 
         _createClass2(NgAisRangeInput, [{
@@ -14414,21 +15338,21 @@
       var NgAisConfigure = /*#__PURE__*/function (_TypedBaseWidget20) {
         _inherits2(NgAisConfigure, _TypedBaseWidget20);
 
-        var _super20 = _createSuper2(NgAisConfigure);
+        var _super21 = _createSuper2(NgAisConfigure);
 
         function NgAisConfigure(differs, parentIndex, instantSearchInstance) {
-          var _this27;
+          var _this30;
 
           _classCallCheck2(this, NgAisConfigure);
 
-          _this27 = _super20.call(this, 'Configure');
-          _this27.differs = differs;
-          _this27.parentIndex = parentIndex;
-          _this27.instantSearchInstance = instantSearchInstance;
-          _this27.state = {
+          _this30 = _super21.call(this, 'Configure');
+          _this30.differs = differs;
+          _this30.parentIndex = parentIndex;
+          _this30.instantSearchInstance = instantSearchInstance;
+          _this30.state = {
             refine: noop
           };
-          return _this27;
+          return _this30;
         }
 
         _createClass2(NgAisConfigure, [{
@@ -14596,17 +15520,17 @@
       var NgAisConfigureRelatedItems = /*#__PURE__*/function (_TypedBaseWidget21) {
         _inherits2(NgAisConfigureRelatedItems, _TypedBaseWidget21);
 
-        var _super21 = _createSuper2(NgAisConfigureRelatedItems);
+        var _super22 = _createSuper2(NgAisConfigureRelatedItems);
 
         function NgAisConfigureRelatedItems(parentIndex, instantSearchInstance) {
-          var _this28;
+          var _this31;
 
           _classCallCheck2(this, NgAisConfigureRelatedItems);
 
-          _this28 = _super21.call(this, 'ExperimentalConfigureRelatedItems');
-          _this28.parentIndex = parentIndex;
-          _this28.instantSearchInstance = instantSearchInstance;
-          return _this28;
+          _this31 = _super22.call(this, 'ExperimentalConfigureRelatedItems');
+          _this31.parentIndex = parentIndex;
+          _this31.instantSearchInstance = instantSearchInstance;
+          return _this31;
         }
 
         _createClass2(NgAisConfigureRelatedItems, [{
@@ -14766,20 +15690,20 @@
       var NgAisQueryRuleCustomData = /*#__PURE__*/function (_TypedBaseWidget22) {
         _inherits2(NgAisQueryRuleCustomData, _TypedBaseWidget22);
 
-        var _super22 = _createSuper2(NgAisQueryRuleCustomData);
+        var _super23 = _createSuper2(NgAisQueryRuleCustomData);
 
         function NgAisQueryRuleCustomData(parentIndex, instantSearchInstance) {
-          var _this29;
+          var _this32;
 
           _classCallCheck2(this, NgAisQueryRuleCustomData);
 
-          _this29 = _super22.call(this, 'QueryRuleCustomData');
-          _this29.parentIndex = parentIndex;
-          _this29.instantSearchInstance = instantSearchInstance;
-          _this29.state = {
+          _this32 = _super23.call(this, 'QueryRuleCustomData');
+          _this32.parentIndex = parentIndex;
+          _this32.instantSearchInstance = instantSearchInstance;
+          _this32.state = {
             items: []
           };
-          return _this29;
+          return _this32;
         }
 
         _createClass2(NgAisQueryRuleCustomData, [{
@@ -14978,17 +15902,17 @@
       var NgAisQueryRuleContext = /*#__PURE__*/function (_TypedBaseWidget23) {
         _inherits2(NgAisQueryRuleContext, _TypedBaseWidget23);
 
-        var _super23 = _createSuper2(NgAisQueryRuleContext);
+        var _super24 = _createSuper2(NgAisQueryRuleContext);
 
         function NgAisQueryRuleContext(parentIndex, instantSearchInstance) {
-          var _this30;
+          var _this33;
 
           _classCallCheck2(this, NgAisQueryRuleContext);
 
-          _this30 = _super23.call(this, 'QueryRuleContext');
-          _this30.parentIndex = parentIndex;
-          _this30.instantSearchInstance = instantSearchInstance;
-          return _this30;
+          _this33 = _super24.call(this, 'QueryRuleContext');
+          _this33.parentIndex = parentIndex;
+          _this33.instantSearchInstance = instantSearchInstance;
+          return _this33;
         }
 
         _createClass2(NgAisQueryRuleContext, [{
@@ -15140,21 +16064,21 @@
       var NgAisVoiceSearch = /*#__PURE__*/function (_TypedBaseWidget24) {
         _inherits2(NgAisVoiceSearch, _TypedBaseWidget24);
 
-        var _super24 = _createSuper2(NgAisVoiceSearch);
+        var _super25 = _createSuper2(NgAisVoiceSearch);
 
         function NgAisVoiceSearch(parentIndex, instantSearchInstance, zone) {
-          var _this31;
+          var _this34;
 
           _classCallCheck2(this, NgAisVoiceSearch);
 
-          _this31 = _super24.call(this, 'VoiceSearch');
-          _this31.parentIndex = parentIndex;
-          _this31.instantSearchInstance = instantSearchInstance;
-          _this31.zone = zone; // rendering options
+          _this34 = _super25.call(this, 'VoiceSearch');
+          _this34.parentIndex = parentIndex;
+          _this34.instantSearchInstance = instantSearchInstance;
+          _this34.zone = zone; // rendering options
 
-          _this31.buttonTitle = 'Search by voice';
-          _this31.disabledButtonTitle = 'Search by voice (not supported on this browser)';
-          _this31.state = {
+          _this34.buttonTitle = 'Search by voice';
+          _this34.disabledButtonTitle = 'Search by voice (not supported on this browser)';
+          _this34.state = {
             isBrowserSupported: undefined,
             isListening: undefined,
             toggleListening: noop,
@@ -15165,7 +16089,7 @@
               errorCode: undefined
             }
           };
-          _this31.templateContext = {
+          _this34.templateContext = {
             status: 'initial',
             errorCode: undefined,
             transcript: '',
@@ -15174,19 +16098,19 @@
             isBrowserSupported: false
           };
 
-          _this31.handleClick = function (event) {
+          _this34.handleClick = function (event) {
             event.currentTarget.blur();
 
-            _this31.state.toggleListening();
+            _this34.state.toggleListening();
           };
 
-          _this31.isNotAllowedError = function () {
-            return _this31.state.voiceListeningState.status === 'error' && _this31.state.voiceListeningState.errorCode === 'not-allowed';
+          _this34.isNotAllowedError = function () {
+            return _this34.state.voiceListeningState.status === 'error' && _this34.state.voiceListeningState.errorCode === 'not-allowed';
           };
 
-          _this31.updateState = function (state) {
-            _this31.zone.run(function () {
-              _this31.templateContext = {
+          _this34.updateState = function (state) {
+            _this34.zone.run(function () {
+              _this34.templateContext = {
                 status: state.voiceListeningState.status,
                 errorCode: state.voiceListeningState.errorCode,
                 transcript: state.voiceListeningState.transcript,
@@ -15194,11 +16118,11 @@
                 isListening: state.isListening,
                 isBrowserSupported: state.isBrowserSupported
               };
-              _this31.state = state;
+              _this34.state = state;
             });
           };
 
-          return _this31;
+          return _this34;
         }
 
         _createClass2(NgAisVoiceSearch, [{
@@ -15455,15 +16379,15 @@
       var algoliasearch = typeof algoliasearch_lite__WEBPACK_IMPORTED_MODULE_4___default() === 'function' ? algoliasearch_lite__WEBPACK_IMPORTED_MODULE_4___default() : algoliasearch_lite__WEBPACK_IMPORTED_MODULE_4__;
       var encode = querystring_es3_encode__WEBPACK_IMPORTED_MODULE_1___default() || querystring_es3_encode__WEBPACK_IMPORTED_MODULE_1__;
 
-      function _createSSRSearchClient(_ref18) {
-        var appId = _ref18.appId,
-            apiKey = _ref18.apiKey,
-            httpClient = _ref18.httpClient,
-            HttpHeaders = _ref18.HttpHeaders,
-            transferState = _ref18.transferState,
-            makeStateKey = _ref18.makeStateKey,
-            _ref18$options = _ref18.options,
-            options = _ref18$options === void 0 ? {} : _ref18$options;
+      function _createSSRSearchClient(_ref23) {
+        var appId = _ref23.appId,
+            apiKey = _ref23.apiKey,
+            httpClient = _ref23.httpClient,
+            HttpHeaders = _ref23.HttpHeaders,
+            transferState = _ref23.transferState,
+            makeStateKey = _ref23.makeStateKey,
+            _ref23$options = _ref23.options,
+            options = _ref23$options === void 0 ? {} : _ref23$options;
         // A custom network request needs to be done, using TransferState of Angular.
         // This is done to make sure the request done backend for SSR doesn't get
         // made again frontend during hydration.
@@ -15475,11 +16399,11 @@
         // can safely do this without checking the version
         var searchClient = algoliasearch(appId, apiKey, Object.assign(Object.assign({}, options), {
           requester: {
-            send: function send(_ref19) {
-              var headers = _ref19.headers,
-                  method = _ref19.method,
-                  url = _ref19.url,
-                  data = _ref19.data;
+            send: function send(_ref24) {
+              var headers = _ref24.headers,
+                  method = _ref24.method,
+                  url = _ref24.url,
+                  data = _ref24.data;
               var transferStateKey = makeStateKey("ngais(".concat(data, ")"));
 
               if (transferState.hasKey(transferStateKey)) {
@@ -15560,7 +16484,7 @@
 
       var _BaseWidget = /*#__PURE__*/function () {
         function _BaseWidget(widgetName) {
-          var _this32 = this;
+          var _this35 = this;
 
           _classCallCheck2(this, _BaseWidget);
 
@@ -15569,11 +16493,11 @@
           this.updateState = function (state, isFirstRendering) {
             if (isFirstRendering) {
               return Promise.resolve().then(function () {
-                _this32.state = state;
+                _this35.state = state;
               });
             }
 
-            _this32.state = state;
+            _this35.state = state;
           };
 
           this.cx = bem(widgetName);
@@ -32790,6 +33714,1315 @@
     },
 
     /***/
+    93576:
+    /*!**************************************************!*\
+      !*** ./node_modules/rxjs/internal/Observable.js ***!
+      \**************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports, __webpack_require__) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var canReportError_1 = __webpack_require__(
+      /*! ./util/canReportError */
+      15730);
+
+      var toSubscriber_1 = __webpack_require__(
+      /*! ./util/toSubscriber */
+      67104);
+
+      var observable_1 = __webpack_require__(
+      /*! ./symbol/observable */
+      96232);
+
+      var pipe_1 = __webpack_require__(
+      /*! ./util/pipe */
+      23915);
+
+      var config_1 = __webpack_require__(
+      /*! ./config */
+      68273);
+
+      var Observable = function () {
+        function Observable(subscribe) {
+          this._isScalar = false;
+
+          if (subscribe) {
+            this._subscribe = subscribe;
+          }
+        }
+
+        Observable.prototype.lift = function (operator) {
+          var observable = new Observable();
+          observable.source = this;
+          observable.operator = operator;
+          return observable;
+        };
+
+        Observable.prototype.subscribe = function (observerOrNext, error, complete) {
+          var operator = this.operator;
+          var sink = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
+
+          if (operator) {
+            sink.add(operator.call(sink, this.source));
+          } else {
+            sink.add(this.source || config_1.config.useDeprecatedSynchronousErrorHandling && !sink.syncErrorThrowable ? this._subscribe(sink) : this._trySubscribe(sink));
+          }
+
+          if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+            if (sink.syncErrorThrowable) {
+              sink.syncErrorThrowable = false;
+
+              if (sink.syncErrorThrown) {
+                throw sink.syncErrorValue;
+              }
+            }
+          }
+
+          return sink;
+        };
+
+        Observable.prototype._trySubscribe = function (sink) {
+          try {
+            return this._subscribe(sink);
+          } catch (err) {
+            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+              sink.syncErrorThrown = true;
+              sink.syncErrorValue = err;
+            }
+
+            if (canReportError_1.canReportError(sink)) {
+              sink.error(err);
+            } else {
+              console.warn(err);
+            }
+          }
+        };
+
+        Observable.prototype.forEach = function (next, promiseCtor) {
+          var _this = this;
+
+          promiseCtor = getPromiseCtor(promiseCtor);
+          return new promiseCtor(function (resolve, reject) {
+            var subscription;
+            subscription = _this.subscribe(function (value) {
+              try {
+                next(value);
+              } catch (err) {
+                reject(err);
+
+                if (subscription) {
+                  subscription.unsubscribe();
+                }
+              }
+            }, reject, resolve);
+          });
+        };
+
+        Observable.prototype._subscribe = function (subscriber) {
+          var source = this.source;
+          return source && source.subscribe(subscriber);
+        };
+
+        Observable.prototype[observable_1.observable] = function () {
+          return this;
+        };
+
+        Observable.prototype.pipe = function () {
+          var operations = [];
+
+          for (var _i = 0; _i < arguments.length; _i++) {
+            operations[_i] = arguments[_i];
+          }
+
+          if (operations.length === 0) {
+            return this;
+          }
+
+          return pipe_1.pipeFromArray(operations)(this);
+        };
+
+        Observable.prototype.toPromise = function (promiseCtor) {
+          var _this = this;
+
+          promiseCtor = getPromiseCtor(promiseCtor);
+          return new promiseCtor(function (resolve, reject) {
+            var value;
+
+            _this.subscribe(function (x) {
+              return value = x;
+            }, function (err) {
+              return reject(err);
+            }, function () {
+              return resolve(value);
+            });
+          });
+        };
+
+        Observable.create = function (subscribe) {
+          return new Observable(subscribe);
+        };
+
+        return Observable;
+      }();
+
+      exports.Observable = Observable;
+
+      function getPromiseCtor(promiseCtor) {
+        if (!promiseCtor) {
+          promiseCtor = config_1.config.Promise || Promise;
+        }
+
+        if (!promiseCtor) {
+          throw new Error('no Promise impl found');
+        }
+
+        return promiseCtor;
+      } //# sourceMappingURL=Observable.js.map
+
+      /***/
+
+    },
+
+    /***/
+    16011:
+    /*!************************************************!*\
+      !*** ./node_modules/rxjs/internal/Observer.js ***!
+      \************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports, __webpack_require__) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var config_1 = __webpack_require__(
+      /*! ./config */
+      68273);
+
+      var hostReportError_1 = __webpack_require__(
+      /*! ./util/hostReportError */
+      32434);
+
+      exports.empty = {
+        closed: true,
+        next: function next(value) {},
+        error: function error(err) {
+          if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+            throw err;
+          } else {
+            hostReportError_1.hostReportError(err);
+          }
+        },
+        complete: function complete() {}
+      }; //# sourceMappingURL=Observer.js.map
+
+      /***/
+    },
+
+    /***/
+    67241:
+    /*!**************************************************!*\
+      !*** ./node_modules/rxjs/internal/Subscriber.js ***!
+      \**************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports, __webpack_require__) {
+      "use strict";
+
+      var __extends = this && this.__extends || function () {
+        var _extendStatics = function extendStatics(d, b) {
+          _extendStatics = Object.setPrototypeOf || {
+            __proto__: []
+          } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+          } || function (d, b) {
+            for (var p in b) {
+              if (b.hasOwnProperty(p)) d[p] = b[p];
+            }
+          };
+
+          return _extendStatics(d, b);
+        };
+
+        return function (d, b) {
+          _extendStatics(d, b);
+
+          function __() {
+            this.constructor = d;
+          }
+
+          d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+        };
+      }();
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var isFunction_1 = __webpack_require__(
+      /*! ./util/isFunction */
+      67382);
+
+      var Observer_1 = __webpack_require__(
+      /*! ./Observer */
+      16011);
+
+      var Subscription_1 = __webpack_require__(
+      /*! ./Subscription */
+      43984);
+
+      var rxSubscriber_1 = __webpack_require__(
+      /*! ../internal/symbol/rxSubscriber */
+      81476);
+
+      var config_1 = __webpack_require__(
+      /*! ./config */
+      68273);
+
+      var hostReportError_1 = __webpack_require__(
+      /*! ./util/hostReportError */
+      32434);
+
+      var Subscriber = function (_super) {
+        __extends(Subscriber, _super);
+
+        function Subscriber(destinationOrNext, error, complete) {
+          var _this = _super.call(this) || this;
+
+          _this.syncErrorValue = null;
+          _this.syncErrorThrown = false;
+          _this.syncErrorThrowable = false;
+          _this.isStopped = false;
+
+          switch (arguments.length) {
+            case 0:
+              _this.destination = Observer_1.empty;
+              break;
+
+            case 1:
+              if (!destinationOrNext) {
+                _this.destination = Observer_1.empty;
+                break;
+              }
+
+              if (typeof destinationOrNext === 'object') {
+                if (destinationOrNext instanceof Subscriber) {
+                  _this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
+                  _this.destination = destinationOrNext;
+                  destinationOrNext.add(_this);
+                } else {
+                  _this.syncErrorThrowable = true;
+                  _this.destination = new SafeSubscriber(_this, destinationOrNext);
+                }
+
+                break;
+              }
+
+            default:
+              _this.syncErrorThrowable = true;
+              _this.destination = new SafeSubscriber(_this, destinationOrNext, error, complete);
+              break;
+          }
+
+          return _this;
+        }
+
+        Subscriber.prototype[rxSubscriber_1.rxSubscriber] = function () {
+          return this;
+        };
+
+        Subscriber.create = function (next, error, complete) {
+          var subscriber = new Subscriber(next, error, complete);
+          subscriber.syncErrorThrowable = false;
+          return subscriber;
+        };
+
+        Subscriber.prototype.next = function (value) {
+          if (!this.isStopped) {
+            this._next(value);
+          }
+        };
+
+        Subscriber.prototype.error = function (err) {
+          if (!this.isStopped) {
+            this.isStopped = true;
+
+            this._error(err);
+          }
+        };
+
+        Subscriber.prototype.complete = function () {
+          if (!this.isStopped) {
+            this.isStopped = true;
+
+            this._complete();
+          }
+        };
+
+        Subscriber.prototype.unsubscribe = function () {
+          if (this.closed) {
+            return;
+          }
+
+          this.isStopped = true;
+
+          _super.prototype.unsubscribe.call(this);
+        };
+
+        Subscriber.prototype._next = function (value) {
+          this.destination.next(value);
+        };
+
+        Subscriber.prototype._error = function (err) {
+          this.destination.error(err);
+          this.unsubscribe();
+        };
+
+        Subscriber.prototype._complete = function () {
+          this.destination.complete();
+          this.unsubscribe();
+        };
+
+        Subscriber.prototype._unsubscribeAndRecycle = function () {
+          var _parentOrParents = this._parentOrParents;
+          this._parentOrParents = null;
+          this.unsubscribe();
+          this.closed = false;
+          this.isStopped = false;
+          this._parentOrParents = _parentOrParents;
+          return this;
+        };
+
+        return Subscriber;
+      }(Subscription_1.Subscription);
+
+      exports.Subscriber = Subscriber;
+
+      var SafeSubscriber = function (_super) {
+        __extends(SafeSubscriber, _super);
+
+        function SafeSubscriber(_parentSubscriber, observerOrNext, error, complete) {
+          var _this = _super.call(this) || this;
+
+          _this._parentSubscriber = _parentSubscriber;
+          var next;
+          var context = _this;
+
+          if (isFunction_1.isFunction(observerOrNext)) {
+            next = observerOrNext;
+          } else if (observerOrNext) {
+            next = observerOrNext.next;
+            error = observerOrNext.error;
+            complete = observerOrNext.complete;
+
+            if (observerOrNext !== Observer_1.empty) {
+              context = Object.create(observerOrNext);
+
+              if (isFunction_1.isFunction(context.unsubscribe)) {
+                _this.add(context.unsubscribe.bind(context));
+              }
+
+              context.unsubscribe = _this.unsubscribe.bind(_this);
+            }
+          }
+
+          _this._context = context;
+          _this._next = next;
+          _this._error = error;
+          _this._complete = complete;
+          return _this;
+        }
+
+        SafeSubscriber.prototype.next = function (value) {
+          if (!this.isStopped && this._next) {
+            var _parentSubscriber = this._parentSubscriber;
+
+            if (!config_1.config.useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
+              this.__tryOrUnsub(this._next, value);
+            } else if (this.__tryOrSetError(_parentSubscriber, this._next, value)) {
+              this.unsubscribe();
+            }
+          }
+        };
+
+        SafeSubscriber.prototype.error = function (err) {
+          if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+            var useDeprecatedSynchronousErrorHandling = config_1.config.useDeprecatedSynchronousErrorHandling;
+
+            if (this._error) {
+              if (!useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
+                this.__tryOrUnsub(this._error, err);
+
+                this.unsubscribe();
+              } else {
+                this.__tryOrSetError(_parentSubscriber, this._error, err);
+
+                this.unsubscribe();
+              }
+            } else if (!_parentSubscriber.syncErrorThrowable) {
+              this.unsubscribe();
+
+              if (useDeprecatedSynchronousErrorHandling) {
+                throw err;
+              }
+
+              hostReportError_1.hostReportError(err);
+            } else {
+              if (useDeprecatedSynchronousErrorHandling) {
+                _parentSubscriber.syncErrorValue = err;
+                _parentSubscriber.syncErrorThrown = true;
+              } else {
+                hostReportError_1.hostReportError(err);
+              }
+
+              this.unsubscribe();
+            }
+          }
+        };
+
+        SafeSubscriber.prototype.complete = function () {
+          var _this = this;
+
+          if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+
+            if (this._complete) {
+              var wrappedComplete = function wrappedComplete() {
+                return _this._complete.call(_this._context);
+              };
+
+              if (!config_1.config.useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
+                this.__tryOrUnsub(wrappedComplete);
+
+                this.unsubscribe();
+              } else {
+                this.__tryOrSetError(_parentSubscriber, wrappedComplete);
+
+                this.unsubscribe();
+              }
+            } else {
+              this.unsubscribe();
+            }
+          }
+        };
+
+        SafeSubscriber.prototype.__tryOrUnsub = function (fn, value) {
+          try {
+            fn.call(this._context, value);
+          } catch (err) {
+            this.unsubscribe();
+
+            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+              throw err;
+            } else {
+              hostReportError_1.hostReportError(err);
+            }
+          }
+        };
+
+        SafeSubscriber.prototype.__tryOrSetError = function (parent, fn, value) {
+          if (!config_1.config.useDeprecatedSynchronousErrorHandling) {
+            throw new Error('bad call');
+          }
+
+          try {
+            fn.call(this._context, value);
+          } catch (err) {
+            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+              parent.syncErrorValue = err;
+              parent.syncErrorThrown = true;
+              return true;
+            } else {
+              hostReportError_1.hostReportError(err);
+              return true;
+            }
+          }
+
+          return false;
+        };
+
+        SafeSubscriber.prototype._unsubscribe = function () {
+          var _parentSubscriber = this._parentSubscriber;
+          this._context = null;
+          this._parentSubscriber = null;
+
+          _parentSubscriber.unsubscribe();
+        };
+
+        return SafeSubscriber;
+      }(Subscriber);
+
+      exports.SafeSubscriber = SafeSubscriber; //# sourceMappingURL=Subscriber.js.map
+
+      /***/
+    },
+
+    /***/
+    43984:
+    /*!****************************************************!*\
+      !*** ./node_modules/rxjs/internal/Subscription.js ***!
+      \****************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports, __webpack_require__) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var isArray_1 = __webpack_require__(
+      /*! ./util/isArray */
+      40993);
+
+      var isObject_1 = __webpack_require__(
+      /*! ./util/isObject */
+      54720);
+
+      var isFunction_1 = __webpack_require__(
+      /*! ./util/isFunction */
+      67382);
+
+      var UnsubscriptionError_1 = __webpack_require__(
+      /*! ./util/UnsubscriptionError */
+      18574);
+
+      var Subscription = function () {
+        function Subscription(unsubscribe) {
+          this.closed = false;
+          this._parentOrParents = null;
+          this._subscriptions = null;
+
+          if (unsubscribe) {
+            this._ctorUnsubscribe = true;
+            this._unsubscribe = unsubscribe;
+          }
+        }
+
+        Subscription.prototype.unsubscribe = function () {
+          var errors;
+
+          if (this.closed) {
+            return;
+          }
+
+          var _a = this,
+              _parentOrParents = _a._parentOrParents,
+              _ctorUnsubscribe = _a._ctorUnsubscribe,
+              _unsubscribe = _a._unsubscribe,
+              _subscriptions = _a._subscriptions;
+
+          this.closed = true;
+          this._parentOrParents = null;
+          this._subscriptions = null;
+
+          if (_parentOrParents instanceof Subscription) {
+            _parentOrParents.remove(this);
+          } else if (_parentOrParents !== null) {
+            for (var index = 0; index < _parentOrParents.length; ++index) {
+              var parent_1 = _parentOrParents[index];
+              parent_1.remove(this);
+            }
+          }
+
+          if (isFunction_1.isFunction(_unsubscribe)) {
+            if (_ctorUnsubscribe) {
+              this._unsubscribe = undefined;
+            }
+
+            try {
+              _unsubscribe.call(this);
+            } catch (e) {
+              errors = e instanceof UnsubscriptionError_1.UnsubscriptionError ? flattenUnsubscriptionErrors(e.errors) : [e];
+            }
+          }
+
+          if (isArray_1.isArray(_subscriptions)) {
+            var index = -1;
+            var len = _subscriptions.length;
+
+            while (++index < len) {
+              var sub = _subscriptions[index];
+
+              if (isObject_1.isObject(sub)) {
+                try {
+                  sub.unsubscribe();
+                } catch (e) {
+                  errors = errors || [];
+
+                  if (e instanceof UnsubscriptionError_1.UnsubscriptionError) {
+                    errors = errors.concat(flattenUnsubscriptionErrors(e.errors));
+                  } else {
+                    errors.push(e);
+                  }
+                }
+              }
+            }
+          }
+
+          if (errors) {
+            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
+          }
+        };
+
+        Subscription.prototype.add = function (teardown) {
+          var subscription = teardown;
+
+          if (!teardown) {
+            return Subscription.EMPTY;
+          }
+
+          switch (typeof teardown) {
+            case 'function':
+              subscription = new Subscription(teardown);
+
+            case 'object':
+              if (subscription === this || subscription.closed || typeof subscription.unsubscribe !== 'function') {
+                return subscription;
+              } else if (this.closed) {
+                subscription.unsubscribe();
+                return subscription;
+              } else if (!(subscription instanceof Subscription)) {
+                var tmp = subscription;
+                subscription = new Subscription();
+                subscription._subscriptions = [tmp];
+              }
+
+              break;
+
+            default:
+              {
+                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
+              }
+          }
+
+          var _parentOrParents = subscription._parentOrParents;
+
+          if (_parentOrParents === null) {
+            subscription._parentOrParents = this;
+          } else if (_parentOrParents instanceof Subscription) {
+            if (_parentOrParents === this) {
+              return subscription;
+            }
+
+            subscription._parentOrParents = [_parentOrParents, this];
+          } else if (_parentOrParents.indexOf(this) === -1) {
+            _parentOrParents.push(this);
+          } else {
+            return subscription;
+          }
+
+          var subscriptions = this._subscriptions;
+
+          if (subscriptions === null) {
+            this._subscriptions = [subscription];
+          } else {
+            subscriptions.push(subscription);
+          }
+
+          return subscription;
+        };
+
+        Subscription.prototype.remove = function (subscription) {
+          var subscriptions = this._subscriptions;
+
+          if (subscriptions) {
+            var subscriptionIndex = subscriptions.indexOf(subscription);
+
+            if (subscriptionIndex !== -1) {
+              subscriptions.splice(subscriptionIndex, 1);
+            }
+          }
+        };
+
+        Subscription.EMPTY = function (empty) {
+          empty.closed = true;
+          return empty;
+        }(new Subscription());
+
+        return Subscription;
+      }();
+
+      exports.Subscription = Subscription;
+
+      function flattenUnsubscriptionErrors(errors) {
+        return errors.reduce(function (errs, err) {
+          return errs.concat(err instanceof UnsubscriptionError_1.UnsubscriptionError ? err.errors : err);
+        }, []);
+      } //# sourceMappingURL=Subscription.js.map
+
+      /***/
+
+    },
+
+    /***/
+    68273:
+    /*!**********************************************!*\
+      !*** ./node_modules/rxjs/internal/config.js ***!
+      \**********************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+      var _enable_super_gross_mode_that_will_cause_bad_things = false;
+      exports.config = {
+        Promise: undefined,
+
+        set useDeprecatedSynchronousErrorHandling(value) {
+          if (value) {
+            var error = new Error();
+            console.warn('DEPRECATED! RxJS was set to use deprecated synchronous error handling behavior by code at: \n' + error.stack);
+          } else if (_enable_super_gross_mode_that_will_cause_bad_things) {
+            console.log('RxJS: Back to a better error behavior. Thank you. <3');
+          }
+
+          _enable_super_gross_mode_that_will_cause_bad_things = value;
+        },
+
+        get useDeprecatedSynchronousErrorHandling() {
+          return _enable_super_gross_mode_that_will_cause_bad_things;
+        }
+
+      }; //# sourceMappingURL=config.js.map
+
+      /***/
+    },
+
+    /***/
+    79941:
+    /*!********************************************************!*\
+      !*** ./node_modules/rxjs/internal/observable/empty.js ***!
+      \********************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports, __webpack_require__) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var Observable_1 = __webpack_require__(
+      /*! ../Observable */
+      93576);
+
+      exports.EMPTY = new Observable_1.Observable(function (subscriber) {
+        return subscriber.complete();
+      });
+
+      function empty(scheduler) {
+        return scheduler ? emptyScheduled(scheduler) : exports.EMPTY;
+      }
+
+      exports.empty = empty;
+
+      function emptyScheduled(scheduler) {
+        return new Observable_1.Observable(function (subscriber) {
+          return scheduler.schedule(function () {
+            return subscriber.complete();
+          });
+        });
+      } //# sourceMappingURL=empty.js.map
+
+      /***/
+
+    },
+
+    /***/
+    71056:
+    /*!******************************************************!*\
+      !*** ./node_modules/rxjs/internal/operators/take.js ***!
+      \******************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports, __webpack_require__) {
+      "use strict";
+
+      var __extends = this && this.__extends || function () {
+        var _extendStatics2 = function extendStatics(d, b) {
+          _extendStatics2 = Object.setPrototypeOf || {
+            __proto__: []
+          } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+          } || function (d, b) {
+            for (var p in b) {
+              if (b.hasOwnProperty(p)) d[p] = b[p];
+            }
+          };
+
+          return _extendStatics2(d, b);
+        };
+
+        return function (d, b) {
+          _extendStatics2(d, b);
+
+          function __() {
+            this.constructor = d;
+          }
+
+          d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+        };
+      }();
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var Subscriber_1 = __webpack_require__(
+      /*! ../Subscriber */
+      67241);
+
+      var ArgumentOutOfRangeError_1 = __webpack_require__(
+      /*! ../util/ArgumentOutOfRangeError */
+      72974);
+
+      var empty_1 = __webpack_require__(
+      /*! ../observable/empty */
+      79941);
+
+      function take(count) {
+        return function (source) {
+          if (count === 0) {
+            return empty_1.empty();
+          } else {
+            return source.lift(new TakeOperator(count));
+          }
+        };
+      }
+
+      exports.take = take;
+
+      var TakeOperator = function () {
+        function TakeOperator(total) {
+          this.total = total;
+
+          if (this.total < 0) {
+            throw new ArgumentOutOfRangeError_1.ArgumentOutOfRangeError();
+          }
+        }
+
+        TakeOperator.prototype.call = function (subscriber, source) {
+          return source.subscribe(new TakeSubscriber(subscriber, this.total));
+        };
+
+        return TakeOperator;
+      }();
+
+      var TakeSubscriber = function (_super) {
+        __extends(TakeSubscriber, _super);
+
+        function TakeSubscriber(destination, total) {
+          var _this = _super.call(this, destination) || this;
+
+          _this.total = total;
+          _this.count = 0;
+          return _this;
+        }
+
+        TakeSubscriber.prototype._next = function (value) {
+          var total = this.total;
+          var count = ++this.count;
+
+          if (count <= total) {
+            this.destination.next(value);
+
+            if (count === total) {
+              this.destination.complete();
+              this.unsubscribe();
+            }
+          }
+        };
+
+        return TakeSubscriber;
+      }(Subscriber_1.Subscriber); //# sourceMappingURL=take.js.map
+
+      /***/
+
+    },
+
+    /***/
+    96232:
+    /*!*********************************************************!*\
+      !*** ./node_modules/rxjs/internal/symbol/observable.js ***!
+      \*********************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      exports.observable = function () {
+        return typeof Symbol === 'function' && Symbol.observable || '@@observable';
+      }(); //# sourceMappingURL=observable.js.map
+
+      /***/
+
+    },
+
+    /***/
+    81476:
+    /*!***********************************************************!*\
+      !*** ./node_modules/rxjs/internal/symbol/rxSubscriber.js ***!
+      \***********************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      exports.rxSubscriber = function () {
+        return typeof Symbol === 'function' ? Symbol('rxSubscriber') : '@@rxSubscriber_' + Math.random();
+      }();
+
+      exports.$$rxSubscriber = exports.rxSubscriber; //# sourceMappingURL=rxSubscriber.js.map
+
+      /***/
+    },
+
+    /***/
+    72974:
+    /*!********************************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/ArgumentOutOfRangeError.js ***!
+      \********************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var ArgumentOutOfRangeErrorImpl = function () {
+        function ArgumentOutOfRangeErrorImpl() {
+          Error.call(this);
+          this.message = 'argument out of range';
+          this.name = 'ArgumentOutOfRangeError';
+          return this;
+        }
+
+        ArgumentOutOfRangeErrorImpl.prototype = Object.create(Error.prototype);
+        return ArgumentOutOfRangeErrorImpl;
+      }();
+
+      exports.ArgumentOutOfRangeError = ArgumentOutOfRangeErrorImpl; //# sourceMappingURL=ArgumentOutOfRangeError.js.map
+
+      /***/
+    },
+
+    /***/
+    18574:
+    /*!****************************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/UnsubscriptionError.js ***!
+      \****************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var UnsubscriptionErrorImpl = function () {
+        function UnsubscriptionErrorImpl(errors) {
+          Error.call(this);
+          this.message = errors ? errors.length + " errors occurred during unsubscription:\n" + errors.map(function (err, i) {
+            return i + 1 + ") " + err.toString();
+          }).join('\n  ') : '';
+          this.name = 'UnsubscriptionError';
+          this.errors = errors;
+          return this;
+        }
+
+        UnsubscriptionErrorImpl.prototype = Object.create(Error.prototype);
+        return UnsubscriptionErrorImpl;
+      }();
+
+      exports.UnsubscriptionError = UnsubscriptionErrorImpl; //# sourceMappingURL=UnsubscriptionError.js.map
+
+      /***/
+    },
+
+    /***/
+    15730:
+    /*!***********************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/canReportError.js ***!
+      \***********************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports, __webpack_require__) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var Subscriber_1 = __webpack_require__(
+      /*! ../Subscriber */
+      67241);
+
+      function canReportError(observer) {
+        while (observer) {
+          var _a = observer,
+              closed_1 = _a.closed,
+              destination = _a.destination,
+              isStopped = _a.isStopped;
+
+          if (closed_1 || isStopped) {
+            return false;
+          } else if (destination && destination instanceof Subscriber_1.Subscriber) {
+            observer = destination;
+          } else {
+            observer = null;
+          }
+        }
+
+        return true;
+      }
+
+      exports.canReportError = canReportError; //# sourceMappingURL=canReportError.js.map
+
+      /***/
+    },
+
+    /***/
+    32434:
+    /*!************************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/hostReportError.js ***!
+      \************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      function hostReportError(err) {
+        setTimeout(function () {
+          throw err;
+        }, 0);
+      }
+
+      exports.hostReportError = hostReportError; //# sourceMappingURL=hostReportError.js.map
+
+      /***/
+    },
+
+    /***/
+    72516:
+    /*!*****************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/identity.js ***!
+      \*****************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      function identity(x) {
+        return x;
+      }
+
+      exports.identity = identity; //# sourceMappingURL=identity.js.map
+
+      /***/
+    },
+
+    /***/
+    40993:
+    /*!****************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/isArray.js ***!
+      \****************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      exports.isArray = function () {
+        return Array.isArray || function (x) {
+          return x && typeof x.length === 'number';
+        };
+      }(); //# sourceMappingURL=isArray.js.map
+
+      /***/
+
+    },
+
+    /***/
+    67382:
+    /*!*******************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/isFunction.js ***!
+      \*******************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      function isFunction(x) {
+        return typeof x === 'function';
+      }
+
+      exports.isFunction = isFunction; //# sourceMappingURL=isFunction.js.map
+
+      /***/
+    },
+
+    /***/
+    54720:
+    /*!*****************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/isObject.js ***!
+      \*****************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      function isObject(x) {
+        return x !== null && typeof x === 'object';
+      }
+
+      exports.isObject = isObject; //# sourceMappingURL=isObject.js.map
+
+      /***/
+    },
+
+    /***/
+    23915:
+    /*!*************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/pipe.js ***!
+      \*************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports, __webpack_require__) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var identity_1 = __webpack_require__(
+      /*! ./identity */
+      72516);
+
+      function pipe() {
+        var fns = [];
+
+        for (var _i = 0; _i < arguments.length; _i++) {
+          fns[_i] = arguments[_i];
+        }
+
+        return pipeFromArray(fns);
+      }
+
+      exports.pipe = pipe;
+
+      function pipeFromArray(fns) {
+        if (fns.length === 0) {
+          return identity_1.identity;
+        }
+
+        if (fns.length === 1) {
+          return fns[0];
+        }
+
+        return function piped(input) {
+          return fns.reduce(function (prev, fn) {
+            return fn(prev);
+          }, input);
+        };
+      }
+
+      exports.pipeFromArray = pipeFromArray; //# sourceMappingURL=pipe.js.map
+
+      /***/
+    },
+
+    /***/
+    67104:
+    /*!*********************************************************!*\
+      !*** ./node_modules/rxjs/internal/util/toSubscriber.js ***!
+      \*********************************************************/
+
+    /***/
+    function _(__unused_webpack_module, exports, __webpack_require__) {
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var Subscriber_1 = __webpack_require__(
+      /*! ../Subscriber */
+      67241);
+
+      var rxSubscriber_1 = __webpack_require__(
+      /*! ../symbol/rxSubscriber */
+      81476);
+
+      var Observer_1 = __webpack_require__(
+      /*! ../Observer */
+      16011);
+
+      function toSubscriber(nextOrObserver, error, complete) {
+        if (nextOrObserver) {
+          if (nextOrObserver instanceof Subscriber_1.Subscriber) {
+            return nextOrObserver;
+          }
+
+          if (nextOrObserver[rxSubscriber_1.rxSubscriber]) {
+            return nextOrObserver[rxSubscriber_1.rxSubscriber]();
+          }
+        }
+
+        if (!nextOrObserver && !error && !complete) {
+          return new Subscriber_1.Subscriber(Observer_1.empty);
+        }
+
+        return new Subscriber_1.Subscriber(nextOrObserver, error, complete);
+      }
+
+      exports.toSubscriber = toSubscriber; //# sourceMappingURL=toSubscriber.js.map
+
+      /***/
+    },
+
+    /***/
     10764:
     /*!***************************************************************!*\
       !*** ./src/app/main-content/dashboard/dashboard.component.ts ***!
@@ -32817,7 +35050,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -32835,7 +35068,7 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
@@ -32850,12 +35083,44 @@
       var src_app_shared_companyData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! src/app/shared/companyData */
       64149);
+      /* harmony import */
+
+
+      var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! rxjs */
+      35758);
+      /* harmony import */
+
+
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! rxjs/operators */
+      15257);
+      /* harmony import */
+
+
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! rxjs/operators */
+      68307);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
+      /* harmony import */
+
+
+      var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! src/app/services/data/data.service */
+      59244);
 
       var _DashboardComponent = /*#__PURE__*/function () {
-        function DashboardComponent(detailsService) {
+        function DashboardComponent(detailsService, router, dataService) {
           _classCallCheck2(this, DashboardComponent);
 
           this.detailsService = detailsService;
+          this.router = router;
+          this.dataService = dataService;
           this.results = [];
           this.starName = "star";
         }
@@ -32863,26 +35128,22 @@
         _createClass2(DashboardComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this33 = this;
+            var _this36 = this;
 
-            this.detailsService.getGainers().subscribe(function (data) {
-              _this33.gainerData = data['mostGainerStock'];
-              console.log(JSON.stringify(_this33.gainerData));
-            });
+            this.getUserInformation();
             this.watchList = JSON.parse(localStorage.getItem('watchList'));
             console.log(this.watchList);
-            /* this.watchList.forEach(code=>{
-               this.results.push(this.detailsService.getCompanyIndividual(code))
-             });
-             forkJoin(this.results)
-             .pipe(take(1), tap(data => {
-                 this.companyInfoArray = data.reduce((o,m) => m.concat(o),[]);
-                 console.log(this.companyInfoArray);
-             }))
-             .subscribe( () => {}, error => {
-               console.log(error);
-             })*/
-
+            this.watchList.forEach(function (code) {
+              _this36.results.push(_this36.detailsService.getCompanyIndividual(code));
+            });
+            (0, rxjs__WEBPACK_IMPORTED_MODULE_5__.forkJoin)(this.results).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.take)(1), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.tap)(function (data) {
+              _this36.companyInfoArray = data.reduce(function (o, m) {
+                return m.concat(o);
+              }, []);
+              console.log(_this36.companyInfoArray);
+            })).subscribe(function () {}, function (error) {
+              console.log(error);
+            });
             this.companyInfoArray = [{
               "symbol": "AAPL",
               "name": "Apple Inc.",
@@ -32959,7 +35220,7 @@
           value: function getImage(code) {
             console.log(code);
             var company = src_app_shared_companyData__WEBPACK_IMPORTED_MODULE_3__.companyData.filter(function (data) {
-              return data.Code == code.value.symbol;
+              return data.Code == code.symbol;
             });
             console.log(company);
             console.log(company[0]['URL']);
@@ -32983,6 +35244,55 @@
               console.log(this.watchList); //call a function to update the watch list of the database
             }
           }
+        }, {
+          key: "seeAll",
+          value: function seeAll() {
+            this.router.navigate(['/main-content/gain-loss'], {
+              state: {
+                isShowAll: 'true'
+              }
+            });
+            return;
+          }
+        }, {
+          key: "seeAllWatchList",
+          value: function seeAllWatchList() {
+            this.router.navigate(['/main-content/watch-list'], {
+              state: {
+                isShowAll: 'true'
+              }
+            });
+            return;
+          }
+        }, {
+          key: "getOverView",
+          value: function getOverView(hit) {}
+          /*---------------------------------------------------
+            function:to get the user information
+          ---------------------------------------------------*/
+
+        }, {
+          key: "getUserInformation",
+          value: function getUserInformation() {
+            var _this37 = this;
+
+            this.dataService.getUserInformation().subscribe(function (res) {
+              if (res['followList'] == undefined) {
+                _this37.followList = [];
+              }
+
+              if (res['watchList'] == undefined) {
+                _this37.watchList = [];
+              }
+
+              _this37.followList = res['followList'];
+              _this37.watchList = res['watchList'];
+              localStorage.setItem("watchList", JSON.stringify(_this37.watchList));
+              localStorage.setItem("followList", JSON.stringify(_this37.followList));
+              _this37.availableBalance = res['availableBalance'];
+            });
+            return;
+          }
         }]);
 
         return DashboardComponent;
@@ -32991,14 +35301,138 @@
       _DashboardComponent.ctorParameters = function () {
         return [{
           type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__.DetailsService
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router
+        }, {
+          type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__.DataService
         }];
       };
 
-      _DashboardComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+      _DashboardComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
         selector: 'app-dashboard',
         template: _raw_loader_dashboard_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_dashboard_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
       })], _DashboardComponent);
+      /***/
+    },
+
+    /***/
+    37095:
+    /*!***************************************************************!*\
+      !*** ./src/app/main-content/gain-loss/gain-loss.component.ts ***!
+      \***************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "GainLossComponent": function GainLossComponent() {
+          return (
+            /* binding */
+            _GainLossComponent
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_gain_loss_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./gain-loss.component.html */
+      5873);
+      /* harmony import */
+
+
+      var _gain_loss_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./gain-loss.component.scss */
+      35173);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
+      /* harmony import */
+
+
+      var src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/services/details/details.service */
+      52642);
+
+      var _GainLossComponent = /*#__PURE__*/function () {
+        function GainLossComponent(router, detailsService) {
+          _classCallCheck2(this, GainLossComponent);
+
+          this.router = router;
+          this.detailsService = detailsService;
+          this.isShowAll = false;
+          this.limit = 1;
+          this.results = [];
+        }
+
+        _createClass2(GainLossComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            var _this38 = this;
+
+            this.detailsService.getGainers().subscribe(function (data) {
+              _this38.gainerData = data['mostGainerStock'];
+              console.log(JSON.stringify(_this38.gainerData));
+            });
+            this.detailsService.getLosers().subscribe(function (data) {
+              _this38.loserData = data['mostLoserStock'];
+            });
+
+            if (this.router.getCurrentNavigation().extras.state != undefined) {
+              if (this.isShowAll || this.router.getCurrentNavigation().extras.state.isShowAll === 'true') {
+                this.limit = 100;
+              } else {
+                this.limit = 1;
+              }
+            }
+          }
+        }]);
+
+        return GainLossComponent;
+      }();
+
+      _GainLossComponent.ctorParameters = function () {
+        return [{
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_3__.Router
+        }, {
+          type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__.DetailsService
+        }];
+      };
+
+      _GainLossComponent.propDecorators = {
+        isShowAll: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.Input
+        }]
+      };
+      _GainLossComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+        selector: 'app-gain-loss',
+        template: _raw_loader_gain_loss_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_gain_loss_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _GainLossComponent);
       /***/
     },
 
@@ -33030,19 +35464,19 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
@@ -33054,45 +35488,90 @@
       /* harmony import */
 
 
-      var _news_news_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./modals/buy/buy.component */
+      26566);
+      /* harmony import */
+
+
+      var _modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./modals/sell/sell.component */
+      62527);
+      /* harmony import */
+
+
+      var _news_news_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ./news/news.component */
       4704);
       /* harmony import */
 
 
-      var _overview_overview_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _overview_overview_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ./overview/overview.component */
       74700);
       /* harmony import */
 
 
-      var _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _portfolio_portfolio_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ../portfolio/portfolio.component */
+      15574);
+      /* harmony import */
+
+
+      var _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! ./search-profile/search-profile.component */
       22836);
+      /* harmony import */
+
+
+      var _gain_loss_gain_loss_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! ./gain-loss/gain-loss.component */
+      37095);
+      /* harmony import */
+
+
+      var _watchlist_watchlist_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! ./watchlist/watchlist.component */
+      37772);
 
       var routes = [{
         path: 'main-content'
       }, {
         path: 'search-profile',
-        component: _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_3__.SearchProfileComponent
+        component: _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_6__.SearchProfileComponent
       }, {
         path: 'overview',
-        component: _overview_overview_component__WEBPACK_IMPORTED_MODULE_2__.OverviewComponent
+        component: _overview_overview_component__WEBPACK_IMPORTED_MODULE_4__.OverviewComponent
       }, {
         path: 'news',
-        component: _news_news_component__WEBPACK_IMPORTED_MODULE_1__.NewsComponent
+        component: _news_news_component__WEBPACK_IMPORTED_MODULE_3__.NewsComponent
       }, {
         path: 'dashboard',
         component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_0__.DashboardComponent
+      }, {
+        path: 'buy',
+        component: _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_1__.BuyComponent
+      }, {
+        path: 'sell',
+        component: _modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_2__.SellComponent
+      }, {
+        path: 'portfolio',
+        component: _portfolio_portfolio_component__WEBPACK_IMPORTED_MODULE_5__.PortfolioComponent
+      }, {
+        path: 'gain-loss',
+        component: _gain_loss_gain_loss_component__WEBPACK_IMPORTED_MODULE_7__.GainLossComponent
+      }, {
+        path: 'watch-list',
+        component: _watchlist_watchlist_component__WEBPACK_IMPORTED_MODULE_8__.WatchlistComponent
       }];
 
       var _MainContentPageRoutingModule = function MainContentPageRoutingModule() {
         _classCallCheck2(this, MainContentPageRoutingModule);
       };
 
-      _MainContentPageRoutingModule = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_5__.NgModule)({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_6__.RouterModule.forChild(routes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_6__.RouterModule]
+      _MainContentPageRoutingModule = (0, tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_10__.NgModule)({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_11__.RouterModule.forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_11__.RouterModule]
       })], _MainContentPageRoutingModule);
       /***/
     },
@@ -33125,31 +35604,31 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! @angular/common */
       38583);
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
       /*! @angular/forms */
       3679);
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
       /*! @ionic/angular */
       80476);
       /* harmony import */
@@ -33173,13 +35652,13 @@
       /* harmony import */
 
 
-      var angular_instantsearch__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var angular_instantsearch__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
       /*! angular-instantsearch */
       11445);
       /* harmony import */
 
 
-      var _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
       /*! @swimlane/ngx-charts */
       2945);
       /* harmony import */
@@ -33212,14 +35691,51 @@
       var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ./dashboard/dashboard.component */
       10764);
+      /* harmony import */
+
+
+      var _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! ./modals/buy/buy.component */
+      26566);
+      /* harmony import */
+
+
+      var _modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! ./modals/sell/sell.component */
+      62527);
+      /* harmony import */
+
+
+      var _portfolio_portfolio_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! ../portfolio/portfolio.component */
+      15574);
+      /* harmony import */
+
+
+      var _tab_tab_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! ./tab/tab.component */
+      75329);
+      /* harmony import */
+
+
+      var _gain_loss_gain_loss_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! ./gain-loss/gain-loss.component */
+      37095);
+      /* harmony import */
+
+
+      var _watchlist_watchlist_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      /*! ./watchlist/watchlist.component */
+      37772);
 
       var _MainContentPageModule = function MainContentPageModule() {
         _classCallCheck2(this, MainContentPageModule);
       };
 
-      _MainContentPageModule = (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_9__.NgModule)({
-        imports: [angular_instantsearch__WEBPACK_IMPORTED_MODULE_10__.NgAisModule.forRoot(), _angular_common__WEBPACK_IMPORTED_MODULE_11__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_12__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_13__.IonicModule, _main_content_routing_module__WEBPACK_IMPORTED_MODULE_0__.MainContentPageRoutingModule, _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_14__.NgxChartsModule],
-        declarations: [_main_content_page__WEBPACK_IMPORTED_MODULE_1__.MainContentPage, _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_2__.SearchProfileComponent, _overview_overview_component__WEBPACK_IMPORTED_MODULE_3__.OverviewComponent, _news_news_component__WEBPACK_IMPORTED_MODULE_5__.NewsComponent, _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__.DashboardComponent],
+      _MainContentPageModule = (0, tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_15__.NgModule)({
+        imports: [angular_instantsearch__WEBPACK_IMPORTED_MODULE_16__.NgAisModule.forRoot(), _angular_common__WEBPACK_IMPORTED_MODULE_17__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_18__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_19__.IonicModule, _main_content_routing_module__WEBPACK_IMPORTED_MODULE_0__.MainContentPageRoutingModule, _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_20__.NgxChartsModule],
+        declarations: [_main_content_page__WEBPACK_IMPORTED_MODULE_1__.MainContentPage, _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_2__.SearchProfileComponent, _overview_overview_component__WEBPACK_IMPORTED_MODULE_3__.OverviewComponent, _news_news_component__WEBPACK_IMPORTED_MODULE_5__.NewsComponent, _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__.DashboardComponent, _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_8__.BuyComponent, _modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_9__.SellComponent, _portfolio_portfolio_component__WEBPACK_IMPORTED_MODULE_10__.PortfolioComponent, _tab_tab_component__WEBPACK_IMPORTED_MODULE_11__.TabComponent, _gain_loss_gain_loss_component__WEBPACK_IMPORTED_MODULE_12__.GainLossComponent, _watchlist_watchlist_component__WEBPACK_IMPORTED_MODULE_13__.WatchlistComponent],
+        entryComponents: [_modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_8__.BuyComponent],
         providers: [_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__.DataService, _services_details_details_service__WEBPACK_IMPORTED_MODULE_6__.DetailsService]
       })], _MainContentPageModule);
       /***/
@@ -33297,6 +35813,260 @@
         template: _raw_loader_main_content_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_main_content_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
       })], _MainContentPage);
+      /***/
+    },
+
+    /***/
+    26566:
+    /*!**********************************************************!*\
+      !*** ./src/app/main-content/modals/buy/buy.component.ts ***!
+      \**********************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "BuyComponent": function BuyComponent() {
+          return (
+            /* binding */
+            _BuyComponent
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_buy_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./buy.component.html */
+      85332);
+      /* harmony import */
+
+
+      var _buy_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./buy.component.scss */
+      29965);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @ionic/angular */
+      80476);
+      /* harmony import */
+
+
+      var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/services/data/data.service */
+      59244);
+
+      var _BuyComponent = /*#__PURE__*/function () {
+        function BuyComponent(modalCtrl, dataService, toastController) {
+          _classCallCheck2(this, BuyComponent);
+
+          this.modalCtrl = modalCtrl;
+          this.dataService = dataService;
+          this.toastController = toastController;
+          this.d = new Date();
+          this.tran = {
+            phoneNo: 3333,
+            code: "AMZN",
+            total: 3,
+            price: 20,
+            quantity: 2,
+            createdDate: this.d,
+            isBuy: true
+          };
+        }
+
+        _createClass2(BuyComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {}
+        }, {
+          key: "dismiss",
+          value: function dismiss() {
+            console.log("inside");
+            this.modalCtrl.dismiss();
+          }
+        }, {
+          key: "buy",
+          value: function buy() {
+            console.log(this.tran);
+            this.tran.code = this.details.Code, this.tran.price = this.details.price, this.tran.quantity = this.quantity, this.tran.phoneNo = parseInt(localStorage.getItem('userId')), this.tran.total = this.quantity * this.details.price, this.tran.isBuy = true, this.tran.createdDate = this.d;
+            this.dataService.createTransactionBuy(this.tran);
+            this.presentToast();
+            this.modalCtrl.dismiss();
+          }
+        }, {
+          key: "presentToast",
+          value: function presentToast() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+              var toast;
+              return regeneratorRuntime.wrap(function _callee9$(_context9) {
+                while (1) {
+                  switch (_context9.prev = _context9.next) {
+                    case 0:
+                      _context9.next = 2;
+                      return this.toastController.create({
+                        message: 'Successfully Bought!.',
+                        duration: 2000,
+                        position: 'top',
+                        color: 'success'
+                      });
+
+                    case 2:
+                      toast = _context9.sent;
+                      toast.present();
+
+                    case 4:
+                    case "end":
+                      return _context9.stop();
+                  }
+                }
+              }, _callee9, this);
+            }));
+          }
+        }]);
+
+        return BuyComponent;
+      }();
+
+      _BuyComponent.ctorParameters = function () {
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__.ModalController
+        }, {
+          type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__.DataService
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__.ToastController
+        }];
+      };
+
+      _BuyComponent.propDecorators = {
+        details: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input
+        }]
+      };
+      _BuyComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+        selector: 'app-buy',
+        template: _raw_loader_buy_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_buy_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _BuyComponent);
+      /***/
+    },
+
+    /***/
+    62527:
+    /*!************************************************************!*\
+      !*** ./src/app/main-content/modals/sell/sell.component.ts ***!
+      \************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "SellComponent": function SellComponent() {
+          return (
+            /* binding */
+            _SellComponent
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_sell_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./sell.component.html */
+      60724);
+      /* harmony import */
+
+
+      var _sell_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./sell.component.scss */
+      52074);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic/angular */
+      80476);
+
+      var _SellComponent = /*#__PURE__*/function () {
+        function SellComponent(modalCtrl) {
+          _classCallCheck2(this, SellComponent);
+
+          this.modalCtrl = modalCtrl;
+        }
+
+        _createClass2(SellComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            console.log(this.details['Code']);
+          }
+        }, {
+          key: "dismiss",
+          value: function dismiss() {
+            console.log("inside");
+            this.modalCtrl.dismiss();
+          }
+        }]);
+
+        return SellComponent;
+      }();
+
+      _SellComponent.ctorParameters = function () {
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.ModalController
+        }];
+      };
+
+      _SellComponent.propDecorators = {
+        details: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Input
+        }]
+      };
+      _SellComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+        selector: 'app-sell',
+        template: _raw_loader_sell_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_sell_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _SellComponent);
       /***/
     },
 
@@ -33381,7 +36151,7 @@
         _createClass2(NewsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this34 = this;
+            var _this39 = this;
 
             if (this.router.getCurrentNavigation().extras.state != undefined) {
               if (this.isShowAll || this.router.getCurrentNavigation().extras.state.isShowAll === 'true') {
@@ -33638,7 +36408,7 @@
             }).subscribe(function (news) {
               //this.http.get("https://newsapi.org/v2/everything?q=visa&from=2021-12-17&to=2021-12-17&sortBy=popularity&apiKey=812f2012ef4c442ebe31ae8db24403e1").subscribe(news=>{
               console.log("news" + JSON.stringify(news['articles'][0].title));
-              _this34.news = news['articles'];
+              _this39.news = news['articles'];
             });
           }
         }]);
@@ -33713,40 +36483,91 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
 
 
-      var src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! src/app/services/details/details.service */
-      52642);
+      var _capacitor_share__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @capacitor/share */
+      16380);
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-      /*! @angular/common/http */
+      var _angular_common_HTTP__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @angular/common/HTTP */
       91841);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @ionic/angular */
+      80476);
+      /* harmony import */
+
+
+      var _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! ../modals/buy/buy.component */
+      26566);
+      /* harmony import */
+
+
+      var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! src/app/services/data/data.service */
+      59244); //import { ModalPage } from '../modal/modal.page';
+
 
       var _OverviewComponent = /*#__PURE__*/function () {
-        //console.log("code+code"+code);
-        function OverviewComponent(router, myService, http) {
+        function OverviewComponent(router, dataService, http, modalCtrl, navController) {
           _classCallCheck2(this, OverviewComponent);
 
           this.router = router;
-          this.myService = myService;
+          this.dataService = dataService;
           this.http = http;
+          this.modalCtrl = modalCtrl;
+          this.navController = navController;
+          this.view = [350, 200];
           this.alphaApiKey = "JRBZPDQLZW3ZCQD0";
-          this.view = [600, 400]; //public local =new Storage();
+          this.followList = JSON.parse(localStorage.getItem('followList'));
+          this.watchList = JSON.parse(localStorage.getItem('watchList'));
+          this.dailyData = {
+            data: [{
+              name: 'prices',
+              series: []
+            }]
+          };
+          this.weeklyData = {
+            data: [{
+              name: 'prices',
+              series: []
+            }]
+          };
+          this.monthlyData = {
+            data: [{
+              name: 'prices',
+              series: []
+            }]
+          }; //public local =new Storage();
+          //options
 
-          this.verticalBarOptions = {
+          this.legend = false;
+          this.showLabels = true;
+          this.animations = true;
+          this.xAxis = false;
+          this.yAxis = true;
+          this.showYAxisLabel = false;
+          this.showXAxisLabel = true;
+          this.yAxisLabel = 'value';
+          this.timeline = true;
+          this.rangeFillOpacity = 0.15;
+          /*verticalBarOptions = {
             showXAxis: true,
             showYAxis: true,
             gradient: false,
@@ -33757,34 +36578,67 @@
             xAxisLabel: "",
             showYAxisLabel: true,
             yAxisLabel: ""
-          };
+          }; */
+
           this.colorScheme = {
-            domain: ["#8a918c"]
+            domain: ["#ff314b"]
+          };
+          this.ngxData = {
+            data: [{
+              name: 'prices',
+              series: []
+            }]
           };
         }
 
         _createClass2(OverviewComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            var _this40 = this;
+
+            console.log("[ngOnInit - OverViewComponent]");
+
             if (this.router.getCurrentNavigation().extras.state != undefined) {
               this.hit = this.router.getCurrentNavigation().extras.state.hit ? this.router.getCurrentNavigation().extras.state.hit : '';
               localStorage.setItem('hit', JSON.stringify(this.hit));
             } else {
               this.hit = JSON.parse(localStorage.getItem('hit'));
+            }
+
+            this.index = this.watchList.indexOf(this.hit.Code);
+
+            if (this.index != -1) {
+              this.starName = "star";
+            } else {
+              this.starName = "star-outline";
             } //temporarily commenting out
 
-            /*this.http.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol="+this.hit.Code+"&apikey="+this.alphaApiKey).subscribe(data=>{
-              console.log(data);
-              const rawSeries = data['Monthly Adjusted Time Series']
-              console.log(rawSeries)
-              const series = Object.keys(rawSeries).reverse().map(timestamp => {
-                return {name:timestamp, value: rawSeries[timestamp]['2. high']}
-              });
-              this.data=series;
-              console.log(series);
-            });*/
 
+            this.http.get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + this.hit.Code + "&interval=60min&apikey=" + this.alphaApiKey).subscribe(function (data) {
+              console.log(data);
+              var rawSeries = data['Time Series (60min)']; //console.log(this.data['name'])
+              //this.data['name']="Time Day"
+
+              console.log(rawSeries);
+              Object.keys(rawSeries).reverse().map(function (timestamp) {
+                _this40.ngxData.data[0].series.push({
+                  name: timestamp,
+                  value: rawSeries[timestamp]['2. high']
+                });
+              });
+              _this40.dailyData.data = _toConsumableArray2(_this40.ngxData.data);
+              _this40.ngxData.data = _toConsumableArray2(_this40.ngxData.data);
+            });
           }
+        }, {
+          key: "back",
+          value: function back() {
+            this.navController.back();
+          }
+          /*---------------------------------------------
+            Expand the news component
+          -----------------------------------------------*/
+
         }, {
           key: "seeAll",
           value: function seeAll() {
@@ -33793,7 +36647,170 @@
                 isShowAll: 'true'
               }
             });
+            return;
           }
+          /*---------------------------------------------
+            share with friends
+          -----------------------------------------------*/
+
+        }, {
+          key: "share",
+          value: function share() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+              return regeneratorRuntime.wrap(function _callee10$(_context10) {
+                while (1) {
+                  switch (_context10.prev = _context10.next) {
+                    case 0:
+                      _context10.next = 2;
+                      return _capacitor_share__WEBPACK_IMPORTED_MODULE_2__.Share.share({
+                        title: 'Share with friends',
+                        text: 'Really awesome thing you need to see right meow',
+                        url: 'http://ionicframework.com/',
+                        dialogTitle: 'Share with Friensds'
+                      });
+
+                    case 2:
+                    case "end":
+                      return _context10.stop();
+                  }
+                }
+              }, _callee10);
+            }));
+          }
+          /*---------------------------------------------
+            To display buy/sell modal box
+          -----------------------------------------------*/
+
+        }, {
+          key: "showModal",
+          value: function showModal() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+              var modal;
+              return regeneratorRuntime.wrap(function _callee11$(_context11) {
+                while (1) {
+                  switch (_context11.prev = _context11.next) {
+                    case 0:
+                      _context11.next = 2;
+                      return this.modalCtrl.create({
+                        component: _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_3__.BuyComponent,
+                        cssClass: 'my-custom-modal-css',
+                        componentProps: {
+                          'details': {
+                            Code: this.hit.Code,
+                            volume: '100',
+                            price: '80'
+                          }
+                        },
+                        backdropDismiss: false
+                      });
+
+                    case 2:
+                      modal = _context11.sent;
+                      _context11.next = 5;
+                      return modal.present();
+
+                    case 5:
+                      return _context11.abrupt("return", _context11.sent);
+
+                    case 6:
+                    case "end":
+                      return _context11.stop();
+                  }
+                }
+              }, _callee11, this);
+            }));
+          }
+          /*---------------------------------------------
+           update follow list
+          -----------------------------------------------*/
+
+        }, {
+          key: "updateFollowList",
+          value: function updateFollowList() {
+            this.followList.push(this.hit.Code);
+            this.dataService.updateFollowList(this.followList);
+          }
+          /*---------------------------------------------
+           to toggle the time period
+          -----------------------------------------------*/
+
+        }, {
+          key: "changeTime",
+          value: function changeTime(time, limit) {
+            var _this41 = this;
+
+            var rawSeries = "";
+            this.http.get("https://www.alphavantage.co/query?function=" + time + "&symbol=" + this.hit.Code + "&apikey=" + this.alphaApiKey).subscribe(function (data) {
+              switch (time) {
+                case 'daily':
+                  _this41.ngxData.data = _this41.dailyData.data;
+                  break;
+
+                case 'TIME_SERIES_DAILY':
+                  rawSeries = data['Time Series (Daily)'];
+
+                  if (_this41.weeklyData.data != 'undefined' || _this41.weeklyData.data != 'null' || _this41.weeklyData.data != '') {
+                    Object.keys(rawSeries).reverse().map(function (timestamp) {
+                      _this41.ngxData.data[0].series.push({
+                        name: timestamp,
+                        value: rawSeries[timestamp]['2. high']
+                      });
+                    });
+                    _this41.ngxData.data = _toConsumableArray2(_this41.ngxData.data).slice(0, limit);
+                    _this41.weeklyData.data = _toConsumableArray2(_this41.ngxData.data);
+                  } else {
+                    _this41.ngxData.data = _this41.weeklyData.data.slice(0, limit);
+                  }
+
+                  break;
+
+                case 'TIME_SERIES_WEEKLY':
+                  rawSeries = data['Weekly Time Series'];
+
+                  if (_this41.monthlyData.data != 'undefined' || _this41.monthlyData.data != 'null' || _this41.monthlyData.data != '') {
+                    Object.keys(rawSeries).reverse().map(function (timestamp) {
+                      _this41.ngxData.data[0].series.push({
+                        name: timestamp,
+                        value: rawSeries[timestamp]['2. high']
+                      });
+                    });
+                    _this41.ngxData.data = _toConsumableArray2(_this41.ngxData.data).slice(0, limit);
+                    _this41.monthlyData.data = _toConsumableArray2(_this41.ngxData.data);
+                  } else {
+                    _this41.ngxData.data = _this41.monthlyData.data.slice(0, limit);
+                  }
+
+                  break;
+
+                case 'TIME_SERIES_MONTHLY':
+                  rawSeries = data['Monthly Time Series'];
+                  Object.keys(rawSeries).reverse().map(function (timestamp) {
+                    _this41.ngxData.data[0].series.push({
+                      name: timestamp,
+                      value: rawSeries[timestamp]['2. high']
+                    });
+                  });
+                  _this41.ngxData.data = _toConsumableArray2(_this41.ngxData.data);
+                  break;
+              }
+            });
+          }
+        }, {
+          key: "toggleWatchList",
+          value: function toggleWatchList() {
+            if (this.starName == "star") {
+              this.watchList.splice(this.index, 1);
+              this.starName = "star-outline";
+            } else {
+              this.watchList.push(this.hit.Code);
+              this.starName = "star";
+            }
+
+            this.dataService.updatewatchList(this.watchList);
+          }
+        }, {
+          key: "ngOnChanges",
+          value: function ngOnChanges() {}
         }]);
 
         return OverviewComponent;
@@ -33801,15 +36818,19 @@
 
       _OverviewComponent.ctorParameters = function () {
         return [{
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_3__.Router
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router
         }, {
-          type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__.DetailsService
+          type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__.DataService
         }, {
-          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpClient
+          type: _angular_common_HTTP__WEBPACK_IMPORTED_MODULE_7__.HttpClient
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.ModalController
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.NavController
         }];
       };
 
-      _OverviewComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
+      _OverviewComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
         selector: 'app-overview',
         template: _raw_loader_overview_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_overview_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -33904,7 +36925,8 @@
           this.approvedCountry = [];
           this.approvedIndustry = [];
           this.approvedGoodsAndServices = [];
-          this.followList = ['WMT'];
+          this.followList = [];
+          this.watchList = [];
           this.companyOptions = {
             slidesPerView: 2,
             spaceBetween: 1,
@@ -33919,14 +36941,14 @@
             console.log("[ngOninit - SearchProfileComponent]");
             this.getUserInformation();
           }
-        }, {
-          key: "getOverView",
-          value:
           /*-------------------------------------------------
               function: navigate to overview of the financial
                         instrument
             -------------------------------------------------*/
-          function getOverView(hit) {
+
+        }, {
+          key: "getOverView",
+          value: function getOverView(hit) {
             this.dataService.updateFollowList(this.followList);
             this.router.navigate(['/main-content/overview'], {
               state: {
@@ -33960,13 +36982,22 @@
         }, {
           key: "getUserInformation",
           value: function getUserInformation() {
-            var _this35 = this;
+            var _this42 = this;
 
             this.dataService.getUserInformation().subscribe(function (res) {
-              _this35.followList = res['followList'];
-              _this35.watchList = res['watchList'];
-              localStorage.setItem("watchList", JSON.stringify(_this35.watchList));
-              _this35.availableBalance = res['availableBalance'];
+              if (res['followList'] == undefined) {
+                _this42.followList = [];
+              }
+
+              if (res['watchList'] == undefined) {
+                _this42.watchList = [];
+              }
+
+              _this42.followList = res['followList'];
+              _this42.watchList = res['watchList'];
+              localStorage.setItem("watchList", JSON.stringify(_this42.watchList));
+              localStorage.setItem("followList", JSON.stringify(_this42.followList));
+              _this42.availableBalance = res['availableBalance'];
             });
             return;
           }
@@ -33997,10 +37028,10 @@
     },
 
     /***/
-    59244:
-    /*!***********************************************!*\
-      !*** ./src/app/services/data/data.service.ts ***!
-      \***********************************************/
+    75329:
+    /*!***************************************************!*\
+      !*** ./src/app/main-content/tab/tab.component.ts ***!
+      \***************************************************/
 
     /***/
     function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -34012,10 +37043,10 @@
 
       __webpack_require__.d(__webpack_exports__, {
         /* harmony export */
-        "DataService": function DataService() {
+        "TabComponent": function TabComponent() {
           return (
             /* binding */
-            _DataService
+            _TabComponent
           );
         }
         /* harmony export */
@@ -34024,55 +37055,479 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _raw_loader_tab_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./tab.component.html */
+      94837);
+      /* harmony import */
+
+
+      var _tab_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./tab.component.scss */
+      22380);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+
+      var _TabComponent = /*#__PURE__*/function () {
+        function TabComponent() {
+          _classCallCheck2(this, TabComponent);
+        }
+
+        _createClass2(TabComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {}
+        }]);
+
+        return TabComponent;
+      }();
+
+      _TabComponent.ctorParameters = function () {
+        return [];
+      };
+
+      _TabComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+        selector: 'app-tab',
+        template: _raw_loader_tab_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_tab_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _TabComponent);
+      /***/
+    },
+
+    /***/
+    37772:
+    /*!***************************************************************!*\
+      !*** ./src/app/main-content/watchlist/watchlist.component.ts ***!
+      \***************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "WatchlistComponent": function WatchlistComponent() {
+          return (
+            /* binding */
+            _WatchlistComponent
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_watchlist_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./watchlist.component.html */
+      98113);
+      /* harmony import */
+
+
+      var _watchlist_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./watchlist.component.scss */
+      44811);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! @angular/fire/compat/firestore */
-      52182);
+      var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
+      /* harmony import */
 
-      var _DataService = /*#__PURE__*/function () {
-        function DataService(fireStore) {
-          _classCallCheck2(this, DataService);
 
-          this.fireStore = fireStore;
+      var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! rxjs */
+      35758);
+      /* harmony import */
+
+
+      var rxjs_internal_operators_take__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! rxjs/internal/operators/take */
+      71056);
+      /* harmony import */
+
+
+      var rxjs_internal_operators_take__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_take__WEBPACK_IMPORTED_MODULE_6__);
+      /* harmony import */
+
+
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! rxjs/operators */
+      68307);
+      /* harmony import */
+
+
+      var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/services/data/data.service */
+      59244);
+      /* harmony import */
+
+
+      var src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/app/services/details/details.service */
+      52642);
+      /* harmony import */
+
+
+      var src_app_shared_companyData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! src/app/shared/companyData */
+      64149);
+
+      var _WatchlistComponent = /*#__PURE__*/function () {
+        function WatchlistComponent(router, detailsService, dataService) {
+          _classCallCheck2(this, WatchlistComponent);
+
+          this.router = router;
+          this.detailsService = detailsService;
+          this.dataService = dataService;
+          this.isShowAll = false;
+          this.results = [];
+          this.limit = 3;
         }
 
-        _createClass2(DataService, [{
-          key: "getUserInformation",
-          value: function getUserInformation() {
-            return this.fireStore.collection('Users').doc('6589090703').valueChanges();
+        _createClass2(WatchlistComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            var _this43 = this;
+
+            this.getUserInformation();
+
+            if (this.router.getCurrentNavigation().extras.state != undefined) {
+              if (this.isShowAll || this.router.getCurrentNavigation().extras.state.isShowAll === 'true') {
+                this.limit = 100;
+              } else {
+                this.limit = 3;
+              }
+            }
+
+            this.watchList = JSON.parse(localStorage.getItem('watchList'));
+            console.log(this.watchList);
+            this.watchList.forEach(function (code) {
+              _this43.results.push(_this43.detailsService.getCompanyIndividual(code));
+            });
+            (0, rxjs__WEBPACK_IMPORTED_MODULE_5__.forkJoin)(this.results).pipe((0, rxjs_internal_operators_take__WEBPACK_IMPORTED_MODULE_6__.take)(1), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.tap)(function (data) {
+              _this43.companyInfoArray = data.reduce(function (o, m) {
+                return m.concat(o);
+              }, []);
+              console.log(_this43.companyInfoArray);
+            })).subscribe(function () {}, function (error) {
+              console.log(error);
+            });
           }
         }, {
-          key: "updateFollowList",
-          value: function updateFollowList(followList) {
-            this.fireStore.collection('Users').doc('6589090703').update({
-              followList: followList
+          key: "getImage",
+          value: function getImage(code) {
+            console.log(code);
+            var company = src_app_shared_companyData__WEBPACK_IMPORTED_MODULE_4__.companyData.filter(function (data) {
+              return data.Code == code.symbol;
             });
+            console.log(company);
+            console.log(company[0]['URL']);
+            return company[0]['URL'];
+          }
+        }, {
+          key: "toggleWatchList",
+          value: function toggleWatchList(symbol, i) {
+            var element = document.getElementById(i);
+            var name = element.getAttribute('name');
+
+            if (name === 'star') {
+              name = 'star-outline';
+              document.getElementById(i).setAttribute('name', name);
+              var indx = this.watchList.indexOf(symbol);
+              var index = this.companyInfoArray.findIndex(function (comp) {
+                return comp.symbol == symbol;
+              });
+              this.watchList.splice(indx, 1);
+              this.companyInfoArray.splice(index, index >= 0 ? 1 : 0);
+              console.log(this.watchList); //call a function to update the watch list of the database
+            }
+          }
+          /*---------------------------------------------------
+            function:to get the user information
+          ---------------------------------------------------*/
+
+        }, {
+          key: "getUserInformation",
+          value: function getUserInformation() {
+            var _this44 = this;
+
+            this.dataService.getUserInformation().subscribe(function (res) {
+              if (res['followList'] == undefined) {
+                _this44.followList = [];
+              }
+
+              if (res['watchList'] == undefined) {
+                _this44.watchList = [];
+              }
+
+              _this44.followList = res['followList'];
+              _this44.watchList = res['watchList'];
+              localStorage.setItem("watchList", JSON.stringify(_this44.watchList));
+              localStorage.setItem("followList", JSON.stringify(_this44.followList));
+              _this44.availableBalance = res['availableBalance'];
+            });
+            return;
           }
         }]);
 
-        return DataService;
+        return WatchlistComponent;
       }();
 
-      _DataService.ctorParameters = function () {
+      _WatchlistComponent.ctorParameters = function () {
         return [{
-          type: _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_0__.AngularFirestore
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router
+        }, {
+          type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_3__.DetailsService
+        }, {
+          type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__.DataService
         }];
       };
 
-      _DataService = (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
-        providedIn: 'root'
-      })], _DataService);
+      _WatchlistComponent.propDecorators = {
+        isShowAll: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_9__.Input
+        }]
+      };
+      _WatchlistComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_10__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
+        selector: 'app-watchlist',
+        template: _raw_loader_watchlist_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_watchlist_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _WatchlistComponent);
+      /***/
+    },
+
+    /***/
+    15574:
+    /*!**************************************************!*\
+      !*** ./src/app/portfolio/portfolio.component.ts ***!
+      \**************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "PortfolioComponent": function PortfolioComponent() {
+          return (
+            /* binding */
+            _PortfolioComponent
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_portfolio_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./portfolio.component.html */
+      96530);
+      /* harmony import */
+
+
+      var _portfolio_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./portfolio.component.scss */
+      20562);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @ionic/angular */
+      80476);
+      /* harmony import */
+
+
+      var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! rxjs */
+      35758);
+      /* harmony import */
+
+
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! rxjs/operators */
+      15257);
+      /* harmony import */
+
+
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! rxjs/operators */
+      68307);
+      /* harmony import */
+
+
+      var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/services/data/data.service */
+      59244);
+      /* harmony import */
+
+
+      var src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/app/services/details/details.service */
+      52642);
+      /* harmony import */
+
+
+      var _main_content_modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! ../main-content/modals/sell/sell.component */
+      62527);
+
+      var _PortfolioComponent = /*#__PURE__*/function () {
+        function PortfolioComponent(dataService, detailsService, modalCtrl) {
+          _classCallCheck2(this, PortfolioComponent);
+
+          this.dataService = dataService;
+          this.detailsService = detailsService;
+          this.modalCtrl = modalCtrl;
+          this.totalQuantity = 0;
+          this.totalInvestment = 0;
+          this.currentValue = 0;
+          this.companyArray = [];
+          this.combinedArray = [];
+          this.totalCurrentPrice = 0;
+          this.results = [];
+          this.isShow = false;
+        }
+
+        _createClass2(PortfolioComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            var _this45 = this;
+
+            this.dataService.getTransactionDetails().subscribe(function (res) {
+              console.log(res);
+              _this45.combinedArray = res;
+              console.log("combined Arrau" + _this45.combinedArray);
+
+              _this45.combinedArray.forEach(function (element) {
+                _this45.totalInvestment = _this45.totalInvestment + element['price'] * element['quantity'];
+                console.log("this.totalInvestment" + _this45.totalInvestment); // this.totalQuantity =  this.totalQuantity + element['quantity'];
+
+                _this45.results.push(_this45.detailsService.getCompanyPrice(element['code']));
+              });
+
+              (0, rxjs__WEBPACK_IMPORTED_MODULE_5__.forkJoin)(_this45.results).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.take)(1), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.tap)(function (data) {
+                data.forEach(function (element) {
+                  if (element != undefined) {
+                    _this45.companyArray.push(element['Global Quote']);
+
+                    _this45.totalCurrentPrice = _this45.totalCurrentPrice + parseInt(element['Global Quote']['05. price']);
+                  }
+
+                  console.log(_this45.totalCurrentPrice);
+                });
+                console.log("this.companyArray" + JSON.stringify(_this45.companyArray['05. price']));
+                _this45.isShow = true;
+              })).subscribe(function () {}, function (error) {
+                console.log(error);
+              });
+            });
+          }
+          /*---------------------------------------------
+            To display sell modal box
+          -----------------------------------------------*/
+
+        }, {
+          key: "showModal",
+          value: function showModal(details, currentPrice) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+              var modal;
+              return regeneratorRuntime.wrap(function _callee12$(_context12) {
+                while (1) {
+                  switch (_context12.prev = _context12.next) {
+                    case 0:
+                      _context12.next = 2;
+                      return this.modalCtrl.create({
+                        component: _main_content_modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_4__.SellComponent,
+                        cssClass: 'my-custom-modal-css',
+                        componentProps: {
+                          'details': {
+                            Code: details['Code'],
+                            quantity: details['quantity'],
+                            price: currentPrice
+                          }
+                        },
+                        backdropDismiss: false
+                      });
+
+                    case 2:
+                      modal = _context12.sent;
+                      _context12.next = 5;
+                      return modal.present();
+
+                    case 5:
+                      return _context12.abrupt("return", _context12.sent);
+
+                    case 6:
+                    case "end":
+                      return _context12.stop();
+                  }
+                }
+              }, _callee12, this);
+            }));
+          }
+        }]);
+
+        return PortfolioComponent;
+      }();
+
+      _PortfolioComponent.ctorParameters = function () {
+        return [{
+          type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__.DataService
+        }, {
+          type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_3__.DetailsService
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.ModalController
+        }];
+      };
+
+      _PortfolioComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
+        selector: 'app-portfolio',
+        template: _raw_loader_portfolio_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_portfolio_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _PortfolioComponent);
       /***/
     },
 
@@ -34104,27 +37559,21 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! @angular/common/http */
       91841);
-      /* harmony import */
-
-
-      var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! rxjs */
-      25917);
 
       var _DetailsService = /*#__PURE__*/function () {
         function DetailsService(http) {
@@ -34133,394 +37582,46 @@
           this.http = http;
           this.alphaApiKey = "JRBZPDQLZW3ZCQD0";
           this.url = 'https://financialmodelingprep.com/api/v3/stock/gainers?apikey=ed23fa5d1c789cd88b40747876f4ce4d';
+          this.urlLosers = "https://financialmodelingprep.com/api/v3/stock/losers?apikey=ed23fa5d1c789cd88b40747876f4ce4d";
           this.financialStatement = [];
         }
 
         _createClass2(DetailsService, [{
           key: "getDetails",
           value: function getDetails(code) {
-            var _this36 = this;
+            var _this46 = this;
 
             this.http.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=" + code + "&apikey=" + this.alphaApiKey).subscribe(function (data) {
-              _this36.data = data;
-              console.log(_this36.data);
-              return _this36.data;
+              _this46.data = data;
+              console.log(_this46.data);
+              return _this46.data;
             });
           }
         }, {
           key: "getGainers",
           value: function getGainers() {
             //mock data
-            return (0, rxjs__WEBPACK_IMPORTED_MODULE_0__.of)({
-              "mostGainerStock": [{
-                "ticker": "SPRB",
-                "changes": 2.55,
-                "price": "5.03",
-                "changesPercentage": "102.822586",
-                "companyName": "Spruce Biosciences, Inc."
-              }, {
-                "ticker": "BLPH",
-                "changes": 0.82,
-                "price": "3.19",
-                "changesPercentage": "34.599163",
-                "companyName": "Bellerophon Therapeutics, Inc."
-              }, {
-                "ticker": "AUID",
-                "changes": 3.59,
-                "price": "16.72",
-                "changesPercentage": "27.341959",
-                "companyName": "Ipsidy Inc."
-              }, {
-                "ticker": "IREN",
-                "changes": 3.68,
-                "price": "17.7",
-                "changesPercentage": "26.24822",
-                "companyName": "Iris Energy Limited"
-              }, {
-                "ticker": "GLTO",
-                "changes": 0.52,
-                "price": "2.82",
-                "changesPercentage": "22.608696",
-                "companyName": "Galecto, Inc."
-              }, {
-                "ticker": "ARQQ",
-                "changes": 3.59,
-                "price": "19.92",
-                "changesPercentage": "21.98408",
-                "companyName": "Arqit Quantum Inc."
-              }, {
-                "ticker": "SNCE",
-                "changes": 2.04,
-                "price": "12.17",
-                "changesPercentage": "20.138203",
-                "companyName": "Science 37 Holdings, Inc."
-              }, {
-                "ticker": "INZY",
-                "changes": 1.25,
-                "price": "7.54",
-                "changesPercentage": "19.872814",
-                "companyName": "Inozyme Pharma, Inc."
-              }, {
-                "ticker": "UEPS",
-                "changes": 0.82,
-                "price": "5.05",
-                "changesPercentage": "19.385347",
-                "companyName": "Net 1 UEPS Technologies, Inc."
-              }, {
-                "ticker": "RELV",
-                "changes": 0.68,
-                "price": "4.19",
-                "changesPercentage": "19.373222",
-                "companyName": "Reliv' International, Inc."
-              }, {
-                "ticker": "AMC",
-                "changes": 4.67,
-                "price": "29.12",
-                "changesPercentage": "19.100204",
-                "companyName": "AMC Entertainment Holdings, Inc."
-              }, {
-                "ticker": "BSN",
-                "changes": 1.71,
-                "price": "10.68",
-                "changesPercentage": "19.0635",
-                "companyName": "Broadstone Acquisition Corp."
-              }, {
-                "ticker": "TUFN",
-                "changes": 1.66,
-                "price": "10.55",
-                "changesPercentage": "18.672663",
-                "companyName": "Tufin Software Technologies Ltd."
-              }, {
-                "ticker": "NVTA",
-                "changes": 2.86,
-                "price": "18.32",
-                "changesPercentage": "18.499352",
-                "companyName": "Invitae Corporation"
-              }, {
-                "ticker": "ROIV",
-                "changes": 1.69,
-                "price": "10.95",
-                "changesPercentage": "18.250536",
-                "companyName": "Roivant Sciences Ltd."
-              }, {
-                "ticker": "FORG",
-                "changes": 3.82,
-                "price": "25.28",
-                "changesPercentage": "17.800568",
-                "companyName": "ForgeRock, Inc."
-              }, {
-                "ticker": "YCBD",
-                "changes": 0.2,
-                "price": "1.33",
-                "changesPercentage": "17.69912",
-                "companyName": "cbdMD, Inc."
-              }, {
-                "ticker": "INTG",
-                "changes": 7.5,
-                "price": "51.9",
-                "changesPercentage": "16.891891",
-                "companyName": "The InterGroup Corporation"
-              }, {
-                "ticker": "ORIC",
-                "changes": 2.16,
-                "price": "14.98",
-                "changesPercentage": "16.848673",
-                "companyName": "ORIC Pharmaceuticals, Inc."
-              }, {
-                "ticker": "DMTK",
-                "changes": 2.67,
-                "price": "18.89",
-                "changesPercentage": "16.46116",
-                "companyName": "DermTech, Inc."
-              }, {
-                "ticker": "BSN-UN",
-                "changes": 1.57,
-                "price": "11.16",
-                "changesPercentage": "16.3712",
-                "companyName": "Broadstone Acquisition Corp."
-              }, {
-                "ticker": "DYAI",
-                "changes": 0.64,
-                "price": "4.59",
-                "changesPercentage": "16.202536",
-                "companyName": "Dyadic International, Inc."
-              }, {
-                "ticker": "VCYT",
-                "changes": 6.27,
-                "price": "44.99",
-                "changesPercentage": "16.193182",
-                "companyName": "Veracyte, Inc."
-              }, {
-                "ticker": "AXGN",
-                "changes": 1.41,
-                "price": "10.27",
-                "changesPercentage": "15.914231",
-                "companyName": "AxoGen, Inc."
-              }, {
-                "ticker": "ELYM",
-                "changes": 1.44,
-                "price": "10.79",
-                "changesPercentage": "15.401064",
-                "companyName": "Eliem Therapeutics, Inc."
-              }, {
-                "ticker": "IBRX",
-                "changes": 0.87,
-                "price": "6.54",
-                "changesPercentage": "15.343913",
-                "companyName": "ImmunityBio, Inc."
-              }, {
-                "ticker": "TGTX",
-                "changes": 2.42,
-                "price": "18.24",
-                "changesPercentage": "15.297092",
-                "companyName": "TG Therapeutics, Inc."
-              }, {
-                "ticker": "CLVS",
-                "changes": 0.42,
-                "price": "3.17",
-                "changesPercentage": "15.272731",
-                "companyName": "Clovis Oncology, Inc."
-              }, {
-                "ticker": "BBIO",
-                "changes": 5.6,
-                "price": "42.65",
-                "changesPercentage": "15.114716",
-                "companyName": "BridgeBio Pharma, Inc."
-              }, {
-                "ticker": "VCEL",
-                "changes": 5.26,
-                "price": "40.82",
-                "changesPercentage": "14.791896",
-                "companyName": "Vericel Corporation"
-              }]
-            }); //return this.http.get<any>(this.url)
+            //return of({"mostGainerStock":[{"ticker":"SPRB","changes":2.55,"price":"5.03","changesPercentage":"102.822586","companyName":"Spruce Biosciences, Inc."},{"ticker":"BLPH","changes":0.82,"price":"3.19","changesPercentage":"34.599163","companyName":"Bellerophon Therapeutics, Inc."},{"ticker":"AUID","changes":3.59,"price":"16.72","changesPercentage":"27.341959","companyName":"Ipsidy Inc."},{"ticker":"IREN","changes":3.68,"price":"17.7","changesPercentage":"26.24822","companyName":"Iris Energy Limited"},{"ticker":"GLTO","changes":0.52,"price":"2.82","changesPercentage":"22.608696","companyName":"Galecto, Inc."},{"ticker":"ARQQ","changes":3.59,"price":"19.92","changesPercentage":"21.98408","companyName":"Arqit Quantum Inc."},{"ticker":"SNCE","changes":2.04,"price":"12.17","changesPercentage":"20.138203","companyName":"Science 37 Holdings, Inc."},{"ticker":"INZY","changes":1.25,"price":"7.54","changesPercentage":"19.872814","companyName":"Inozyme Pharma, Inc."},{"ticker":"UEPS","changes":0.82,"price":"5.05","changesPercentage":"19.385347","companyName":"Net 1 UEPS Technologies, Inc."},{"ticker":"RELV","changes":0.68,"price":"4.19","changesPercentage":"19.373222","companyName":"Reliv' International, Inc."},{"ticker":"AMC","changes":4.67,"price":"29.12","changesPercentage":"19.100204","companyName":"AMC Entertainment Holdings, Inc."},{"ticker":"BSN","changes":1.71,"price":"10.68","changesPercentage":"19.0635","companyName":"Broadstone Acquisition Corp."},{"ticker":"TUFN","changes":1.66,"price":"10.55","changesPercentage":"18.672663","companyName":"Tufin Software Technologies Ltd."},{"ticker":"NVTA","changes":2.86,"price":"18.32","changesPercentage":"18.499352","companyName":"Invitae Corporation"},{"ticker":"ROIV","changes":1.69,"price":"10.95","changesPercentage":"18.250536","companyName":"Roivant Sciences Ltd."},{"ticker":"FORG","changes":3.82,"price":"25.28","changesPercentage":"17.800568","companyName":"ForgeRock, Inc."},{"ticker":"YCBD","changes":0.2,"price":"1.33","changesPercentage":"17.69912","companyName":"cbdMD, Inc."},{"ticker":"INTG","changes":7.5,"price":"51.9","changesPercentage":"16.891891","companyName":"The InterGroup Corporation"},{"ticker":"ORIC","changes":2.16,"price":"14.98","changesPercentage":"16.848673","companyName":"ORIC Pharmaceuticals, Inc."},{"ticker":"DMTK","changes":2.67,"price":"18.89","changesPercentage":"16.46116","companyName":"DermTech, Inc."},{"ticker":"BSN-UN","changes":1.57,"price":"11.16","changesPercentage":"16.3712","companyName":"Broadstone Acquisition Corp."},{"ticker":"DYAI","changes":0.64,"price":"4.59","changesPercentage":"16.202536","companyName":"Dyadic International, Inc."},{"ticker":"VCYT","changes":6.27,"price":"44.99","changesPercentage":"16.193182","companyName":"Veracyte, Inc."},{"ticker":"AXGN","changes":1.41,"price":"10.27","changesPercentage":"15.914231","companyName":"AxoGen, Inc."},{"ticker":"ELYM","changes":1.44,"price":"10.79","changesPercentage":"15.401064","companyName":"Eliem Therapeutics, Inc."},{"ticker":"IBRX","changes":0.87,"price":"6.54","changesPercentage":"15.343913","companyName":"ImmunityBio, Inc."},{"ticker":"TGTX","changes":2.42,"price":"18.24","changesPercentage":"15.297092","companyName":"TG Therapeutics, Inc."},{"ticker":"CLVS","changes":0.42,"price":"3.17","changesPercentage":"15.272731","companyName":"Clovis Oncology, Inc."},{"ticker":"BBIO","changes":5.6,"price":"42.65","changesPercentage":"15.114716","companyName":"BridgeBio Pharma, Inc."},{"ticker":"VCEL","changes":5.26,"price":"40.82","changesPercentage":"14.791896","companyName":"Vericel Corporation"}]})
+            return this.http.get(this.url);
+          }
+        }, {
+          key: "getLosers",
+          value: function getLosers() {
+            //mock data
+            //return of({"mostGainerStock":[{"ticker":"SPRB","changes":2.55,"price":"5.03","changesPercentage":"102.822586","companyName":"Spruce Biosciences, Inc."},{"ticker":"BLPH","changes":0.82,"price":"3.19","changesPercentage":"34.599163","companyName":"Bellerophon Therapeutics, Inc."},{"ticker":"AUID","changes":3.59,"price":"16.72","changesPercentage":"27.341959","companyName":"Ipsidy Inc."},{"ticker":"IREN","changes":3.68,"price":"17.7","changesPercentage":"26.24822","companyName":"Iris Energy Limited"},{"ticker":"GLTO","changes":0.52,"price":"2.82","changesPercentage":"22.608696","companyName":"Galecto, Inc."},{"ticker":"ARQQ","changes":3.59,"price":"19.92","changesPercentage":"21.98408","companyName":"Arqit Quantum Inc."},{"ticker":"SNCE","changes":2.04,"price":"12.17","changesPercentage":"20.138203","companyName":"Science 37 Holdings, Inc."},{"ticker":"INZY","changes":1.25,"price":"7.54","changesPercentage":"19.872814","companyName":"Inozyme Pharma, Inc."},{"ticker":"UEPS","changes":0.82,"price":"5.05","changesPercentage":"19.385347","companyName":"Net 1 UEPS Technologies, Inc."},{"ticker":"RELV","changes":0.68,"price":"4.19","changesPercentage":"19.373222","companyName":"Reliv' International, Inc."},{"ticker":"AMC","changes":4.67,"price":"29.12","changesPercentage":"19.100204","companyName":"AMC Entertainment Holdings, Inc."},{"ticker":"BSN","changes":1.71,"price":"10.68","changesPercentage":"19.0635","companyName":"Broadstone Acquisition Corp."},{"ticker":"TUFN","changes":1.66,"price":"10.55","changesPercentage":"18.672663","companyName":"Tufin Software Technologies Ltd."},{"ticker":"NVTA","changes":2.86,"price":"18.32","changesPercentage":"18.499352","companyName":"Invitae Corporation"},{"ticker":"ROIV","changes":1.69,"price":"10.95","changesPercentage":"18.250536","companyName":"Roivant Sciences Ltd."},{"ticker":"FORG","changes":3.82,"price":"25.28","changesPercentage":"17.800568","companyName":"ForgeRock, Inc."},{"ticker":"YCBD","changes":0.2,"price":"1.33","changesPercentage":"17.69912","companyName":"cbdMD, Inc."},{"ticker":"INTG","changes":7.5,"price":"51.9","changesPercentage":"16.891891","companyName":"The InterGroup Corporation"},{"ticker":"ORIC","changes":2.16,"price":"14.98","changesPercentage":"16.848673","companyName":"ORIC Pharmaceuticals, Inc."},{"ticker":"DMTK","changes":2.67,"price":"18.89","changesPercentage":"16.46116","companyName":"DermTech, Inc."},{"ticker":"BSN-UN","changes":1.57,"price":"11.16","changesPercentage":"16.3712","companyName":"Broadstone Acquisition Corp."},{"ticker":"DYAI","changes":0.64,"price":"4.59","changesPercentage":"16.202536","companyName":"Dyadic International, Inc."},{"ticker":"VCYT","changes":6.27,"price":"44.99","changesPercentage":"16.193182","companyName":"Veracyte, Inc."},{"ticker":"AXGN","changes":1.41,"price":"10.27","changesPercentage":"15.914231","companyName":"AxoGen, Inc."},{"ticker":"ELYM","changes":1.44,"price":"10.79","changesPercentage":"15.401064","companyName":"Eliem Therapeutics, Inc."},{"ticker":"IBRX","changes":0.87,"price":"6.54","changesPercentage":"15.343913","companyName":"ImmunityBio, Inc."},{"ticker":"TGTX","changes":2.42,"price":"18.24","changesPercentage":"15.297092","companyName":"TG Therapeutics, Inc."},{"ticker":"CLVS","changes":0.42,"price":"3.17","changesPercentage":"15.272731","companyName":"Clovis Oncology, Inc."},{"ticker":"BBIO","changes":5.6,"price":"42.65","changesPercentage":"15.114716","companyName":"BridgeBio Pharma, Inc."},{"ticker":"VCEL","changes":5.26,"price":"40.82","changesPercentage":"14.791896","companyName":"Vericel Corporation"}]})
+            return this.http.get(this.urlLosers);
           }
         }, {
           key: "getCompanyIndividual",
           value: function getCompanyIndividual(code) {
-            var url2 = "https://financialmodelingprep.com/api/v3/quote/".concat(code, "?apikey=ed23fa5d1c789cd88b40747876f4ce4d"); //return this.http.get<any>(url2);
-
-            return (0, rxjs__WEBPACK_IMPORTED_MODULE_0__.of)([{
-              "ticker": "SPRB",
-              "changes": 2.55,
-              "price": "5.03",
-              "changesPercentage": "102.822586",
-              "companyName": "Spruce Biosciences, Inc."
-            }, {
-              "ticker": "BLPH",
-              "changes": 0.82,
-              "price": "3.19",
-              "changesPercentage": "34.599163",
-              "companyName": "Bellerophon Therapeutics, Inc."
-            }, {
-              "ticker": "AUID",
-              "changes": 3.59,
-              "price": "16.72",
-              "changesPercentage": "27.341959",
-              "companyName": "Ipsidy Inc."
-            }, {
-              "ticker": "IREN",
-              "changes": 3.68,
-              "price": "17.7",
-              "changesPercentage": "26.24822",
-              "companyName": "Iris Energy Limited"
-            }, {
-              "ticker": "GLTO",
-              "changes": 0.52,
-              "price": "2.82",
-              "changesPercentage": "22.608696",
-              "companyName": "Galecto, Inc."
-            }, {
-              "ticker": "ARQQ",
-              "changes": 3.59,
-              "price": "19.92",
-              "changesPercentage": "21.98408",
-              "companyName": "Arqit Quantum Inc."
-            }, {
-              "ticker": "SNCE",
-              "changes": 2.04,
-              "price": "12.17",
-              "changesPercentage": "20.138203",
-              "companyName": "Science 37 Holdings, Inc."
-            }, {
-              "ticker": "INZY",
-              "changes": 1.25,
-              "price": "7.54",
-              "changesPercentage": "19.872814",
-              "companyName": "Inozyme Pharma, Inc."
-            }, {
-              "ticker": "UEPS",
-              "changes": 0.82,
-              "price": "5.05",
-              "changesPercentage": "19.385347",
-              "companyName": "Net 1 UEPS Technologies, Inc."
-            }, {
-              "ticker": "RELV",
-              "changes": 0.68,
-              "price": "4.19",
-              "changesPercentage": "19.373222",
-              "companyName": "Reliv' International, Inc."
-            }, {
-              "ticker": "AMC",
-              "changes": 4.67,
-              "price": "29.12",
-              "changesPercentage": "19.100204",
-              "companyName": "AMC Entertainment Holdings, Inc."
-            }, {
-              "ticker": "BSN",
-              "changes": 1.71,
-              "price": "10.68",
-              "changesPercentage": "19.0635",
-              "companyName": "Broadstone Acquisition Corp."
-            }, {
-              "ticker": "TUFN",
-              "changes": 1.66,
-              "price": "10.55",
-              "changesPercentage": "18.672663",
-              "companyName": "Tufin Software Technologies Ltd."
-            }, {
-              "ticker": "NVTA",
-              "changes": 2.86,
-              "price": "18.32",
-              "changesPercentage": "18.499352",
-              "companyName": "Invitae Corporation"
-            }, {
-              "ticker": "ROIV",
-              "changes": 1.69,
-              "price": "10.95",
-              "changesPercentage": "18.250536",
-              "companyName": "Roivant Sciences Ltd."
-            }, {
-              "ticker": "FORG",
-              "changes": 3.82,
-              "price": "25.28",
-              "changesPercentage": "17.800568",
-              "companyName": "ForgeRock, Inc."
-            }, {
-              "ticker": "YCBD",
-              "changes": 0.2,
-              "price": "1.33",
-              "changesPercentage": "17.69912",
-              "companyName": "cbdMD, Inc."
-            }, {
-              "ticker": "INTG",
-              "changes": 7.5,
-              "price": "51.9",
-              "changesPercentage": "16.891891",
-              "companyName": "The InterGroup Corporation"
-            }, {
-              "ticker": "ORIC",
-              "changes": 2.16,
-              "price": "14.98",
-              "changesPercentage": "16.848673",
-              "companyName": "ORIC Pharmaceuticals, Inc."
-            }, {
-              "ticker": "DMTK",
-              "changes": 2.67,
-              "price": "18.89",
-              "changesPercentage": "16.46116",
-              "companyName": "DermTech, Inc."
-            }, {
-              "ticker": "BSN-UN",
-              "changes": 1.57,
-              "price": "11.16",
-              "changesPercentage": "16.3712",
-              "companyName": "Broadstone Acquisition Corp."
-            }, {
-              "ticker": "DYAI",
-              "changes": 0.64,
-              "price": "4.59",
-              "changesPercentage": "16.202536",
-              "companyName": "Dyadic International, Inc."
-            }, {
-              "ticker": "VCYT",
-              "changes": 6.27,
-              "price": "44.99",
-              "changesPercentage": "16.193182",
-              "companyName": "Veracyte, Inc."
-            }, {
-              "ticker": "AXGN",
-              "changes": 1.41,
-              "price": "10.27",
-              "changesPercentage": "15.914231",
-              "companyName": "AxoGen, Inc."
-            }, {
-              "ticker": "ELYM",
-              "changes": 1.44,
-              "price": "10.79",
-              "changesPercentage": "15.401064",
-              "companyName": "Eliem Therapeutics, Inc."
-            }, {
-              "ticker": "IBRX",
-              "changes": 0.87,
-              "price": "6.54",
-              "changesPercentage": "15.343913",
-              "companyName": "ImmunityBio, Inc."
-            }, {
-              "ticker": "TGTX",
-              "changes": 2.42,
-              "price": "18.24",
-              "changesPercentage": "15.297092",
-              "companyName": "TG Therapeutics, Inc."
-            }, {
-              "ticker": "CLVS",
-              "changes": 0.42,
-              "price": "3.17",
-              "changesPercentage": "15.272731",
-              "companyName": "Clovis Oncology, Inc."
-            }, {
-              "ticker": "BBIO",
-              "changes": 5.6,
-              "price": "42.65",
-              "changesPercentage": "15.114716",
-              "companyName": "BridgeBio Pharma, Inc."
-            }, {
-              "ticker": "VCEL",
-              "changes": 5.26,
-              "price": "40.82",
-              "changesPercentage": "14.791896",
-              "companyName": "Vericel Corporation"
-            }]);
+            var url2 = "https://financialmodelingprep.com/api/v3/quote/".concat(code, "?apikey=ed23fa5d1c789cd88b40747876f4ce4d");
+            return this.http.get(url2); //return of([{"ticker":"SPRB","changes":2.55,"price":"5.03","changesPercentage":"102.822586","companyName":"Spruce Biosciences, Inc."},{"ticker":"BLPH","changes":0.82,"price":"3.19","changesPercentage":"34.599163","companyName":"Bellerophon Therapeutics, Inc."},{"ticker":"AUID","changes":3.59,"price":"16.72","changesPercentage":"27.341959","companyName":"Ipsidy Inc."},{"ticker":"IREN","changes":3.68,"price":"17.7","changesPercentage":"26.24822","companyName":"Iris Energy Limited"},{"ticker":"GLTO","changes":0.52,"price":"2.82","changesPercentage":"22.608696","companyName":"Galecto, Inc."},{"ticker":"ARQQ","changes":3.59,"price":"19.92","changesPercentage":"21.98408","companyName":"Arqit Quantum Inc."},{"ticker":"SNCE","changes":2.04,"price":"12.17","changesPercentage":"20.138203","companyName":"Science 37 Holdings, Inc."},{"ticker":"INZY","changes":1.25,"price":"7.54","changesPercentage":"19.872814","companyName":"Inozyme Pharma, Inc."},{"ticker":"UEPS","changes":0.82,"price":"5.05","changesPercentage":"19.385347","companyName":"Net 1 UEPS Technologies, Inc."},{"ticker":"RELV","changes":0.68,"price":"4.19","changesPercentage":"19.373222","companyName":"Reliv' International, Inc."},{"ticker":"AMC","changes":4.67,"price":"29.12","changesPercentage":"19.100204","companyName":"AMC Entertainment Holdings, Inc."},{"ticker":"BSN","changes":1.71,"price":"10.68","changesPercentage":"19.0635","companyName":"Broadstone Acquisition Corp."},{"ticker":"TUFN","changes":1.66,"price":"10.55","changesPercentage":"18.672663","companyName":"Tufin Software Technologies Ltd."},{"ticker":"NVTA","changes":2.86,"price":"18.32","changesPercentage":"18.499352","companyName":"Invitae Corporation"},{"ticker":"ROIV","changes":1.69,"price":"10.95","changesPercentage":"18.250536","companyName":"Roivant Sciences Ltd."},{"ticker":"FORG","changes":3.82,"price":"25.28","changesPercentage":"17.800568","companyName":"ForgeRock, Inc."},{"ticker":"YCBD","changes":0.2,"price":"1.33","changesPercentage":"17.69912","companyName":"cbdMD, Inc."},{"ticker":"INTG","changes":7.5,"price":"51.9","changesPercentage":"16.891891","companyName":"The InterGroup Corporation"},{"ticker":"ORIC","changes":2.16,"price":"14.98","changesPercentage":"16.848673","companyName":"ORIC Pharmaceuticals, Inc."},{"ticker":"DMTK","changes":2.67,"price":"18.89","changesPercentage":"16.46116","companyName":"DermTech, Inc."},{"ticker":"BSN-UN","changes":1.57,"price":"11.16","changesPercentage":"16.3712","companyName":"Broadstone Acquisition Corp."},{"ticker":"DYAI","changes":0.64,"price":"4.59","changesPercentage":"16.202536","companyName":"Dyadic International, Inc."},{"ticker":"VCYT","changes":6.27,"price":"44.99","changesPercentage":"16.193182","companyName":"Veracyte, Inc."},{"ticker":"AXGN","changes":1.41,"price":"10.27","changesPercentage":"15.914231","companyName":"AxoGen, Inc."},{"ticker":"ELYM","changes":1.44,"price":"10.79","changesPercentage":"15.401064","companyName":"Eliem Therapeutics, Inc."},{"ticker":"IBRX","changes":0.87,"price":"6.54","changesPercentage":"15.343913","companyName":"ImmunityBio, Inc."},{"ticker":"TGTX","changes":2.42,"price":"18.24","changesPercentage":"15.297092","companyName":"TG Therapeutics, Inc."},{"ticker":"CLVS","changes":0.42,"price":"3.17","changesPercentage":"15.272731","companyName":"Clovis Oncology, Inc."},{"ticker":"BBIO","changes":5.6,"price":"42.65","changesPercentage":"15.114716","companyName":"BridgeBio Pharma, Inc."},{"ticker":"VCEL","changes":5.26,"price":"40.82","changesPercentage":"14.791896","companyName":"Vericel Corporation"}]
+          }
+        }, {
+          key: "getCompanyPrice",
+          value: function getCompanyPrice(code) {
+            var url3 = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + code + "&apikey=" + this.alphaApiKey;
+            return this.http.get(url3);
           }
         }]);
 
@@ -34529,11 +37630,11 @@
 
       _DetailsService.ctorParameters = function () {
         return [{
-          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpClient
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient
         }];
       };
 
-      _DetailsService = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
+      _DetailsService = (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
         providedIn: 'root'
       })], _DetailsService);
       /***/
@@ -56988,6 +60089,24 @@
     },
 
     /***/
+    35173:
+    /*!*****************************************************************!*\
+      !*** ./src/app/main-content/gain-loss/gain-loss.component.scss ***!
+      \*****************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJnYWluLWxvc3MuY29tcG9uZW50LnNjc3MifQ== */";
+      /***/
+    },
+
+    /***/
     35744:
     /*!*****************************************************!*\
       !*** ./src/app/main-content/main-content.page.scss ***!
@@ -57002,6 +60121,42 @@
 
 
       __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJtYWluLWNvbnRlbnQucGFnZS5zY3NzIn0= */";
+      /***/
+    },
+
+    /***/
+    29965:
+    /*!************************************************************!*\
+      !*** ./src/app/main-content/modals/buy/buy.component.scss ***!
+      \************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJidXkuY29tcG9uZW50LnNjc3MifQ== */";
+      /***/
+    },
+
+    /***/
+    52074:
+    /*!**************************************************************!*\
+      !*** ./src/app/main-content/modals/sell/sell.component.scss ***!
+      \**************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzZWxsLmNvbXBvbmVudC5zY3NzIn0= */";
       /***/
     },
 
@@ -57055,7 +60210,61 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "@charset \"UTF-8\";\n::ng-deep.ais-SearchBox-input {\n  width: 90% !important;\n  border-radius: 10px;\n  border: 1px solid gray;\n  margin-top: 10%;\n  padding-left: 42ßpx;\n}\n::ng-deep.ais-SearchBox-submitIcon {\n  background-color: transparent;\n  height: 15px;\n  width: 15px;\n  position: relative;\n  z-index: 1;\n  right: 300px;\n}\n::ng-deep.ais-SearchBox-submit {\n  background-color: transparent;\n}\n::ng-deep.ais-SearchBox-reset {\n  background-color: transparent;\n}\n::ng-deep.ais-SearchBox-resetIcon {\n  width: 10px;\n  height: 10px;\n  position: relative;\n  z-index: 1;\n  left: 275px;\n  bottom: 32px;\n  color: gray;\n}\n.my_class1 {\n  width: 110px;\n  --background:lightgray;\n  --height:20px;\n  border-radius: 20px;\n  margin-top: 10%;\n  --color:white;\n  font-size: 10px;\n}\n.my_class2 {\n  --color:white;\n  width: 110px;\n  --background: rgba(0,0,0,0.6) ;\n  --height:5px;\n  border-radius: 30px;\n  margin-top: 10%;\n  font-size: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlYXJjaC1wcm9maWxlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGdCQUFnQjtBQUVoQjtFQUNDLHFCQUFBO0VBQ0EsbUJBQUE7RUFDQSxzQkFBQTtFQUNBLGVBQUE7RUFDQSxtQkFBQTtBQUFEO0FBRUE7RUFDQyw2QkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0VBQ0EsWUFBQTtBQUNEO0FBRUE7RUFDQyw2QkFBQTtBQUNEO0FBQ0E7RUFDQyw2QkFBQTtBQUVEO0FBQUE7RUFDQyxXQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtBQUdEO0FBREE7RUFFQyxZQUFBO0VBQ0Esc0JBQUE7RUFDQSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSxlQUFBO0VBQ0EsYUFBQTtFQUNBLGVBQUE7QUFHRDtBQUFBO0VBRUMsYUFBQTtFQUNBLFlBQUE7RUFDQSw4QkFBQTtFQUNBLFlBQUE7RUFDQSxtQkFBQTtFQUNBLGVBQUE7RUFDQSxlQUFBO0FBRUQiLCJmaWxlIjoic2VhcmNoLXByb2ZpbGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcblxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtaW5wdXQge1xuXHR3aWR0aDo5MCUgIWltcG9ydGFudDtcblx0Ym9yZGVyLXJhZGl1czoxMHB4O1xuXHRib3JkZXI6MXB4IHNvbGlkIGdyYXk7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHRwYWRkaW5nLWxlZnQ6NDLDn3B4O1xufVxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtc3VibWl0SWNvbntcblx0YmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG5cdGhlaWdodDoxNXB4O1xuXHR3aWR0aDoxNXB4O1xuXHRwb3NpdGlvbjpyZWxhdGl2ZTtcblx0ei1pbmRleDoxO1xuXHRyaWdodDozMDBweDtcblx0XG59XG46Om5nLWRlZXAuYWlzLVNlYXJjaEJveC1zdWJtaXR7XG5cdGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtcmVzZXR7XG5cdGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtcmVzZXRJY29ue1xuXHR3aWR0aDoxMHB4O1xuXHRoZWlnaHQ6MTBweDtcblx0cG9zaXRpb246cmVsYXRpdmU7XG5cdHotaW5kZXg6MTtcblx0bGVmdDoyNzVweDtcblx0Ym90dG9tOjMycHg7XG5cdGNvbG9yOmdyYXk7XG59XG4ubXlfY2xhc3Mxe1xuXG5cdHdpZHRoOjExMHB4O1xuXHQtLWJhY2tncm91bmQ6bGlnaHRncmF5O1xuXHQtLWhlaWdodDoyMHB4O1xuXHRib3JkZXItcmFkaXVzOjIwcHg7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHQtLWNvbG9yOndoaXRlO1xuXHRmb250LXNpemU6IDEwcHg7XG5cdFxufVxuLm15X2NsYXNzMntcblxuXHQtLWNvbG9yOndoaXRlO1xuXHR3aWR0aDoxMTBweDtcblx0LS1iYWNrZ3JvdW5kOiByZ2JhKDAsMCwwLDAuNikgO1xuXHQtLWhlaWdodDo1cHg7XG5cdGJvcmRlci1yYWRpdXM6MzBweDtcblx0bWFyZ2luLXRvcDoxMCU7XG5cdGZvbnQtc2l6ZTogMTBweDtcblx0XG59XG5cbiJdfQ== */";
+      __webpack_exports__["default"] = "::ng-deep.ais-SearchBox-input {\n  width: 90% !important;\n  border-radius: 10px;\n  border: 1px solid gray;\n  margin-top: 10%;\n  padding-left: 42px;\n}\n@media only screen and (min-width: 369px) {\n  ::ng-deep.ais-SearchBox-input {\n    right: 490px;\n    margin-top: 8% !important;\n  }\n}\n@media only screen and (min-width: 587px) {\n  ::ng-deep.ais-SearchBox-input {\n    right: 690px;\n    margin-top: 8% !important;\n  }\n}\n@media only screen and (min-width: 815px) {\n  ::ng-deep.ais-SearchBox-input {\n    right: 890px;\n    margin-top: 5% !important;\n  }\n}\n@media only screen and (min-width: 1025px) {\n  ::ng-deep.ais-SearchBox-input {\n    margin-top: 5% !important;\n  }\n}\n::ng-deep.ais-SearchBox-submitIcon {\n  background-color: transparent;\n  height: 15px;\n  width: 15px;\n  position: relative;\n  z-index: 1;\n  right: 290px;\n}\n@media only screen and (min-width: 1025px) {\n  ::ng-deep.ais-SearchBox-submitIcon {\n    right: 1248px;\n  }\n}\n::ng-deep.ais-SearchBox-submit {\n  background-color: transparent;\n}\n::ng-deep.ais-SearchBox-reset {\n  background-color: transparent;\n}\n::ng-deep.ais-SearchBox-resetIcon {\n  width: 10px;\n  height: 10px;\n  position: relative;\n  z-index: 1;\n  left: 265px;\n  bottom: 32px;\n  color: gray;\n}\n.my_class1 {\n  width: 110px;\n  --background:lightgray;\n  --height:20px;\n  border-radius: 20px;\n  margin-top: 10%;\n  --color:white;\n  font-size: 10px;\n}\n.my_class2 {\n  --color:white;\n  width: 110px;\n  --background: rgba(0,0,0,0.6) ;\n  --height:5px;\n  border-radius: 30px;\n  margin-top: 10%;\n  font-size: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlYXJjaC1wcm9maWxlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0MscUJBQUE7RUFDQSxtQkFBQTtFQUNBLHNCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FBQUQ7QUFDQztFQU5EO0lBT0UsWUFBQTtJQUNBLHlCQUFBO0VBRUE7QUFDRjtBQURHO0VBVkg7SUFXSSxZQUFBO0lBQ0EseUJBQUE7RUFJRjtBQUNGO0FBSEc7RUFkSDtJQWVJLFlBQUE7SUFDQSx5QkFBQTtFQU1GO0FBQ0Y7QUFMRztFQWxCSDtJQW1CSSx5QkFBQTtFQVFGO0FBQ0Y7QUFMQTtFQUNDLDZCQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxZQUFBO0FBUUQ7QUFQQztFQVBEO0lBUUUsYUFBQTtFQVVBO0FBQ0Y7QUFOQTtFQUNDLDZCQUFBO0FBU0Q7QUFQQTtFQUNDLDZCQUFBO0FBVUQ7QUFSQTtFQUNDLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0FBV0Q7QUFUQTtFQUNDLFlBQUE7RUFDQSxzQkFBQTtFQUNBLGFBQUE7RUFDQSxtQkFBQTtFQUNBLGVBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtBQVlEO0FBVEE7RUFDQyxhQUFBO0VBQ0EsWUFBQTtFQUNBLDhCQUFBO0VBQ0EsWUFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtFQUNBLGVBQUE7QUFZRCIsImZpbGUiOiJzZWFyY2gtcHJvZmlsZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtaW5wdXQge1xuXHR3aWR0aDo5MCUgIWltcG9ydGFudDtcblx0Ym9yZGVyLXJhZGl1czoxMHB4O1xuXHRib3JkZXI6MXB4IHNvbGlkIGdyYXk7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHRwYWRkaW5nLWxlZnQ6NDJweDtcblx0QG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiAzNjlweCkge1xuXHRcdHJpZ2h0OjQ5MHB4O1xuXHRcdG1hcmdpbi10b3A6IDglICFpbXBvcnRhbnQ7XG5cdCAgfVxuXHQgIEBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogNTg3cHgpIHtcblx0XHQgIHJpZ2h0OjY5MHB4O1xuXHRcdCAgbWFyZ2luLXRvcDogOCUgIWltcG9ydGFudDtcblx0XHR9XG5cdCAgQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA4MTVweCkge1xuXHRcdCAgcmlnaHQ6ODkwcHg7XG5cdFx0ICBtYXJnaW4tdG9wOiA1JSAhaW1wb3J0YW50O1xuXHQgIH1cblx0ICBAbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDEwMjVweCkge1xuXHRcdCAgbWFyZ2luLXRvcDogNSUgIWltcG9ydGFudDtcblx0ICB9XG5cbn1cbjo6bmctZGVlcC5haXMtU2VhcmNoQm94LXN1Ym1pdEljb257XG5cdGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xuXHRoZWlnaHQ6MTVweDtcblx0d2lkdGg6MTVweDtcblx0cG9zaXRpb246cmVsYXRpdmU7XG5cdHotaW5kZXg6MTtcblx0cmlnaHQ6MjkwcHg7XG5cdEBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogMTAyNXB4KSB7XG5cdFx0cmlnaHQ6MTI0OHB4O1xuXHR9XG5cdFxuICBcbn1cbjo6bmctZGVlcC5haXMtU2VhcmNoQm94LXN1Ym1pdHtcblx0YmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59XG46Om5nLWRlZXAuYWlzLVNlYXJjaEJveC1yZXNldHtcblx0YmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59XG46Om5nLWRlZXAuYWlzLVNlYXJjaEJveC1yZXNldEljb257XG5cdHdpZHRoOjEwcHg7XG5cdGhlaWdodDoxMHB4O1xuXHRwb3NpdGlvbjpyZWxhdGl2ZTtcblx0ei1pbmRleDoxO1xuXHRsZWZ0OjI2NXB4O1xuXHRib3R0b206MzJweDtcblx0Y29sb3I6Z3JheTtcbn1cbi5teV9jbGFzczF7XG5cdHdpZHRoOjExMHB4O1xuXHQtLWJhY2tncm91bmQ6bGlnaHRncmF5O1xuXHQtLWhlaWdodDoyMHB4O1xuXHRib3JkZXItcmFkaXVzOjIwcHg7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHQtLWNvbG9yOndoaXRlO1xuXHRmb250LXNpemU6IDEwcHg7XG5cdFxufVxuLm15X2NsYXNzMntcblx0LS1jb2xvcjp3aGl0ZTtcblx0d2lkdGg6MTEwcHg7XG5cdC0tYmFja2dyb3VuZDogcmdiYSgwLDAsMCwwLjYpIDtcblx0LS1oZWlnaHQ6NXB4O1xuXHRib3JkZXItcmFkaXVzOjMwcHg7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHRmb250LXNpemU6IDEwcHg7XG5cdFxufVxuXG4iXX0= */";
+      /***/
+    },
+
+    /***/
+    22380:
+    /*!*****************************************************!*\
+      !*** ./src/app/main-content/tab/tab.component.scss ***!
+      \*****************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ0YWIuY29tcG9uZW50LnNjc3MifQ== */";
+      /***/
+    },
+
+    /***/
+    44811:
+    /*!*****************************************************************!*\
+      !*** ./src/app/main-content/watchlist/watchlist.component.scss ***!
+      \*****************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ3YXRjaGxpc3QuY29tcG9uZW50LnNjc3MifQ== */";
+      /***/
+    },
+
+    /***/
+    20562:
+    /*!****************************************************!*\
+      !*** ./src/app/portfolio/portfolio.component.scss ***!
+      \****************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwb3J0Zm9saW8uY29tcG9uZW50LnNjc3MifQ== */";
       /***/
     },
 
@@ -57073,7 +60282,25 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<header style=\"margin:0px 15px 5px 15px;height:20%;align-items:center\">\n  <ion-text class=\"sub-title\">Dashboard</ion-text>\n</header>\n<ion-content style=\"margin:0px 15px 5px 15px;--background: #ebf2fb;\">\n  <ion-row  style=\"margin:0px15px 5px 15px\"> \n    <ion-col size-xs=\"7\">\n       <ion-text style=\"float:left;font-size:16px;font-weight:900;float:left;margin:0px 15px 5px 15px;\">Gainers and Losers</ion-text>\n    </ion-col>\n    <ion-col size-xs=\"3\" offset-xs=\"2\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>   \n  </ion-row>\n    <ion-grid style=\"margin:0px 15px 5px 15px;padding-top:0px;\">\n    <ion-row  style=\"display:block;padding:0px;margin:0px\" class=\"ion-no-padding ion-no-margin\">\n      <ion-col size-xs=\"6\"  *ngFor=\"let hit of gainerData | slice:0:1\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" style=\"padding:0px;margin:0px\">\n          <ion-card class=\"flash-card\" (click)=\"getOverView(hit)\" style=\"width:50%\">\n            <div style=\"border-radius: 50%;border:1px solid rgba(128,128,128,0.1);height:50px;width:50px; text-align: center;\n            align-items: center;margin:5px;\">\n              <img src=\"../assets/icon/placeholder.jpeg\" alt=\"logo\"  style=\"height:30px;width:30px;margin-top:25%;\"/>\n            </div>\n             <ion-text  class=\"text\" style=\"margin:2px 2px 0px 5px;font-size:12px;\">{{hit.companyName}}</ion-text>\n              <ion-text style=\"font-weight:normal;margin:2px 2px 0px 5px;\" class=\"text\">{{hit.price}}</ion-text>\n            <ion-col>\n                <ion-chip color=\"success small-text\" size=\"small\">+{{hit.changes}}</ion-chip>\n                <ion-text class=\"small-text\">{{hit.changesPercentage | number :0}}%</ion-text>\n            </ion-col>\n         </ion-card>\n      </ion-col>\n    </ion-row >\n  </ion-grid> \n  <ion-row  style=\"margin:0px 20px 5px 20px\"> \n    <ion-col size-xs=\"7\">\n       <ion-text style=\"float:left;font-size:16px;font-weight:900;float:left;margin:0px;\">Your Watchlist</ion-text>\n    </ion-col>\n    <ion-col size-xs=\"3\" offset-xs=\"2\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>   \n  </ion-row>\n  <ion-row class=\"ion-no-margin ion-no-padding\" *ngFor = \"let data of companyInfoArray| keyvalue;let i=index\">\n    <ion-col size-xs=\"12\">\n    <ion-item style=\"border:1px solid lightgray;margin:5px 15px 0px 15px;\" >\n      <ion-icon id={{i}} color=\"tertiary\" (click)=\"toggleWatchList(data.value.symbol,i)\" style=\"font-size:20px;float:right;padding:5px;\" name={{starName}}></ion-icon>\n      <img src=\"{{getImage(data)}}\" style=\"width:15px;height:15px\"/>\n      <ion-text>{{data.value.symbol}}</ion-text>\n       <ion-chip >{{data.value.previousClose-data.value.price |number:0}}</ion-chip>\n        <ion-text>{{data.value.price}}</ion-text>\n        <!--<ion-icon ios=\"ios-more\" md=\"md-more\"></ion-icon>-->\n    </ion-item>\n  </ion-col>\n  </ion-row>\n</ion-content>";
+      __webpack_exports__["default"] = "<header class=\"dashboard-header\">\n  <div style=\"float:left;align-items: left;text-align:left\">\n    <ion-text class=\"title\">Dashboard</ion-text>\n  </div>\n  <div style=\"float:right;margin-top:2px;\">\n    <ion-icon routerLink=\"/main-content/search-profile\" slot=\"end\"  name=\"search\"></ion-icon>\n  </div>\n</header>\n<ion-content style=\"margin:0px 15px 5px 15px;--background: #ebf2fb;\">\n  <ion-row  style=\"margin:0px15px 5px 15px\"> \n    <ion-col size-xs=\"7\">\n       <ion-text style=\"float:left;font-size:16px;font-weight:900;float:left;margin:0px 15px 5px 15px;\">Gainers and Losers</ion-text>\n    </ion-col>\n    <ion-col size-xs=\"3\" offset-xs=\"2\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>   \n  </ion-row>\n   <app-gain-loss></app-gain-loss>\n  <ion-row  style=\"margin:0px 20px 5px 20px\"> \n    <ion-col size-xs=\"7\">\n       <ion-text style=\"float:left;font-size:16px;font-weight:900;float:left;margin:0px;\">Your Watchlist</ion-text>\n    </ion-col>\n    <ion-col size-xs=\"3\" offset-xs=\"2\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAllWatchList()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>   \n  </ion-row>\n <app-watchlist></app-watchlist>\n</ion-content>\n<ion-footer>\n  <app-tab></app-tab>\n</ion-footer>";
+      /***/
+    },
+
+    /***/
+    5873:
+    /*!*******************************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/gain-loss/gain-loss.component.html ***!
+      \*******************************************************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-grid class=\"gain-grid\">\n  <ion-row  class=\"ion-no-padding ion-no-margin\">\n    <ion-col size-xs=\"6\" offset=\"0\" *ngFor=\"let hit of gainerData | slice:0:limit\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" >\n        <ion-card class=\"flash-card\" style=\"width:90%;\">\n          <div class=\"div-card\">\n            <img src=\"../assets/icon/placeholder.jpeg\" alt=\"logo\">\n          </div>\n           <ion-text  class=\"text\" style=\"margin:2px 2px 0px 5px;font-size:12px;\">{{hit.companyName}}</ion-text>\n            <ion-text style=\"font-weight:normal;margin:2px 2px 0px 5px;\" class=\"text\">{{hit.price}}</ion-text>\n          <ion-col>\n              <ion-chip color=\"success small-text\" size=\"small\">+{{hit.changes}}</ion-chip>\n              <ion-text class=\"small-text\">{{hit.changesPercentage | number :0}}%</ion-text>\n          </ion-col>\n       </ion-card>\n    </ion-col>\n    <ion-col size-xs=\"6\" offset=\"0\" *ngFor=\"let hit of loserData | slice:0:limit\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" >\n      <ion-card class=\"flash-card\"  style=\"width:90%;\">\n        <div class=\"div-card\">\n          <img src=\"../assets/icon/placeholder.jpeg\" alt=\"logo\" />\n        </div>\n         <ion-text  class=\"text\" style=\"margin:2px 2px 0px 5px;font-size:12px;\">{{hit.companyName}}</ion-text>\n          <ion-text style=\"font-weight:normal;margin:2px 2px 0px 5px;\" class=\"text\">{{hit.price}}</ion-text>\n        <ion-col>\n            <ion-chip color=\"danger small-text\" size=\"small\">-{{hit.changes}}</ion-chip>\n            <ion-text class=\"small-text\">{{hit.changesPercentage | number :0}}%</ion-text>\n        </ion-col>\n     </ion-card>\n    </ion-col>\n  </ion-row >\n</ion-grid> ";
       /***/
     },
 
@@ -57092,6 +60319,42 @@
 
 
       __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>main-content</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n</ion-content>\n\n\n";
+      /***/
+    },
+
+    /***/
+    85332:
+    /*!**************************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/modals/buy/buy.component.html ***!
+      \**************************************************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<header  class=\"header\" style=\"z-index:1000\">\n    <ion-text style=\"font-weight:900\">{{details.Code}}</ion-text>\n    <ion-label style=\"font-size:12px;\">Max Buy Capacity: {{details.volume}}</ion-label>\n    <ion-icon name='close-circle' (click)='dismiss()' style='height:20px;width:20px;float:right'></ion-icon> \n</header>\n<ion-content class=\"content\">\n  <ion-grid>\n    <ion-row style=\"margin:10px;padding:10px\" >\n      <ion-col size-xs=\"12\" >\n          <ion-label style=\"font-weight:bold\" >Quantity</ion-label>\n          <input type=\"number\" [(ngModel)]=\"quantity\" style=\"width:80px;margin-left:58px;font-size:12px;\" placeholder=\"Stock Qty\"/>\n        </ion-col>\n        <ion-col size-xs=\"12\" >\n          <ion-label style=\"font-weight:bold\" >Current Price</ion-label>\n          <ion-text (Click)=\"buy()\" style=\"margin-left:27px;\">${{details.price}}</ion-text>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n  <ion-button id=\"buyBtn\" color=\"success\" style=\"margin-left:35%;color:white\" (click)=\"buy()\">Buy Now</ion-button>\n</ion-content>  \n\n\n";
+      /***/
+    },
+
+    /***/
+    60724:
+    /*!****************************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/modals/sell/sell.component.html ***!
+      \****************************************************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<header  class=\"header\" style=\"z-index:1000\" style=\"background-color: #ff304b;\">\n\n    <ion-text style=\"font-weight:900\">{{details['Code']}}</ion-text>\n    <ion-label style=\"font-size:12px;\">Max Buy Capacity: {{details['quantity']}}</ion-label>\n    \n    <ion-icon name='close-circle' (click)='dismiss()' style='height:20px;width:20px;float:right'></ion-icon> \n</header>\n<ion-content class=\"content\">\n  <ion-grid>\n    <ion-row style=\"margin:10px;padding:10px\" >\n      <ion-col size-xs=\"12\" >\n          <ion-label style=\"font-weight:bold\" >Quantity</ion-label>\n          <input type=\"number\" [(ngModel)]=\"quantity\" style=\"width:80px;margin-left:58px;font-size:12px;\" placeholder=\"Stock Qty\"/>\n        </ion-col>\n        <ion-col size-xs=\"12\" >\n          <ion-label style=\"font-weight:bold\" >Current Price</ion-label>\n          <ion-text (Click)=\"buy()\" style=\"margin-left:27px;\">${{details.price}}</ion-text>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n  <ion-button id=\"buyBtn\" color=\"success\" style=\"margin-left:35%;color:white;\"  color=\"secondary\" (click)=\"buy()\">Sell</ion-button>\n</ion-content>  \n";
       /***/
     },
 
@@ -57127,7 +60390,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<header style=\"margin:20px\">\n  <ion-toolbar>\n    <ion-grid>\n      <ion-row style=\"display:block;\" class=\"ion-no-margin ion-no-padding\">\n        <ion-icon   style=\"font-size:20px;padding:5px;font-weight:900\" name = \"arrow-back\"></ion-icon>\n        <ion-icon  (click)=\"navigateShare()\" style=\"font-size:20px;float:right;padding:5px\"  name = \"share-outline\"></ion-icon>\n        <ion-icon  style=\"font-size:20px;float:right;padding:5px;\" name = \"star-outline\"></ion-icon>\n     \n      </ion-row>\n      <ion-row class=\"ion-no-margin ion-no-padding\" style=\"padding-top:0px;padding-bottom:0px;\">\n        <ion-text style=\"font-size:14px;padding-left:5px;margin-top:0px;\" class=\"text\">{{hit.Code}}</ion-text>\n      </ion-row>\n      <ion-row style=\"display:block;margin-top:0px\">\n        <div > \n          <ion-text class = \"sub-title\">\n            {{hit.Name}}\n         </ion-text>\n          <ion-img src={{hit.URL}} style=\"height:30px;width:30px;float:right;padding:5px\"></ion-img>\n        </div>\n      </ion-row>\n    </ion-grid>\n  </ion-toolbar>\n</header>\n<ion-content  style=\"margin:20px\">\n  <div style=\"height:200px;\" >\n   <!-- <ngx-charts-bar-vertical \n    [scheme]=\"colorScheme\"\n    [results]=\"data\"\n    [gradient]=\"verticalBarOptions.gradient\"\n    [xAxis]=\"verticalBarOptions.showXAxis\"\n    [yAxis]=\"verticalBarOptions.showYAxis\"\n    [legend]=\"verticalBarOptions.showLegend\"\n    [showXAxisLabel]=\"verticalBarOptions.showXAxisLabel\"\n    [showYAxisLabel]=\"verticalBarOptions.showYAxisLabel\"\n    [xAxisLabel]=\"verticalBarOptions.xAxisLabel\"\n    [yAxisLabel]=\"verticalBarOptions.yAxisLabel\"\n    [barPadding]=\"verticalBarOptions.barPadding\"\n    [showGridLines]=\"verticalBarOptions.showGridLines\"\n  ></ngx-charts-bar-vertical>-->\n </div>\n <ion-grid>\n  <ion-row>\n    <ion-button color=\"primary button-medium\" style=\"width:80%;margin:30px\">Follow</ion-button>\n  </ion-row>\n  <ion-row  style=\"margin:20px;\"> \n    <ion-col size=\"2\">\n       <ion-text style=\"float:left;font-size:20px;padding:5px;font-weight:900;float:left\">News</ion-text>\n    </ion-col>\n    <ion-col size=\"4\" offset=\"6\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>\n  </ion-row>\n  <app-news></app-news>\n  <ion-row>\n </ion-row>\n</ion-grid>\n </ion-content>\n <ion-footer style=\"margin-left:20px;margin-top:10px;font-size:20px;border:1px solid light\">\n  <ion-icon routerLink=\"/main-content/dashboard\" name=\"home-outline\"></ion-icon>\n  <ion-icon style=\"margin-left:70%;\" name=\"person-outline\"></ion-icon>\n</ion-footer>\n \n\n";
+      __webpack_exports__["default"] = "<header style=\"margin:20px\">\n  <ion-toolbar>\n    <ion-grid>\n      <ion-row style=\"display:block;\" class=\"ion-no-margin ion-no-padding\">\n        <ion-icon style=\"font-size:20px;padding:5px;font-weight:900\" name = \"arrow-back\" (click) = \"back();\"></ion-icon>\n        <ion-icon  (click)=\"share()\" style=\"font-size:20px;float:right;padding:5px\"  name = \"share-outline\"></ion-icon>\n        <ion-icon  style=\"font-size:20px;float:right;padding:5px;border-color: black;\" color=\"tertiary\" (click)=\"toggleWatchList()\" name = {{starName}}></ion-icon>\n      </ion-row>\n      <ion-row class=\"ion-no-margin ion-no-padding\" style=\"padding-top:0px;padding-bottom:0px;\">\n        <ion-text style=\"font-size:14px;padding-left:5px;margin-top:0px;\" class=\"text\">{{hit.Code}}</ion-text>\n      </ion-row>\n      <ion-row style=\"display:block;margin-top:0px\">\n        <div > \n          <ion-text class = \"sub-title\">\n            {{hit.Name}}\n         </ion-text>\n          <ion-img src={{hit.URL}} style=\"height:30px;width:30px;float:right;padding:5px\"></ion-img>\n        </div>\n      </ion-row>\n    </ion-grid>\n  </ion-toolbar>\n</header>\n<ion-content  style=\"margin:20px\">\n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button  (click)=\"showModal()\" color=\"success\" style=\" --border-radius:15px;width:80px;height:40px;color:white;padding:2px;\">\n      <ion-icon style=\"padding-right:50x;font-size:14px;\" name=\"add\"></ion-icon>\n      <ion-label style=\"padding-left:10px;\">Buy</ion-label>\n    </ion-fab-button>\n    <ion-fab-button  color=\"secondary\" style=\" --border-radius:15px;width:80px;height:40px;color:white;margin-top:10px;\">\n      <ion-icon style=\"padding-right:50x;font-size:14px;\" name=\"remove\"></ion-icon>\n      <ion-label style=\"padding-left:10px;\"> Sell</ion-label>\n    </ion-fab-button>\n  </ion-fab>\n \n  <div style=\"height:200px;\" >\n    <div style=\"display:flex;flex-direction:row;padding:20px;align-items:center;justify-content: space-evenly;\">\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('daily')\">1d</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_DAILY',7)\">7d</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_DAILY',30)\">30d</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_DAILY',90)\">90d</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_WEEKLY',24)\">6m</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_WEEKLY',52)\">1y</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_MONTHLY')\">All</ion-button>\n    </div>\n    <ngx-charts-line-chart\n    [view]=\"view\"\n    [scheme]=\"colorScheme\"\n    [legend]=\"legend\"\n    [showXAxisLabel]=\"showXAxisLabel\"\n    [showYAxisLabel]=\"showYAxisLabel\"\n    [xAxis]=\"xAxis\"\n    [yAxis]=\"yAxis\"\n    [xAxisLabel]=\"xAxisLabel\"\n    [yAxisLabel]=\"yAxisLabel\"\n    [timeline]=\"timeline\"\n    [results]=\"ngxData.data\"\n    [rangeFillOpacity] =\"rangeFillOpacity\"\n></ngx-charts-line-chart>\n </div>\n <ion-grid>\n    <ion-button color=\"primary button-medium\" style=\"width:80%;margin-left:10%;\" [ngClass]=\"followList.includes(hit.Code) === true ? 'my_class1' : 'my_class2'\" (click)=\"updateFollowList()\">{{followList.includes(hit.Code) === true ? \"Followed\" : \"Follow\"}}</ion-button>\n  <ion-row  style=\"margin:20px;\"> \n    <ion-col size=\"2\">\n       <ion-text style=\"float:left;font-size:20px;padding:5px;font-weight:900;float:left\">News</ion-text>\n    </ion-col>\n    <ion-col size=\"4\" offset=\"6\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>\n  </ion-row>\n  <app-news></app-news>\n  <ion-row>\n </ion-row>\n</ion-grid>\n\n<!--<ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\" color=\"primary\">\n  <ion-fab-button id=\"trigger-buy\" color=\"success\" style=\" --border-radius:15px;width:80px;height:30px;color:white\">\n    <ion-icon name=\"add\"></ion-icon>\n    <ion-label>Buy</ion-label>\n  </ion-fab-button>\n</ion-fab>\n<ion-fab >\n<ion-fab-button color=\"secondary\" style=\"--border-radius:15px;width:80px;height:30px;color:white\">\n  <ion-icon name=\"remove\"></ion-icon>\n  <ion-label>Sell</ion-label>\n</ion-fab-button>\n</ion-fab>-->\n </ion-content>\n <ion-footer >\n     <app-tab></app-tab>\n</ion-footer>\n\n\n \n\n";
       /***/
     },
 
@@ -57145,7 +60408,61 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "\n  \n <!-- <ion-content style=\"--background: #ebf2fb;top:35%;\" >\n  <ion-grid style=\"position:relative;justify-content: center;\">\n\t<ion-row justify-content-center align-items-center >\n\t  <ion-col size-xs=\"6\" offset=\"0\" *ngFor=\"let company of companiesList\" class =\"ion-text-center ion-no padding\" style=\"padding:0px;padding-bottom:4px;\" >\n\t\t <ion-card   style=\"height:130px;align-items: center;display: flex;flex-direction: column;align-items: center; \n\t\t justify-content: center;margin-bottom:0px;margin-top:2px;\">\n\t\t\t<img src=\"{{company.URL}}\" alt=\"logo\" align=\"left\" style=\"height:20px;width:20px;\"/>\n\t\t\t<!--<ion-text class=\"ion-margin-top\">{{company.Name}}</ion-text>\n\t\t</ion-card>\n\t  </ion-col>\n\t</ion-row>\n\t</ion-grid>\n  </ion-content>-->\n \n  <ion-content style=\"--background: #ebf2fb;padding-top:0px;position:absolute;\">\n\t<ais-instantsearch [config]=\"config\" style=\"border:1px solid transparent;z-index:0;\">\n\t\t<ais-current-refinements></ais-current-refinements>\n\t\t<ais-refinement-list attribute=\"Code\"></ais-refinement-list>\n\t\t<ais-configure [searchParameters]=\"{ hitsPerPage: 6 }\"></ais-configure>\n\t\t<ion-toolbar style=\"margin-top:-10px;height:30%;position:relative;z-index:1;top:-5%;padding:10px;\">\n\t\t\t<ion-buttons slot=\"end\">\n\t\t\t  <ion-back-button></ion-back-button>\n\t\t\t</ion-buttons>\n\t\t\t<ion-title>Welcome1!</ion-title>\n\t\t\t<ion-text class=\"text\" style=\"margin-top:40px;margin-left:23px;\">Choose your interests to follow and </ion-text><ion-text class=\"text\" style=\"margin:23px\">trade on your free time!</ion-text>\n\t\t\t<ais-search-box ></ais-search-box>\n\t\t  </ion-toolbar>\n\t\t<ais-hits>\n\t\t<ng-template let-hits=\"hits\">\n\t\t  <ion-grid style=\"position:relative;justify-content: center;margin-top:-25px\">\n\t\t\t<ion-row justify-content-center align-items-center  >\n\t\t\t  <ion-col  size-xs=\"6\" offset=\"0\" *ngFor=\"let hit of hits\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" style=\"padding:0px;padding-bottom:4px;\">\n\t\t\t\t<ion-card   style=\"height:180px;align-items:center;display: flex;flex-direction: column;\n\t\t\t\tjustify-content: center;margin:6px 8px 2px 10px;background-color:rgba(255,255,255);box-shadow:2px 0px 2px 0px lightgray\" (click)=\"getOverView(hit)\">\n\t            <div style=\"border-radius: 50%;border:1px solid rgba(128,128,128,0.1);height:50px;width:50px; text-align: center;\n\t\t\t\talign-items: center;\">\n\t\t\t\t<img src=\"{{hit.URL}}\" alt=\"logo\"  style=\"height:26px;width:26px;margin-top:25%;\"/></div>\n\t\t\t\t<ion-text style=\"font-size:16px\" class=\"ion-margin-top\">{{hit.Name}}</ion-text>\n\t\t\t\t<ion-button class=\"button-small\" (click)=\"toggle(hit.Code)\" [ngClass]=\"followList.includes(hit.Code) === true ? 'my_class1' : 'my_class2'\" >{{followList.includes(hit.Code) === true ? \"followed\" : \"follow\"}}</ion-button>\n\t\t\t</ion-card>\n\t\t\t</ion-col>\n\t\t\t</ion-row >\n\t\t  </ion-grid> \n\t\t  </ng-template>\n\t\t</ais-hits>\n\t\t<!--<ais-pagination></ais-pagination>-->\n\t</ais-instantsearch>\n</ion-content>\n";
+      __webpack_exports__["default"] = "\n  <ion-content class=\"dashboard-content\" >\n\t<ais-instantsearch [config]=\"config\" style=\"border:1px solid transparent;z-index:0;\">\n\t\t<ais-current-refinements></ais-current-refinements>\n\t\t<ais-refinement-list attribute=\"Code\"></ais-refinement-list>\n\t\t<ais-configure [searchParameters]=\"{ hitsPerPage: 6 }\"></ais-configure>\n\t\t<ion-toolbar>\n\t\t\t<ion-buttons slot=\"end\">\n\t\t\t  <ion-back-button></ion-back-button>\n\t\t\t</ion-buttons>\n\t\t\t<ion-text class=\"title\">Welcome!</ion-text><br/>\n\t\t\t<p class=\"text\">Choose your interests to follow and trade on your terms!</p>\n\t\t\t<ais-search-box ></ais-search-box>\n\t\t  </ion-toolbar>\n\t\t<ais-hits>\n\t\t<ng-template let-hits=\"hits\">\n\t\t  <ion-grid>\n\t\t\t<ion-row justify-content-center align-items-center  >\n\t\t\t  <ion-col  size-xs=\"6\" offset=\"0\" *ngFor=\"let hit of hits\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" style=\"padding:0px;padding-bottom:4px;\">\n\t\t\t\t<ion-card   style=\"height:180px;align-items:center;display: flex;flex-direction: column;\n\t\t\t\tjustify-content: center;margin:6px 8px 2px 10px;background-color:rgba(255,255,255);box-shadow:2px 0px 2px 0px lightgray\" (click)=\"getOverView(hit)\">\n\t            <div style=\"border-radius: 50%;border:1px solid rgba(128,128,128,0.1);height:50px;width:50px; text-align: center;\n\t\t\t\talign-items: center;\">\n\t\t\t\t<img src=\"{{hit.URL}}\" alt=\"logo\"  style=\"height:26px;width:26px;margin-top:25%;\"/></div>\n\t\t\t\t<ion-text style=\"font-size:16px\" class=\"ion-margin-top\">{{hit.Name}}</ion-text>\n\t\t\t\t<ion-button class=\"button-small\" (click)=\"toggle(hit.Code)\" [ngClass]=\"followList.includes(hit.Code) === true ? 'my_class1' : 'my_class2'\" >{{followList.includes(hit.Code) === true ? \"followed\" : \"follow\"}}</ion-button>\n\t\t\t</ion-card>\n\t\t\t</ion-col>\n\t\t\t</ion-row >\n\t\t  </ion-grid> \n\t\t  </ng-template>\n\t\t</ais-hits>\n\t\t<!--<ais-pagination></ais-pagination>-->\n\t</ais-instantsearch>\n</ion-content>\n\n\n";
+      /***/
+    },
+
+    /***/
+    94837:
+    /*!*******************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/tab/tab.component.html ***!
+      \*******************************************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-icon routerLink=\"/main-content/dashboard\" name=\"home-outline\"></ion-icon>\n<ion-icon style=\"margin-left:70%;\" routerLink=\"/main-content/portfolio\" routerLinkActive=\"active-link\" name=\"person-outline\"></ion-icon>";
+      /***/
+    },
+
+    /***/
+    98113:
+    /*!*******************************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/watchlist/watchlist.component.html ***!
+      \*******************************************************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-row class=\"ion-no-margin ion-no-padding\" *ngFor = \"let data of companyInfoArray|slice:0 :limit;let i=index \">\n  <ion-col size-xs=\"12\">\n  <div style=\"border:1px solid lightgray;margin:5px 15px 0px 15px;display: flex;flex-direction: row;justify-content: space-evenly;background-color: white;font-size:13px;vertical-align: middle;align-items:center;border-radius:5px;height:100%;\" >\n    <ion-icon id={{i}} color=\"tertiary\" (click)=\"toggleWatchList(data.symbol,i)\" style=\"font-size:15px\"  name={{starName}}></ion-icon>\n    <img src=\"{{getImage(data)}}\" style=\"width:15px;height:15px\" />             \n    <ion-text>{{data.symbol}}</ion-text>\n     <ion-text class=\"small\"  [ngClass]=\"data.previousClose>data.price ? 'text-success' : 'text-danger'\">{{data.previousClose-data.price |number:0}}</ion-text>\n      <ion-text>{{data.price}}</ion-text>\n      <!--<ion-icon ios=\"ios-more\" md=\"md-more\"></ion-icon>-->\n  </div>\n</ion-col>\n</ion-row>";
+      /***/
+    },
+
+    /***/
+    96530:
+    /*!******************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/portfolio/portfolio.component.html ***!
+      \******************************************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<header style=\"height:10%;margin-bottom:100px;\">\n  <ion-title style=\"font-weight:bold;margin-top:15px;\">\n    Portfolio\n  </ion-title>\n  <!--<div  class=\"height:40%;\">\n    <ion-card class=\"ion-padding ion-margin\" style=\"padding-bottom:10px;height:100%;align-items:center;\">\n      \n      <ion-label class=\"ion-padding ion-margin\">Total Investment</ion-label>\n      <ion-label class=\"ion-padding\">Current value</ion-label>\n      <ion-text>{{totalInvestment}}</ion-text>\n     <ion-text>{{currentValue}}</ion-text>\n     \n    </ion-card>\n  </div>-->\n</header>\n<ion-content style=\"margin:0px 15px 5px 15px;--background: #ebf2fb;;\" *ngIf =\"isShow\">\n      <ion-item *ngFor = \"let details of combinedArray,let i=index\" style=\"margin:10px;\" >\n          <div style=\"float:left;display:flex;flex-direction:column;width:50%;\" (click)=\"showModal(details,companyArray[i]['05. price'])\">\n           <ion-label style=\"float:left\"> {{details['name']}}</ion-label>\n           <ion-text class=\"medium-text\"> {{details['code']}}</ion-text>\n           <ion-text class=\"small-text\">Bought price: {{details.price}}</ion-text>\n          </div>\n          <div style=\"float:left;display:flex;flex-direction:column;width:60%;text-align:right;\">\n            <ion-label  > {{companyArray[i]['05. price'] |number :0}}<span style=\"font-size: 11px;color:gray;padding-left:2px;\">(Current price)</span></ion-label>\n             <ion-label style=\"font-size: 13px;color:gray;\" [ngClass]=\"companyArray[i]['05. price']>details.price? 'text-danger' : 'text-success'\">{{companyArray[i]['05. price']-details.price | number : 0}}<span style=\"font-size: 11px;color:gray;padding-left:2px;\">({{((companyArray[i]['05. price']-details.price)/(details.price))*100 | number: 0}}%)</span></ion-label>\n             <ion-label style=\"font-size: 11px;color:gray;\">Quantity: {{details['quantity']}}</ion-label>\n          </div>\n        </ion-item>\n  </ion-content>\n  <ion-footer >\n    <app-tab></app-tab>\n</ion-footer>\n\n  ";
       /***/
     }
   }]);

@@ -1,5 +1,476 @@
 (self["webpackChunktrading_app_demo"] = self["webpackChunktrading_app_demo"] || []).push([["src_app_main-content_main-content_module_ts"],{
 
+/***/ 68384:
+/*!****************************************************!*\
+  !*** ./node_modules/@capacitor/core/dist/index.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Capacitor": function() { return /* binding */ Capacitor; },
+/* harmony export */   "CapacitorException": function() { return /* binding */ CapacitorException; },
+/* harmony export */   "CapacitorPlatforms": function() { return /* binding */ CapacitorPlatforms; },
+/* harmony export */   "ExceptionCode": function() { return /* binding */ ExceptionCode; },
+/* harmony export */   "Plugins": function() { return /* binding */ Plugins; },
+/* harmony export */   "WebPlugin": function() { return /* binding */ WebPlugin; },
+/* harmony export */   "WebView": function() { return /* binding */ WebView; },
+/* harmony export */   "addPlatform": function() { return /* binding */ addPlatform; },
+/* harmony export */   "registerPlugin": function() { return /* binding */ registerPlugin; },
+/* harmony export */   "registerWebPlugin": function() { return /* binding */ registerWebPlugin; },
+/* harmony export */   "setPlatform": function() { return /* binding */ setPlatform; }
+/* harmony export */ });
+/*! Capacitor: https://capacitorjs.com/ - MIT License */
+const createCapacitorPlatforms = (win) => {
+    const defaultPlatformMap = new Map();
+    defaultPlatformMap.set('web', { name: 'web' });
+    const capPlatforms = win.CapacitorPlatforms || {
+        currentPlatform: { name: 'web' },
+        platforms: defaultPlatformMap,
+    };
+    const addPlatform = (name, platform) => {
+        capPlatforms.platforms.set(name, platform);
+    };
+    const setPlatform = (name) => {
+        if (capPlatforms.platforms.has(name)) {
+            capPlatforms.currentPlatform = capPlatforms.platforms.get(name);
+        }
+    };
+    capPlatforms.addPlatform = addPlatform;
+    capPlatforms.setPlatform = setPlatform;
+    return capPlatforms;
+};
+const initPlatforms = (win) => (win.CapacitorPlatforms = createCapacitorPlatforms(win));
+/**
+ * @deprecated Set `CapacitorCustomPlatform` on the window object prior to runtime executing in the web app instead
+ */
+const CapacitorPlatforms = /*#__PURE__*/ initPlatforms((typeof globalThis !== 'undefined'
+    ? globalThis
+    : typeof self !== 'undefined'
+        ? self
+        : typeof window !== 'undefined'
+            ? window
+            : typeof global !== 'undefined'
+                ? global
+                : {}));
+/**
+ * @deprecated Set `CapacitorCustomPlatform` on the window object prior to runtime executing in the web app instead
+ */
+const addPlatform = CapacitorPlatforms.addPlatform;
+/**
+ * @deprecated Set `CapacitorCustomPlatform` on the window object prior to runtime executing in the web app instead
+ */
+const setPlatform = CapacitorPlatforms.setPlatform;
+
+const legacyRegisterWebPlugin = (cap, webPlugin) => {
+    var _a;
+    const config = webPlugin.config;
+    const Plugins = cap.Plugins;
+    if (!config || !config.name) {
+        // TODO: add link to upgrade guide
+        throw new Error(`Capacitor WebPlugin is using the deprecated "registerWebPlugin()" function, but without the config. Please use "registerPlugin()" instead to register this web plugin."`);
+    }
+    // TODO: add link to upgrade guide
+    console.warn(`Capacitor plugin "${config.name}" is using the deprecated "registerWebPlugin()" function`);
+    if (!Plugins[config.name] || ((_a = config === null || config === void 0 ? void 0 : config.platforms) === null || _a === void 0 ? void 0 : _a.includes(cap.getPlatform()))) {
+        // Add the web plugin into the plugins registry if there already isn't
+        // an existing one. If it doesn't already exist, that means
+        // there's no existing native implementation for it.
+        // - OR -
+        // If we already have a plugin registered (meaning it was defined in the native layer),
+        // then we should only overwrite it if the corresponding web plugin activates on
+        // a certain platform. For example: Geolocation uses the WebPlugin on Android but not iOS
+        Plugins[config.name] = webPlugin;
+    }
+};
+
+var ExceptionCode;
+(function (ExceptionCode) {
+    /**
+     * API is not implemented.
+     *
+     * This usually means the API can't be used because it is not implemented for
+     * the current platform.
+     */
+    ExceptionCode["Unimplemented"] = "UNIMPLEMENTED";
+    /**
+     * API is not available.
+     *
+     * This means the API can't be used right now because:
+     *   - it is currently missing a prerequisite, such as network connectivity
+     *   - it requires a particular platform or browser version
+     */
+    ExceptionCode["Unavailable"] = "UNAVAILABLE";
+})(ExceptionCode || (ExceptionCode = {}));
+class CapacitorException extends Error {
+    constructor(message, code) {
+        super(message);
+        this.message = message;
+        this.code = code;
+    }
+}
+const getPlatformId = (win) => {
+    var _a, _b;
+    if (win === null || win === void 0 ? void 0 : win.androidBridge) {
+        return 'android';
+    }
+    else if ((_b = (_a = win === null || win === void 0 ? void 0 : win.webkit) === null || _a === void 0 ? void 0 : _a.messageHandlers) === null || _b === void 0 ? void 0 : _b.bridge) {
+        return 'ios';
+    }
+    else {
+        return 'web';
+    }
+};
+
+const createCapacitor = (win) => {
+    var _a, _b, _c, _d, _e;
+    const capCustomPlatform = win.CapacitorCustomPlatform || null;
+    const cap = win.Capacitor || {};
+    const Plugins = (cap.Plugins = cap.Plugins || {});
+    /**
+     * @deprecated Use `capCustomPlatform` instead, default functions like registerPlugin will function with the new object.
+     */
+    const capPlatforms = win.CapacitorPlatforms;
+    const defaultGetPlatform = () => {
+        return capCustomPlatform !== null
+            ? capCustomPlatform.name
+            : getPlatformId(win);
+    };
+    const getPlatform = ((_a = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _a === void 0 ? void 0 : _a.getPlatform) || defaultGetPlatform;
+    const defaultIsNativePlatform = () => getPlatform() !== 'web';
+    const isNativePlatform = ((_b = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _b === void 0 ? void 0 : _b.isNativePlatform) || defaultIsNativePlatform;
+    const defaultIsPluginAvailable = (pluginName) => {
+        const plugin = registeredPlugins.get(pluginName);
+        if (plugin === null || plugin === void 0 ? void 0 : plugin.platforms.has(getPlatform())) {
+            // JS implementation available for the current platform.
+            return true;
+        }
+        if (getPluginHeader(pluginName)) {
+            // Native implementation available.
+            return true;
+        }
+        return false;
+    };
+    const isPluginAvailable = ((_c = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _c === void 0 ? void 0 : _c.isPluginAvailable) ||
+        defaultIsPluginAvailable;
+    const defaultGetPluginHeader = (pluginName) => { var _a; return (_a = cap.PluginHeaders) === null || _a === void 0 ? void 0 : _a.find(h => h.name === pluginName); };
+    const getPluginHeader = ((_d = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _d === void 0 ? void 0 : _d.getPluginHeader) || defaultGetPluginHeader;
+    const handleError = (err) => win.console.error(err);
+    const pluginMethodNoop = (_target, prop, pluginName) => {
+        return Promise.reject(`${pluginName} does not have an implementation of "${prop}".`);
+    };
+    const registeredPlugins = new Map();
+    const defaultRegisterPlugin = (pluginName, jsImplementations = {}) => {
+        const registeredPlugin = registeredPlugins.get(pluginName);
+        if (registeredPlugin) {
+            console.warn(`Capacitor plugin "${pluginName}" already registered. Cannot register plugins twice.`);
+            return registeredPlugin.proxy;
+        }
+        const platform = getPlatform();
+        const pluginHeader = getPluginHeader(pluginName);
+        let jsImplementation;
+        const loadPluginImplementation = async () => {
+            if (!jsImplementation && platform in jsImplementations) {
+                jsImplementation =
+                    typeof jsImplementations[platform] === 'function'
+                        ? (jsImplementation = await jsImplementations[platform]())
+                        : (jsImplementation = jsImplementations[platform]);
+            }
+            else if (capCustomPlatform !== null &&
+                !jsImplementation &&
+                'web' in jsImplementations) {
+                jsImplementation =
+                    typeof jsImplementations['web'] === 'function'
+                        ? (jsImplementation = await jsImplementations['web']())
+                        : (jsImplementation = jsImplementations['web']);
+            }
+            return jsImplementation;
+        };
+        const createPluginMethod = (impl, prop) => {
+            var _a, _b;
+            if (pluginHeader) {
+                const methodHeader = pluginHeader === null || pluginHeader === void 0 ? void 0 : pluginHeader.methods.find(m => prop === m.name);
+                if (methodHeader) {
+                    if (methodHeader.rtype === 'promise') {
+                        return (options) => cap.nativePromise(pluginName, prop.toString(), options);
+                    }
+                    else {
+                        return (options, callback) => cap.nativeCallback(pluginName, prop.toString(), options, callback);
+                    }
+                }
+                else if (impl) {
+                    return (_a = impl[prop]) === null || _a === void 0 ? void 0 : _a.bind(impl);
+                }
+            }
+            else if (impl) {
+                return (_b = impl[prop]) === null || _b === void 0 ? void 0 : _b.bind(impl);
+            }
+            else {
+                throw new CapacitorException(`"${pluginName}" plugin is not implemented on ${platform}`, ExceptionCode.Unimplemented);
+            }
+        };
+        const createPluginMethodWrapper = (prop) => {
+            let remove;
+            const wrapper = (...args) => {
+                const p = loadPluginImplementation().then(impl => {
+                    const fn = createPluginMethod(impl, prop);
+                    if (fn) {
+                        const p = fn(...args);
+                        remove = p === null || p === void 0 ? void 0 : p.remove;
+                        return p;
+                    }
+                    else {
+                        throw new CapacitorException(`"${pluginName}.${prop}()" is not implemented on ${platform}`, ExceptionCode.Unimplemented);
+                    }
+                });
+                if (prop === 'addListener') {
+                    p.remove = async () => remove();
+                }
+                return p;
+            };
+            // Some flair ✨
+            wrapper.toString = () => `${prop.toString()}() { [capacitor code] }`;
+            Object.defineProperty(wrapper, 'name', {
+                value: prop,
+                writable: false,
+                configurable: false,
+            });
+            return wrapper;
+        };
+        const addListener = createPluginMethodWrapper('addListener');
+        const removeListener = createPluginMethodWrapper('removeListener');
+        const addListenerNative = (eventName, callback) => {
+            const call = addListener({ eventName }, callback);
+            const remove = async () => {
+                const callbackId = await call;
+                removeListener({
+                    eventName,
+                    callbackId,
+                }, callback);
+            };
+            const p = new Promise(resolve => call.then(() => resolve({ remove })));
+            p.remove = async () => {
+                console.warn(`Using addListener() without 'await' is deprecated.`);
+                await remove();
+            };
+            return p;
+        };
+        const proxy = new Proxy({}, {
+            get(_, prop) {
+                switch (prop) {
+                    // https://github.com/facebook/react/issues/20030
+                    case '$$typeof':
+                        return undefined;
+                    case 'toJSON':
+                        return () => ({});
+                    case 'addListener':
+                        return pluginHeader ? addListenerNative : addListener;
+                    case 'removeListener':
+                        return removeListener;
+                    default:
+                        return createPluginMethodWrapper(prop);
+                }
+            },
+        });
+        Plugins[pluginName] = proxy;
+        registeredPlugins.set(pluginName, {
+            name: pluginName,
+            proxy,
+            platforms: new Set([
+                ...Object.keys(jsImplementations),
+                ...(pluginHeader ? [platform] : []),
+            ]),
+        });
+        return proxy;
+    };
+    const registerPlugin = ((_e = capPlatforms === null || capPlatforms === void 0 ? void 0 : capPlatforms.currentPlatform) === null || _e === void 0 ? void 0 : _e.registerPlugin) || defaultRegisterPlugin;
+    // Add in convertFileSrc for web, it will already be available in native context
+    if (!cap.convertFileSrc) {
+        cap.convertFileSrc = filePath => filePath;
+    }
+    cap.getPlatform = getPlatform;
+    cap.handleError = handleError;
+    cap.isNativePlatform = isNativePlatform;
+    cap.isPluginAvailable = isPluginAvailable;
+    cap.pluginMethodNoop = pluginMethodNoop;
+    cap.registerPlugin = registerPlugin;
+    cap.Exception = CapacitorException;
+    cap.DEBUG = !!cap.DEBUG;
+    cap.isLoggingEnabled = !!cap.isLoggingEnabled;
+    // Deprecated props
+    cap.platform = cap.getPlatform();
+    cap.isNative = cap.isNativePlatform();
+    return cap;
+};
+const initCapacitorGlobal = (win) => (win.Capacitor = createCapacitor(win));
+
+const Capacitor = /*#__PURE__*/ initCapacitorGlobal(typeof globalThis !== 'undefined'
+    ? globalThis
+    : typeof self !== 'undefined'
+        ? self
+        : typeof window !== 'undefined'
+            ? window
+            : typeof global !== 'undefined'
+                ? global
+                : {});
+const registerPlugin = Capacitor.registerPlugin;
+/**
+ * @deprecated Provided for backwards compatibility for Capacitor v2 plugins.
+ * Capacitor v3 plugins should import the plugin directly. This "Plugins"
+ * export is deprecated in v3, and will be removed in v4.
+ */
+const Plugins = Capacitor.Plugins;
+/**
+ * Provided for backwards compatibility. Use the registerPlugin() API
+ * instead, and provide the web plugin as the "web" implmenetation.
+ * For example
+ *
+ * export const Example = registerPlugin('Example', {
+ *   web: () => import('./web').then(m => new m.Example())
+ * })
+ *
+ * @deprecated Deprecated in v3, will be removed from v4.
+ */
+const registerWebPlugin = (plugin) => legacyRegisterWebPlugin(Capacitor, plugin);
+
+/**
+ * Base class web plugins should extend.
+ */
+class WebPlugin {
+    constructor(config) {
+        this.listeners = {};
+        this.windowListeners = {};
+        if (config) {
+            // TODO: add link to upgrade guide
+            console.warn(`Capacitor WebPlugin "${config.name}" config object was deprecated in v3 and will be removed in v4.`);
+            this.config = config;
+        }
+    }
+    addListener(eventName, listenerFunc) {
+        const listeners = this.listeners[eventName];
+        if (!listeners) {
+            this.listeners[eventName] = [];
+        }
+        this.listeners[eventName].push(listenerFunc);
+        // If we haven't added a window listener for this event and it requires one,
+        // go ahead and add it
+        const windowListener = this.windowListeners[eventName];
+        if (windowListener && !windowListener.registered) {
+            this.addWindowListener(windowListener);
+        }
+        const remove = async () => this.removeListener(eventName, listenerFunc);
+        const p = Promise.resolve({ remove });
+        Object.defineProperty(p, 'remove', {
+            value: async () => {
+                console.warn(`Using addListener() without 'await' is deprecated.`);
+                await remove();
+            },
+        });
+        return p;
+    }
+    async removeAllListeners() {
+        this.listeners = {};
+        for (const listener in this.windowListeners) {
+            this.removeWindowListener(this.windowListeners[listener]);
+        }
+        this.windowListeners = {};
+    }
+    notifyListeners(eventName, data) {
+        const listeners = this.listeners[eventName];
+        if (listeners) {
+            listeners.forEach(listener => listener(data));
+        }
+    }
+    hasListeners(eventName) {
+        return !!this.listeners[eventName].length;
+    }
+    registerWindowListener(windowEventName, pluginEventName) {
+        this.windowListeners[pluginEventName] = {
+            registered: false,
+            windowEventName,
+            pluginEventName,
+            handler: event => {
+                this.notifyListeners(pluginEventName, event);
+            },
+        };
+    }
+    unimplemented(msg = 'not implemented') {
+        return new Capacitor.Exception(msg, ExceptionCode.Unimplemented);
+    }
+    unavailable(msg = 'not available') {
+        return new Capacitor.Exception(msg, ExceptionCode.Unavailable);
+    }
+    async removeListener(eventName, listenerFunc) {
+        const listeners = this.listeners[eventName];
+        if (!listeners) {
+            return;
+        }
+        const index = listeners.indexOf(listenerFunc);
+        this.listeners[eventName].splice(index, 1);
+        // If there are no more listeners for this type of event,
+        // remove the window listener
+        if (!this.listeners[eventName].length) {
+            this.removeWindowListener(this.windowListeners[eventName]);
+        }
+    }
+    addWindowListener(handle) {
+        window.addEventListener(handle.windowEventName, handle.handler);
+        handle.registered = true;
+    }
+    removeWindowListener(handle) {
+        if (!handle) {
+            return;
+        }
+        window.removeEventListener(handle.windowEventName, handle.handler);
+        handle.registered = false;
+    }
+}
+
+const WebView = /*#__PURE__*/ registerPlugin('WebView');
+
+
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ 13509:
+/*!***************************************************************!*\
+  !*** ./node_modules/@capacitor/share/dist/esm/definitions.js ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+//# sourceMappingURL=definitions.js.map
+
+/***/ }),
+
+/***/ 16380:
+/*!*********************************************************!*\
+  !*** ./node_modules/@capacitor/share/dist/esm/index.js ***!
+  \*********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Share": function() { return /* binding */ Share; }
+/* harmony export */ });
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @capacitor/core */ 68384);
+/* harmony import */ var _definitions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./definitions */ 13509);
+
+const Share = (0,_capacitor_core__WEBPACK_IMPORTED_MODULE_0__.registerPlugin)('Share', {
+    web: () => __webpack_require__.e(/*! import() */ "node_modules_capacitor_share_dist_esm_web_js").then(__webpack_require__.bind(__webpack_require__, /*! ./web */ 54648)).then(m => new m.ShareWeb()),
+});
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ 60028:
 /*!****************************************************!*\
   !*** ./node_modules/algoliasearch-helper/index.js ***!
@@ -23153,6 +23624,953 @@ var objectKeys = Object.keys || function (obj) {
 
 /***/ }),
 
+/***/ 93576:
+/*!**************************************************!*\
+  !*** ./node_modules/rxjs/internal/Observable.js ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var canReportError_1 = __webpack_require__(/*! ./util/canReportError */ 15730);
+var toSubscriber_1 = __webpack_require__(/*! ./util/toSubscriber */ 67104);
+var observable_1 = __webpack_require__(/*! ./symbol/observable */ 96232);
+var pipe_1 = __webpack_require__(/*! ./util/pipe */ 23915);
+var config_1 = __webpack_require__(/*! ./config */ 68273);
+var Observable = (function () {
+    function Observable(subscribe) {
+        this._isScalar = false;
+        if (subscribe) {
+            this._subscribe = subscribe;
+        }
+    }
+    Observable.prototype.lift = function (operator) {
+        var observable = new Observable();
+        observable.source = this;
+        observable.operator = operator;
+        return observable;
+    };
+    Observable.prototype.subscribe = function (observerOrNext, error, complete) {
+        var operator = this.operator;
+        var sink = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
+        if (operator) {
+            sink.add(operator.call(sink, this.source));
+        }
+        else {
+            sink.add(this.source || (config_1.config.useDeprecatedSynchronousErrorHandling && !sink.syncErrorThrowable) ?
+                this._subscribe(sink) :
+                this._trySubscribe(sink));
+        }
+        if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+            if (sink.syncErrorThrowable) {
+                sink.syncErrorThrowable = false;
+                if (sink.syncErrorThrown) {
+                    throw sink.syncErrorValue;
+                }
+            }
+        }
+        return sink;
+    };
+    Observable.prototype._trySubscribe = function (sink) {
+        try {
+            return this._subscribe(sink);
+        }
+        catch (err) {
+            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+                sink.syncErrorThrown = true;
+                sink.syncErrorValue = err;
+            }
+            if (canReportError_1.canReportError(sink)) {
+                sink.error(err);
+            }
+            else {
+                console.warn(err);
+            }
+        }
+    };
+    Observable.prototype.forEach = function (next, promiseCtor) {
+        var _this = this;
+        promiseCtor = getPromiseCtor(promiseCtor);
+        return new promiseCtor(function (resolve, reject) {
+            var subscription;
+            subscription = _this.subscribe(function (value) {
+                try {
+                    next(value);
+                }
+                catch (err) {
+                    reject(err);
+                    if (subscription) {
+                        subscription.unsubscribe();
+                    }
+                }
+            }, reject, resolve);
+        });
+    };
+    Observable.prototype._subscribe = function (subscriber) {
+        var source = this.source;
+        return source && source.subscribe(subscriber);
+    };
+    Observable.prototype[observable_1.observable] = function () {
+        return this;
+    };
+    Observable.prototype.pipe = function () {
+        var operations = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            operations[_i] = arguments[_i];
+        }
+        if (operations.length === 0) {
+            return this;
+        }
+        return pipe_1.pipeFromArray(operations)(this);
+    };
+    Observable.prototype.toPromise = function (promiseCtor) {
+        var _this = this;
+        promiseCtor = getPromiseCtor(promiseCtor);
+        return new promiseCtor(function (resolve, reject) {
+            var value;
+            _this.subscribe(function (x) { return value = x; }, function (err) { return reject(err); }, function () { return resolve(value); });
+        });
+    };
+    Observable.create = function (subscribe) {
+        return new Observable(subscribe);
+    };
+    return Observable;
+}());
+exports.Observable = Observable;
+function getPromiseCtor(promiseCtor) {
+    if (!promiseCtor) {
+        promiseCtor = config_1.config.Promise || Promise;
+    }
+    if (!promiseCtor) {
+        throw new Error('no Promise impl found');
+    }
+    return promiseCtor;
+}
+//# sourceMappingURL=Observable.js.map
+
+/***/ }),
+
+/***/ 16011:
+/*!************************************************!*\
+  !*** ./node_modules/rxjs/internal/Observer.js ***!
+  \************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var config_1 = __webpack_require__(/*! ./config */ 68273);
+var hostReportError_1 = __webpack_require__(/*! ./util/hostReportError */ 32434);
+exports.empty = {
+    closed: true,
+    next: function (value) { },
+    error: function (err) {
+        if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+            throw err;
+        }
+        else {
+            hostReportError_1.hostReportError(err);
+        }
+    },
+    complete: function () { }
+};
+//# sourceMappingURL=Observer.js.map
+
+/***/ }),
+
+/***/ 67241:
+/*!**************************************************!*\
+  !*** ./node_modules/rxjs/internal/Subscriber.js ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var isFunction_1 = __webpack_require__(/*! ./util/isFunction */ 67382);
+var Observer_1 = __webpack_require__(/*! ./Observer */ 16011);
+var Subscription_1 = __webpack_require__(/*! ./Subscription */ 43984);
+var rxSubscriber_1 = __webpack_require__(/*! ../internal/symbol/rxSubscriber */ 81476);
+var config_1 = __webpack_require__(/*! ./config */ 68273);
+var hostReportError_1 = __webpack_require__(/*! ./util/hostReportError */ 32434);
+var Subscriber = (function (_super) {
+    __extends(Subscriber, _super);
+    function Subscriber(destinationOrNext, error, complete) {
+        var _this = _super.call(this) || this;
+        _this.syncErrorValue = null;
+        _this.syncErrorThrown = false;
+        _this.syncErrorThrowable = false;
+        _this.isStopped = false;
+        switch (arguments.length) {
+            case 0:
+                _this.destination = Observer_1.empty;
+                break;
+            case 1:
+                if (!destinationOrNext) {
+                    _this.destination = Observer_1.empty;
+                    break;
+                }
+                if (typeof destinationOrNext === 'object') {
+                    if (destinationOrNext instanceof Subscriber) {
+                        _this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
+                        _this.destination = destinationOrNext;
+                        destinationOrNext.add(_this);
+                    }
+                    else {
+                        _this.syncErrorThrowable = true;
+                        _this.destination = new SafeSubscriber(_this, destinationOrNext);
+                    }
+                    break;
+                }
+            default:
+                _this.syncErrorThrowable = true;
+                _this.destination = new SafeSubscriber(_this, destinationOrNext, error, complete);
+                break;
+        }
+        return _this;
+    }
+    Subscriber.prototype[rxSubscriber_1.rxSubscriber] = function () { return this; };
+    Subscriber.create = function (next, error, complete) {
+        var subscriber = new Subscriber(next, error, complete);
+        subscriber.syncErrorThrowable = false;
+        return subscriber;
+    };
+    Subscriber.prototype.next = function (value) {
+        if (!this.isStopped) {
+            this._next(value);
+        }
+    };
+    Subscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            this.isStopped = true;
+            this._error(err);
+        }
+    };
+    Subscriber.prototype.complete = function () {
+        if (!this.isStopped) {
+            this.isStopped = true;
+            this._complete();
+        }
+    };
+    Subscriber.prototype.unsubscribe = function () {
+        if (this.closed) {
+            return;
+        }
+        this.isStopped = true;
+        _super.prototype.unsubscribe.call(this);
+    };
+    Subscriber.prototype._next = function (value) {
+        this.destination.next(value);
+    };
+    Subscriber.prototype._error = function (err) {
+        this.destination.error(err);
+        this.unsubscribe();
+    };
+    Subscriber.prototype._complete = function () {
+        this.destination.complete();
+        this.unsubscribe();
+    };
+    Subscriber.prototype._unsubscribeAndRecycle = function () {
+        var _parentOrParents = this._parentOrParents;
+        this._parentOrParents = null;
+        this.unsubscribe();
+        this.closed = false;
+        this.isStopped = false;
+        this._parentOrParents = _parentOrParents;
+        return this;
+    };
+    return Subscriber;
+}(Subscription_1.Subscription));
+exports.Subscriber = Subscriber;
+var SafeSubscriber = (function (_super) {
+    __extends(SafeSubscriber, _super);
+    function SafeSubscriber(_parentSubscriber, observerOrNext, error, complete) {
+        var _this = _super.call(this) || this;
+        _this._parentSubscriber = _parentSubscriber;
+        var next;
+        var context = _this;
+        if (isFunction_1.isFunction(observerOrNext)) {
+            next = observerOrNext;
+        }
+        else if (observerOrNext) {
+            next = observerOrNext.next;
+            error = observerOrNext.error;
+            complete = observerOrNext.complete;
+            if (observerOrNext !== Observer_1.empty) {
+                context = Object.create(observerOrNext);
+                if (isFunction_1.isFunction(context.unsubscribe)) {
+                    _this.add(context.unsubscribe.bind(context));
+                }
+                context.unsubscribe = _this.unsubscribe.bind(_this);
+            }
+        }
+        _this._context = context;
+        _this._next = next;
+        _this._error = error;
+        _this._complete = complete;
+        return _this;
+    }
+    SafeSubscriber.prototype.next = function (value) {
+        if (!this.isStopped && this._next) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (!config_1.config.useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
+                this.__tryOrUnsub(this._next, value);
+            }
+            else if (this.__tryOrSetError(_parentSubscriber, this._next, value)) {
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+            var useDeprecatedSynchronousErrorHandling = config_1.config.useDeprecatedSynchronousErrorHandling;
+            if (this._error) {
+                if (!useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
+                    this.__tryOrUnsub(this._error, err);
+                    this.unsubscribe();
+                }
+                else {
+                    this.__tryOrSetError(_parentSubscriber, this._error, err);
+                    this.unsubscribe();
+                }
+            }
+            else if (!_parentSubscriber.syncErrorThrowable) {
+                this.unsubscribe();
+                if (useDeprecatedSynchronousErrorHandling) {
+                    throw err;
+                }
+                hostReportError_1.hostReportError(err);
+            }
+            else {
+                if (useDeprecatedSynchronousErrorHandling) {
+                    _parentSubscriber.syncErrorValue = err;
+                    _parentSubscriber.syncErrorThrown = true;
+                }
+                else {
+                    hostReportError_1.hostReportError(err);
+                }
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.complete = function () {
+        var _this = this;
+        if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (this._complete) {
+                var wrappedComplete = function () { return _this._complete.call(_this._context); };
+                if (!config_1.config.useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
+                    this.__tryOrUnsub(wrappedComplete);
+                    this.unsubscribe();
+                }
+                else {
+                    this.__tryOrSetError(_parentSubscriber, wrappedComplete);
+                    this.unsubscribe();
+                }
+            }
+            else {
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.__tryOrUnsub = function (fn, value) {
+        try {
+            fn.call(this._context, value);
+        }
+        catch (err) {
+            this.unsubscribe();
+            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+                throw err;
+            }
+            else {
+                hostReportError_1.hostReportError(err);
+            }
+        }
+    };
+    SafeSubscriber.prototype.__tryOrSetError = function (parent, fn, value) {
+        if (!config_1.config.useDeprecatedSynchronousErrorHandling) {
+            throw new Error('bad call');
+        }
+        try {
+            fn.call(this._context, value);
+        }
+        catch (err) {
+            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+                parent.syncErrorValue = err;
+                parent.syncErrorThrown = true;
+                return true;
+            }
+            else {
+                hostReportError_1.hostReportError(err);
+                return true;
+            }
+        }
+        return false;
+    };
+    SafeSubscriber.prototype._unsubscribe = function () {
+        var _parentSubscriber = this._parentSubscriber;
+        this._context = null;
+        this._parentSubscriber = null;
+        _parentSubscriber.unsubscribe();
+    };
+    return SafeSubscriber;
+}(Subscriber));
+exports.SafeSubscriber = SafeSubscriber;
+//# sourceMappingURL=Subscriber.js.map
+
+/***/ }),
+
+/***/ 43984:
+/*!****************************************************!*\
+  !*** ./node_modules/rxjs/internal/Subscription.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var isArray_1 = __webpack_require__(/*! ./util/isArray */ 40993);
+var isObject_1 = __webpack_require__(/*! ./util/isObject */ 54720);
+var isFunction_1 = __webpack_require__(/*! ./util/isFunction */ 67382);
+var UnsubscriptionError_1 = __webpack_require__(/*! ./util/UnsubscriptionError */ 18574);
+var Subscription = (function () {
+    function Subscription(unsubscribe) {
+        this.closed = false;
+        this._parentOrParents = null;
+        this._subscriptions = null;
+        if (unsubscribe) {
+            this._ctorUnsubscribe = true;
+            this._unsubscribe = unsubscribe;
+        }
+    }
+    Subscription.prototype.unsubscribe = function () {
+        var errors;
+        if (this.closed) {
+            return;
+        }
+        var _a = this, _parentOrParents = _a._parentOrParents, _ctorUnsubscribe = _a._ctorUnsubscribe, _unsubscribe = _a._unsubscribe, _subscriptions = _a._subscriptions;
+        this.closed = true;
+        this._parentOrParents = null;
+        this._subscriptions = null;
+        if (_parentOrParents instanceof Subscription) {
+            _parentOrParents.remove(this);
+        }
+        else if (_parentOrParents !== null) {
+            for (var index = 0; index < _parentOrParents.length; ++index) {
+                var parent_1 = _parentOrParents[index];
+                parent_1.remove(this);
+            }
+        }
+        if (isFunction_1.isFunction(_unsubscribe)) {
+            if (_ctorUnsubscribe) {
+                this._unsubscribe = undefined;
+            }
+            try {
+                _unsubscribe.call(this);
+            }
+            catch (e) {
+                errors = e instanceof UnsubscriptionError_1.UnsubscriptionError ? flattenUnsubscriptionErrors(e.errors) : [e];
+            }
+        }
+        if (isArray_1.isArray(_subscriptions)) {
+            var index = -1;
+            var len = _subscriptions.length;
+            while (++index < len) {
+                var sub = _subscriptions[index];
+                if (isObject_1.isObject(sub)) {
+                    try {
+                        sub.unsubscribe();
+                    }
+                    catch (e) {
+                        errors = errors || [];
+                        if (e instanceof UnsubscriptionError_1.UnsubscriptionError) {
+                            errors = errors.concat(flattenUnsubscriptionErrors(e.errors));
+                        }
+                        else {
+                            errors.push(e);
+                        }
+                    }
+                }
+            }
+        }
+        if (errors) {
+            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
+        }
+    };
+    Subscription.prototype.add = function (teardown) {
+        var subscription = teardown;
+        if (!teardown) {
+            return Subscription.EMPTY;
+        }
+        switch (typeof teardown) {
+            case 'function':
+                subscription = new Subscription(teardown);
+            case 'object':
+                if (subscription === this || subscription.closed || typeof subscription.unsubscribe !== 'function') {
+                    return subscription;
+                }
+                else if (this.closed) {
+                    subscription.unsubscribe();
+                    return subscription;
+                }
+                else if (!(subscription instanceof Subscription)) {
+                    var tmp = subscription;
+                    subscription = new Subscription();
+                    subscription._subscriptions = [tmp];
+                }
+                break;
+            default: {
+                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
+            }
+        }
+        var _parentOrParents = subscription._parentOrParents;
+        if (_parentOrParents === null) {
+            subscription._parentOrParents = this;
+        }
+        else if (_parentOrParents instanceof Subscription) {
+            if (_parentOrParents === this) {
+                return subscription;
+            }
+            subscription._parentOrParents = [_parentOrParents, this];
+        }
+        else if (_parentOrParents.indexOf(this) === -1) {
+            _parentOrParents.push(this);
+        }
+        else {
+            return subscription;
+        }
+        var subscriptions = this._subscriptions;
+        if (subscriptions === null) {
+            this._subscriptions = [subscription];
+        }
+        else {
+            subscriptions.push(subscription);
+        }
+        return subscription;
+    };
+    Subscription.prototype.remove = function (subscription) {
+        var subscriptions = this._subscriptions;
+        if (subscriptions) {
+            var subscriptionIndex = subscriptions.indexOf(subscription);
+            if (subscriptionIndex !== -1) {
+                subscriptions.splice(subscriptionIndex, 1);
+            }
+        }
+    };
+    Subscription.EMPTY = (function (empty) {
+        empty.closed = true;
+        return empty;
+    }(new Subscription()));
+    return Subscription;
+}());
+exports.Subscription = Subscription;
+function flattenUnsubscriptionErrors(errors) {
+    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
+}
+//# sourceMappingURL=Subscription.js.map
+
+/***/ }),
+
+/***/ 68273:
+/*!**********************************************!*\
+  !*** ./node_modules/rxjs/internal/config.js ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var _enable_super_gross_mode_that_will_cause_bad_things = false;
+exports.config = {
+    Promise: undefined,
+    set useDeprecatedSynchronousErrorHandling(value) {
+        if (value) {
+            var error = new Error();
+            console.warn('DEPRECATED! RxJS was set to use deprecated synchronous error handling behavior by code at: \n' + error.stack);
+        }
+        else if (_enable_super_gross_mode_that_will_cause_bad_things) {
+            console.log('RxJS: Back to a better error behavior. Thank you. <3');
+        }
+        _enable_super_gross_mode_that_will_cause_bad_things = value;
+    },
+    get useDeprecatedSynchronousErrorHandling() {
+        return _enable_super_gross_mode_that_will_cause_bad_things;
+    },
+};
+//# sourceMappingURL=config.js.map
+
+/***/ }),
+
+/***/ 79941:
+/*!********************************************************!*\
+  !*** ./node_modules/rxjs/internal/observable/empty.js ***!
+  \********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var Observable_1 = __webpack_require__(/*! ../Observable */ 93576);
+exports.EMPTY = new Observable_1.Observable(function (subscriber) { return subscriber.complete(); });
+function empty(scheduler) {
+    return scheduler ? emptyScheduled(scheduler) : exports.EMPTY;
+}
+exports.empty = empty;
+function emptyScheduled(scheduler) {
+    return new Observable_1.Observable(function (subscriber) { return scheduler.schedule(function () { return subscriber.complete(); }); });
+}
+//# sourceMappingURL=empty.js.map
+
+/***/ }),
+
+/***/ 71056:
+/*!******************************************************!*\
+  !*** ./node_modules/rxjs/internal/operators/take.js ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var Subscriber_1 = __webpack_require__(/*! ../Subscriber */ 67241);
+var ArgumentOutOfRangeError_1 = __webpack_require__(/*! ../util/ArgumentOutOfRangeError */ 72974);
+var empty_1 = __webpack_require__(/*! ../observable/empty */ 79941);
+function take(count) {
+    return function (source) {
+        if (count === 0) {
+            return empty_1.empty();
+        }
+        else {
+            return source.lift(new TakeOperator(count));
+        }
+    };
+}
+exports.take = take;
+var TakeOperator = (function () {
+    function TakeOperator(total) {
+        this.total = total;
+        if (this.total < 0) {
+            throw new ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
+        }
+    }
+    TakeOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new TakeSubscriber(subscriber, this.total));
+    };
+    return TakeOperator;
+}());
+var TakeSubscriber = (function (_super) {
+    __extends(TakeSubscriber, _super);
+    function TakeSubscriber(destination, total) {
+        var _this = _super.call(this, destination) || this;
+        _this.total = total;
+        _this.count = 0;
+        return _this;
+    }
+    TakeSubscriber.prototype._next = function (value) {
+        var total = this.total;
+        var count = ++this.count;
+        if (count <= total) {
+            this.destination.next(value);
+            if (count === total) {
+                this.destination.complete();
+                this.unsubscribe();
+            }
+        }
+    };
+    return TakeSubscriber;
+}(Subscriber_1.Subscriber));
+//# sourceMappingURL=take.js.map
+
+/***/ }),
+
+/***/ 96232:
+/*!*********************************************************!*\
+  !*** ./node_modules/rxjs/internal/symbol/observable.js ***!
+  \*********************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.observable = (function () { return typeof Symbol === 'function' && Symbol.observable || '@@observable'; })();
+//# sourceMappingURL=observable.js.map
+
+/***/ }),
+
+/***/ 81476:
+/*!***********************************************************!*\
+  !*** ./node_modules/rxjs/internal/symbol/rxSubscriber.js ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.rxSubscriber = (function () {
+    return typeof Symbol === 'function'
+        ? Symbol('rxSubscriber')
+        : '@@rxSubscriber_' + Math.random();
+})();
+exports.$$rxSubscriber = exports.rxSubscriber;
+//# sourceMappingURL=rxSubscriber.js.map
+
+/***/ }),
+
+/***/ 72974:
+/*!********************************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/ArgumentOutOfRangeError.js ***!
+  \********************************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var ArgumentOutOfRangeErrorImpl = (function () {
+    function ArgumentOutOfRangeErrorImpl() {
+        Error.call(this);
+        this.message = 'argument out of range';
+        this.name = 'ArgumentOutOfRangeError';
+        return this;
+    }
+    ArgumentOutOfRangeErrorImpl.prototype = Object.create(Error.prototype);
+    return ArgumentOutOfRangeErrorImpl;
+})();
+exports.ArgumentOutOfRangeError = ArgumentOutOfRangeErrorImpl;
+//# sourceMappingURL=ArgumentOutOfRangeError.js.map
+
+/***/ }),
+
+/***/ 18574:
+/*!****************************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/UnsubscriptionError.js ***!
+  \****************************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var UnsubscriptionErrorImpl = (function () {
+    function UnsubscriptionErrorImpl(errors) {
+        Error.call(this);
+        this.message = errors ?
+            errors.length + " errors occurred during unsubscription:\n" + errors.map(function (err, i) { return i + 1 + ") " + err.toString(); }).join('\n  ') : '';
+        this.name = 'UnsubscriptionError';
+        this.errors = errors;
+        return this;
+    }
+    UnsubscriptionErrorImpl.prototype = Object.create(Error.prototype);
+    return UnsubscriptionErrorImpl;
+})();
+exports.UnsubscriptionError = UnsubscriptionErrorImpl;
+//# sourceMappingURL=UnsubscriptionError.js.map
+
+/***/ }),
+
+/***/ 15730:
+/*!***********************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/canReportError.js ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var Subscriber_1 = __webpack_require__(/*! ../Subscriber */ 67241);
+function canReportError(observer) {
+    while (observer) {
+        var _a = observer, closed_1 = _a.closed, destination = _a.destination, isStopped = _a.isStopped;
+        if (closed_1 || isStopped) {
+            return false;
+        }
+        else if (destination && destination instanceof Subscriber_1.Subscriber) {
+            observer = destination;
+        }
+        else {
+            observer = null;
+        }
+    }
+    return true;
+}
+exports.canReportError = canReportError;
+//# sourceMappingURL=canReportError.js.map
+
+/***/ }),
+
+/***/ 32434:
+/*!************************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/hostReportError.js ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+function hostReportError(err) {
+    setTimeout(function () { throw err; }, 0);
+}
+exports.hostReportError = hostReportError;
+//# sourceMappingURL=hostReportError.js.map
+
+/***/ }),
+
+/***/ 72516:
+/*!*****************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/identity.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+function identity(x) {
+    return x;
+}
+exports.identity = identity;
+//# sourceMappingURL=identity.js.map
+
+/***/ }),
+
+/***/ 40993:
+/*!****************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/isArray.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.isArray = (function () { return Array.isArray || (function (x) { return x && typeof x.length === 'number'; }); })();
+//# sourceMappingURL=isArray.js.map
+
+/***/ }),
+
+/***/ 67382:
+/*!*******************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/isFunction.js ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+function isFunction(x) {
+    return typeof x === 'function';
+}
+exports.isFunction = isFunction;
+//# sourceMappingURL=isFunction.js.map
+
+/***/ }),
+
+/***/ 54720:
+/*!*****************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/isObject.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+function isObject(x) {
+    return x !== null && typeof x === 'object';
+}
+exports.isObject = isObject;
+//# sourceMappingURL=isObject.js.map
+
+/***/ }),
+
+/***/ 23915:
+/*!*************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/pipe.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var identity_1 = __webpack_require__(/*! ./identity */ 72516);
+function pipe() {
+    var fns = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        fns[_i] = arguments[_i];
+    }
+    return pipeFromArray(fns);
+}
+exports.pipe = pipe;
+function pipeFromArray(fns) {
+    if (fns.length === 0) {
+        return identity_1.identity;
+    }
+    if (fns.length === 1) {
+        return fns[0];
+    }
+    return function piped(input) {
+        return fns.reduce(function (prev, fn) { return fn(prev); }, input);
+    };
+}
+exports.pipeFromArray = pipeFromArray;
+//# sourceMappingURL=pipe.js.map
+
+/***/ }),
+
+/***/ 67104:
+/*!*********************************************************!*\
+  !*** ./node_modules/rxjs/internal/util/toSubscriber.js ***!
+  \*********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var Subscriber_1 = __webpack_require__(/*! ../Subscriber */ 67241);
+var rxSubscriber_1 = __webpack_require__(/*! ../symbol/rxSubscriber */ 81476);
+var Observer_1 = __webpack_require__(/*! ../Observer */ 16011);
+function toSubscriber(nextOrObserver, error, complete) {
+    if (nextOrObserver) {
+        if (nextOrObserver instanceof Subscriber_1.Subscriber) {
+            return nextOrObserver;
+        }
+        if (nextOrObserver[rxSubscriber_1.rxSubscriber]) {
+            return nextOrObserver[rxSubscriber_1.rxSubscriber]();
+        }
+    }
+    if (!nextOrObserver && !error && !complete) {
+        return new Subscriber_1.Subscriber(Observer_1.empty);
+    }
+    return new Subscriber_1.Subscriber(nextOrObserver, error, complete);
+}
+exports.toSubscriber = toSubscriber;
+//# sourceMappingURL=toSubscriber.js.map
+
+/***/ }),
+
 /***/ 10764:
 /*!***************************************************************!*\
   !*** ./src/app/main-content/dashboard/dashboard.component.ts ***!
@@ -23164,12 +24582,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "DashboardComponent": function() { return /* binding */ DashboardComponent; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_dashboard_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./dashboard.component.html */ 97215);
 /* harmony import */ var _dashboard_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashboard.component.scss */ 11208);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/details/details.service */ 52642);
 /* harmony import */ var src_app_shared_companyData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/companyData */ 64149);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ 35758);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ 15257);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ 68307);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/data/data.service */ 59244);
+
+
+
+
 
 
 
@@ -23177,29 +24604,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let DashboardComponent = class DashboardComponent {
-    constructor(detailsService) {
+    constructor(detailsService, router, dataService) {
         this.detailsService = detailsService;
+        this.router = router;
+        this.dataService = dataService;
         this.results = [];
         this.starName = "star";
     }
     ngOnInit() {
-        this.detailsService.getGainers().subscribe(data => {
-            this.gainerData = data['mostGainerStock'];
-            console.log(JSON.stringify(this.gainerData));
-        });
+        this.getUserInformation();
         this.watchList = JSON.parse(localStorage.getItem('watchList'));
         console.log(this.watchList);
-        /* this.watchList.forEach(code=>{
-           this.results.push(this.detailsService.getCompanyIndividual(code))
-         });
-         forkJoin(this.results)
-         .pipe(take(1), tap(data => {
-             this.companyInfoArray = data.reduce((o,m) => m.concat(o),[]);
-             console.log(this.companyInfoArray);
-         }))
-         .subscribe( () => {}, error => {
-           console.log(error);
-         })*/
+        this.watchList.forEach(code => {
+            this.results.push(this.detailsService.getCompanyIndividual(code));
+        });
+        (0,rxjs__WEBPACK_IMPORTED_MODULE_5__.forkJoin)(this.results)
+            .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.take)(1), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.tap)(data => {
+            this.companyInfoArray = data.reduce((o, m) => m.concat(o), []);
+            console.log(this.companyInfoArray);
+        }))
+            .subscribe(() => { }, error => {
+            console.log(error);
+        });
         this.companyInfoArray = [
             {
                 "symbol": "AAPL",
@@ -23278,7 +24704,7 @@ let DashboardComponent = class DashboardComponent {
     getImage(code) {
         console.log(code);
         let company = src_app_shared_companyData__WEBPACK_IMPORTED_MODULE_3__.companyData.filter(data => {
-            return data.Code == code.value.symbol;
+            return data.Code == code.symbol;
         });
         console.log(company);
         console.log(company[0]['URL']);
@@ -23298,17 +24724,116 @@ let DashboardComponent = class DashboardComponent {
             //call a function to update the watch list of the database
         }
     }
+    seeAll() {
+        this.router.navigate(['/main-content/gain-loss'], { state: { isShowAll: 'true' } });
+        return;
+    }
+    seeAllWatchList() {
+        this.router.navigate(['/main-content/watch-list'], { state: { isShowAll: 'true' } });
+        return;
+    }
+    getOverView(hit) {
+    }
+    /*---------------------------------------------------
+      function:to get the user information
+    ---------------------------------------------------*/
+    getUserInformation() {
+        this.dataService.getUserInformation().subscribe(res => {
+            if (res['followList'] == undefined) {
+                this.followList = [];
+            }
+            if (res['watchList'] == undefined) {
+                this.watchList = [];
+            }
+            this.followList = res['followList'];
+            this.watchList = res['watchList'];
+            localStorage.setItem("watchList", JSON.stringify(this.watchList));
+            localStorage.setItem("followList", JSON.stringify(this.followList));
+            this.availableBalance = res['availableBalance'];
+        });
+        return;
+    }
 };
 DashboardComponent.ctorParameters = () => [
-    { type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__.DetailsService }
+    { type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__.DetailsService },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router },
+    { type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__.DataService }
 ];
-DashboardComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+DashboardComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
         selector: 'app-dashboard',
         template: _raw_loader_dashboard_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_dashboard_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
     })
 ], DashboardComponent);
+
+
+
+/***/ }),
+
+/***/ 37095:
+/*!***************************************************************!*\
+  !*** ./src/app/main-content/gain-loss/gain-loss.component.ts ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GainLossComponent": function() { return /* binding */ GainLossComponent; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_gain_loss_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./gain-loss.component.html */ 5873);
+/* harmony import */ var _gain_loss_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gain-loss.component.scss */ 35173);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/details/details.service */ 52642);
+
+
+
+
+
+
+let GainLossComponent = class GainLossComponent {
+    constructor(router, detailsService) {
+        this.router = router;
+        this.detailsService = detailsService;
+        this.isShowAll = false;
+        this.limit = 1;
+        this.results = [];
+    }
+    ngOnInit() {
+        this.detailsService.getGainers().subscribe(data => {
+            this.gainerData = data['mostGainerStock'];
+            console.log(JSON.stringify(this.gainerData));
+        });
+        this.detailsService.getLosers().subscribe(data => {
+            this.loserData = data['mostLoserStock'];
+        });
+        if (this.router.getCurrentNavigation().extras.state != undefined) {
+            if (this.isShowAll || this.router.getCurrentNavigation().extras.state.isShowAll === 'true') {
+                this.limit = 100;
+            }
+            else {
+                this.limit = 1;
+            }
+        }
+    }
+};
+GainLossComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__.Router },
+    { type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__.DetailsService }
+];
+GainLossComponent.propDecorators = {
+    isShowAll: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.Input }]
+};
+GainLossComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+        selector: 'app-gain-loss',
+        template: _raw_loader_gain_loss_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_gain_loss_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+    })
+], GainLossComponent);
 
 
 
@@ -23325,13 +24850,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "MainContentPageRoutingModule": function() { return /* binding */ MainContentPageRoutingModule; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dashboard/dashboard.component */ 10764);
-/* harmony import */ var _news_news_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./news/news.component */ 4704);
-/* harmony import */ var _overview_overview_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./overview/overview.component */ 74700);
-/* harmony import */ var _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./search-profile/search-profile.component */ 22836);
+/* harmony import */ var _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modals/buy/buy.component */ 26566);
+/* harmony import */ var _modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modals/sell/sell.component */ 62527);
+/* harmony import */ var _news_news_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./news/news.component */ 4704);
+/* harmony import */ var _overview_overview_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./overview/overview.component */ 74700);
+/* harmony import */ var _portfolio_portfolio_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../portfolio/portfolio.component */ 15574);
+/* harmony import */ var _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./search-profile/search-profile.component */ 22836);
+/* harmony import */ var _gain_loss_gain_loss_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./gain-loss/gain-loss.component */ 37095);
+/* harmony import */ var _watchlist_watchlist_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./watchlist/watchlist.component */ 37772);
+
+
+
+
+
 
 
 
@@ -23345,27 +24880,47 @@ const routes = [
     },
     {
         path: 'search-profile',
-        component: _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_3__.SearchProfileComponent
+        component: _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_6__.SearchProfileComponent
     },
     {
         path: 'overview',
-        component: _overview_overview_component__WEBPACK_IMPORTED_MODULE_2__.OverviewComponent
+        component: _overview_overview_component__WEBPACK_IMPORTED_MODULE_4__.OverviewComponent
     },
     {
         path: 'news',
-        component: _news_news_component__WEBPACK_IMPORTED_MODULE_1__.NewsComponent
+        component: _news_news_component__WEBPACK_IMPORTED_MODULE_3__.NewsComponent
     },
     {
         path: 'dashboard',
         component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_0__.DashboardComponent
+    },
+    {
+        path: 'buy',
+        component: _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_1__.BuyComponent
+    },
+    {
+        path: 'sell',
+        component: _modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_2__.SellComponent
+    },
+    {
+        path: 'portfolio',
+        component: _portfolio_portfolio_component__WEBPACK_IMPORTED_MODULE_5__.PortfolioComponent
+    },
+    {
+        path: 'gain-loss',
+        component: _gain_loss_gain_loss_component__WEBPACK_IMPORTED_MODULE_7__.GainLossComponent
+    },
+    {
+        path: 'watch-list',
+        component: _watchlist_watchlist_component__WEBPACK_IMPORTED_MODULE_8__.WatchlistComponent
     }
 ];
 let MainContentPageRoutingModule = class MainContentPageRoutingModule {
 };
-MainContentPageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.NgModule)({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_6__.RouterModule.forChild(routes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_6__.RouterModule],
+MainContentPageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.NgModule)({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_11__.RouterModule.forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_11__.RouterModule],
     })
 ], MainContentPageRoutingModule);
 
@@ -23384,21 +24939,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "MainContentPageModule": function() { return /* binding */ MainContentPageModule; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ 38583);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/common */ 38583);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var _main_content_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main-content-routing.module */ 20893);
 /* harmony import */ var _main_content_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main-content.page */ 64202);
 /* harmony import */ var _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./search-profile/search-profile.component */ 22836);
-/* harmony import */ var angular_instantsearch__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! angular-instantsearch */ 11445);
-/* harmony import */ var _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @swimlane/ngx-charts */ 2945);
+/* harmony import */ var angular_instantsearch__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! angular-instantsearch */ 11445);
+/* harmony import */ var _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @swimlane/ngx-charts */ 2945);
 /* harmony import */ var _overview_overview_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./overview/overview.component */ 74700);
 /* harmony import */ var _services_data_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/data/data.service */ 59244);
 /* harmony import */ var _news_news_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./news/news.component */ 4704);
 /* harmony import */ var _services_details_details_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/details/details.service */ 52642);
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./dashboard/dashboard.component */ 10764);
+/* harmony import */ var _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modals/buy/buy.component */ 26566);
+/* harmony import */ var _modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modals/sell/sell.component */ 62527);
+/* harmony import */ var _portfolio_portfolio_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../portfolio/portfolio.component */ 15574);
+/* harmony import */ var _tab_tab_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./tab/tab.component */ 75329);
+/* harmony import */ var _gain_loss_gain_loss_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./gain-loss/gain-loss.component */ 37095);
+/* harmony import */ var _watchlist_watchlist_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./watchlist/watchlist.component */ 37772);
+
+
+
+
+
+
 
 
 
@@ -23416,21 +24983,28 @@ __webpack_require__.r(__webpack_exports__);
 
 let MainContentPageModule = class MainContentPageModule {
 };
-MainContentPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.NgModule)({
+MainContentPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.NgModule)({
         imports: [
-            angular_instantsearch__WEBPACK_IMPORTED_MODULE_10__.NgAisModule.forRoot(),
-            _angular_common__WEBPACK_IMPORTED_MODULE_11__.CommonModule,
-            _angular_forms__WEBPACK_IMPORTED_MODULE_12__.FormsModule,
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_13__.IonicModule,
+            angular_instantsearch__WEBPACK_IMPORTED_MODULE_16__.NgAisModule.forRoot(),
+            _angular_common__WEBPACK_IMPORTED_MODULE_17__.CommonModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_18__.FormsModule,
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_19__.IonicModule,
             _main_content_routing_module__WEBPACK_IMPORTED_MODULE_0__.MainContentPageRoutingModule,
-            _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_14__.NgxChartsModule
+            _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_20__.NgxChartsModule
         ],
         declarations: [_main_content_page__WEBPACK_IMPORTED_MODULE_1__.MainContentPage,
             _search_profile_search_profile_component__WEBPACK_IMPORTED_MODULE_2__.SearchProfileComponent,
             _overview_overview_component__WEBPACK_IMPORTED_MODULE_3__.OverviewComponent,
             _news_news_component__WEBPACK_IMPORTED_MODULE_5__.NewsComponent,
-            _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__.DashboardComponent],
+            _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__.DashboardComponent,
+            _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_8__.BuyComponent,
+            _modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_9__.SellComponent,
+            _portfolio_portfolio_component__WEBPACK_IMPORTED_MODULE_10__.PortfolioComponent,
+            _tab_tab_component__WEBPACK_IMPORTED_MODULE_11__.TabComponent,
+            _gain_loss_gain_loss_component__WEBPACK_IMPORTED_MODULE_12__.GainLossComponent,
+            _watchlist_watchlist_component__WEBPACK_IMPORTED_MODULE_13__.WatchlistComponent],
+        entryComponents: [_modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_8__.BuyComponent],
         providers: [_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__.DataService, _services_details_details_service__WEBPACK_IMPORTED_MODULE_6__.DetailsService]
     })
 ], MainContentPageModule);
@@ -23471,6 +25045,148 @@ MainContentPage = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
         styles: [_main_content_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
     })
 ], MainContentPage);
+
+
+
+/***/ }),
+
+/***/ 26566:
+/*!**********************************************************!*\
+  !*** ./src/app/main-content/modals/buy/buy.component.ts ***!
+  \**********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BuyComponent": function() { return /* binding */ BuyComponent; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_buy_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./buy.component.html */ 85332);
+/* harmony import */ var _buy_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./buy.component.scss */ 29965);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/data/data.service */ 59244);
+
+
+
+
+
+
+
+
+let BuyComponent = class BuyComponent {
+    constructor(modalCtrl, dataService, toastController) {
+        this.modalCtrl = modalCtrl;
+        this.dataService = dataService;
+        this.toastController = toastController;
+        this.d = new Date();
+        this.tran = {
+            phoneNo: 3333,
+            code: "AMZN",
+            total: 3,
+            price: 20,
+            quantity: 2,
+            createdDate: this.d,
+            isBuy: true
+        };
+    }
+    ngOnInit() { }
+    dismiss() {
+        console.log("inside");
+        this.modalCtrl.dismiss();
+    }
+    buy() {
+        console.log(this.tran);
+        this.tran.code = this.details.Code,
+            this.tran.price = this.details.price,
+            this.tran.quantity = this.quantity,
+            this.tran.phoneNo = parseInt(localStorage.getItem('userId')),
+            this.tran.total = this.quantity * this.details.price,
+            this.tran.isBuy = true,
+            this.tran.createdDate = this.d;
+        this.dataService.createTransactionBuy(this.tran);
+        this.presentToast();
+        this.modalCtrl.dismiss();
+    }
+    presentToast() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, function* () {
+            const toast = yield this.toastController.create({
+                message: 'Successfully Bought!.',
+                duration: 2000,
+                position: 'top',
+                color: 'success'
+            });
+            toast.present();
+        });
+    }
+};
+BuyComponent.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__.ModalController },
+    { type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__.DataService },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__.ToastController }
+];
+BuyComponent.propDecorators = {
+    details: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input }]
+};
+BuyComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+        selector: 'app-buy',
+        template: _raw_loader_buy_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_buy_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+    })
+], BuyComponent);
+
+
+
+/***/ }),
+
+/***/ 62527:
+/*!************************************************************!*\
+  !*** ./src/app/main-content/modals/sell/sell.component.ts ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SellComponent": function() { return /* binding */ SellComponent; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_sell_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./sell.component.html */ 60724);
+/* harmony import */ var _sell_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sell.component.scss */ 52074);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ 80476);
+
+
+
+
+
+let SellComponent = class SellComponent {
+    constructor(modalCtrl) {
+        this.modalCtrl = modalCtrl;
+    }
+    ngOnInit() {
+        console.log(this.details['Code']);
+    }
+    dismiss() {
+        console.log("inside");
+        this.modalCtrl.dismiss();
+    }
+};
+SellComponent.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.ModalController }
+];
+SellComponent.propDecorators = {
+    details: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Input }]
+};
+SellComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+        selector: 'app-sell',
+        template: _raw_loader_sell_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_sell_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+    })
+], SellComponent);
 
 
 
@@ -23557,10 +25273,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_overview_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./overview.component.html */ 38114);
 /* harmony import */ var _overview_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./overview.component.scss */ 86346);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 39895);
-/* harmony import */ var src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/details/details.service */ 52642);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _capacitor_share__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @capacitor/share */ 16380);
+/* harmony import */ var _angular_common_HTTP__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/HTTP */ 91841);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modals/buy/buy.component */ 26566);
+/* harmony import */ var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/data/data.service */ 59244);
 
 
 
@@ -23568,34 +25287,78 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+//import { ModalPage } from '../modal/modal.page';
 let OverviewComponent = class OverviewComponent {
-    //console.log("code+code"+code);
-    constructor(router, myService, http) {
+    constructor(router, dataService, http, modalCtrl, navController) {
         this.router = router;
-        this.myService = myService;
+        this.dataService = dataService;
         this.http = http;
+        this.modalCtrl = modalCtrl;
+        this.navController = navController;
+        this.view = [350, 200];
         this.alphaApiKey = "JRBZPDQLZW3ZCQD0";
-        this.view = [600, 400];
+        this.followList = JSON.parse(localStorage.getItem('followList'));
+        this.watchList = JSON.parse(localStorage.getItem('watchList'));
+        this.dailyData = { data: [
+                {
+                    name: 'prices',
+                    series: []
+                },
+            ] };
+        this.weeklyData = { data: [
+                {
+                    name: 'prices',
+                    series: []
+                },
+            ] };
+        this.monthlyData = { data: [
+                {
+                    name: 'prices',
+                    series: []
+                },
+            ] };
         //public local =new Storage();
-        this.verticalBarOptions = {
-            showXAxis: true,
-            showYAxis: true,
-            gradient: false,
-            showLegend: false,
-            showGridLines: false,
-            barPadding: 10,
-            showXAxisLabel: false,
-            xAxisLabel: "",
-            showYAxisLabel: true,
-            yAxisLabel: ""
-        };
+        //options
+        this.legend = false;
+        this.showLabels = true;
+        this.animations = true;
+        this.xAxis = false;
+        this.yAxis = true;
+        this.showYAxisLabel = false;
+        this.showXAxisLabel = true;
+        this.yAxisLabel = 'value';
+        this.timeline = true;
+        this.rangeFillOpacity = 0.15;
+        /*verticalBarOptions = {
+          showXAxis: true,
+          showYAxis: true,
+          gradient: false,
+          showLegend: false,
+          showGridLines: false,
+          barPadding: 10,
+          showXAxisLabel: false,
+          xAxisLabel: "",
+          showYAxisLabel: true,
+          yAxisLabel: ""
+        }; */
         this.colorScheme = {
             domain: [
-                "#8a918c",
+                "#ff314b",
+            ]
+        };
+        this.ngxData = { data: [
+                {
+                    name: 'prices',
+                    series: []
+                },
             ]
         };
     }
     ngOnInit() {
+        console.log("[ngOnInit - OverViewComponent]");
         if (this.router.getCurrentNavigation().extras.state != undefined) {
             this.hit = this.router.getCurrentNavigation().extras.state.hit ? this.router.getCurrentNavigation().extras.state.hit : '';
             localStorage.setItem('hit', JSON.stringify(this.hit));
@@ -23603,29 +25366,146 @@ let OverviewComponent = class OverviewComponent {
         else {
             this.hit = JSON.parse(localStorage.getItem('hit'));
         }
+        this.index = this.watchList.indexOf(this.hit.Code);
+        if (this.index != -1) {
+            this.starName = "star";
+        }
+        else {
+            this.starName = "star-outline";
+        }
         //temporarily commenting out
-        /*this.http.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol="+this.hit.Code+"&apikey="+this.alphaApiKey).subscribe(data=>{
-          console.log(data);
-          const rawSeries = data['Monthly Adjusted Time Series']
-          console.log(rawSeries)
-          const series = Object.keys(rawSeries).reverse().map(timestamp => {
-            return {name:timestamp, value: rawSeries[timestamp]['2. high']}
-          });
-          this.data=series;
-          console.log(series);
-        });*/
+        this.http.get("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + this.hit.Code + "&interval=60min&apikey=" + this.alphaApiKey).subscribe(data => {
+            console.log(data);
+            const rawSeries = data['Time Series (60min)'];
+            //console.log(this.data['name'])
+            //this.data['name']="Time Day"
+            console.log(rawSeries);
+            Object.keys(rawSeries).reverse().map(timestamp => {
+                this.ngxData.data[0].series.push({ name: timestamp, value: rawSeries[timestamp]['2. high'] });
+            });
+            this.dailyData.data = [...this.ngxData.data];
+            this.ngxData.data = [...this.ngxData.data];
+        });
     }
+    back() {
+        this.navController.back();
+    }
+    /*---------------------------------------------
+      Expand the news component
+    -----------------------------------------------*/
     seeAll() {
         this.router.navigate(['/main-content/news'], { state: { isShowAll: 'true' } });
+        return;
+    }
+    /*---------------------------------------------
+      share with friends
+    -----------------------------------------------*/
+    share() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+            yield _capacitor_share__WEBPACK_IMPORTED_MODULE_2__.Share.share({
+                title: 'Share with friends',
+                text: 'Really awesome thing you need to see right meow',
+                url: 'http://ionicframework.com/',
+                dialogTitle: 'Share with Friensds',
+            });
+        });
+    }
+    /*---------------------------------------------
+      To display buy/sell modal box
+    -----------------------------------------------*/
+    showModal() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+            const modal = yield this.modalCtrl.create({
+                component: _modals_buy_buy_component__WEBPACK_IMPORTED_MODULE_3__.BuyComponent,
+                cssClass: 'my-custom-modal-css',
+                componentProps: {
+                    'details': {
+                        Code: this.hit.Code,
+                        volume: '100',
+                        price: '80'
+                    }
+                },
+                backdropDismiss: false
+            });
+            return yield modal.present();
+        });
+    }
+    /*---------------------------------------------
+     update follow list
+    -----------------------------------------------*/
+    updateFollowList() {
+        this.followList.push(this.hit.Code);
+        this.dataService.updateFollowList(this.followList);
+    }
+    /*---------------------------------------------
+     to toggle the time period
+    -----------------------------------------------*/
+    changeTime(time, limit) {
+        var rawSeries = "";
+        this.http.get("https://www.alphavantage.co/query?function=" + time + "&symbol=" + this.hit.Code + "&apikey=" + this.alphaApiKey).subscribe(data => {
+            switch (time) {
+                case 'daily':
+                    this.ngxData.data = this.dailyData.data;
+                    break;
+                case 'TIME_SERIES_DAILY':
+                    rawSeries = data['Time Series (Daily)'];
+                    if (this.weeklyData.data != 'undefined' || this.weeklyData.data != 'null' || this.weeklyData.data != '') {
+                        Object.keys(rawSeries).reverse().map(timestamp => {
+                            this.ngxData.data[0].series.push({ name: timestamp, value: rawSeries[timestamp]['2. high'] });
+                        });
+                        this.ngxData.data = [...this.ngxData.data].slice(0, limit);
+                        this.weeklyData.data = [...this.ngxData.data];
+                    }
+                    else {
+                        this.ngxData.data = this.weeklyData.data.slice(0, limit);
+                    }
+                    break;
+                case 'TIME_SERIES_WEEKLY':
+                    rawSeries = data['Weekly Time Series'];
+                    if (this.monthlyData.data != 'undefined' || this.monthlyData.data != 'null' || this.monthlyData.data != '') {
+                        Object.keys(rawSeries).reverse().map(timestamp => {
+                            this.ngxData.data[0].series.push({ name: timestamp, value: rawSeries[timestamp]['2. high'] });
+                        });
+                        this.ngxData.data = [...this.ngxData.data].slice(0, limit);
+                        this.monthlyData.data = [...this.ngxData.data];
+                    }
+                    else {
+                        this.ngxData.data = this.monthlyData.data.slice(0, limit);
+                    }
+                    break;
+                case 'TIME_SERIES_MONTHLY':
+                    rawSeries = data['Monthly Time Series'];
+                    Object.keys(rawSeries).reverse().map(timestamp => {
+                        this.ngxData.data[0].series.push({ name: timestamp, value: rawSeries[timestamp]['2. high'] });
+                    });
+                    this.ngxData.data = [...this.ngxData.data];
+                    break;
+            }
+        });
+    }
+    toggleWatchList() {
+        if (this.starName == "star") {
+            this.watchList.splice(this.index, 1);
+            this.starName = "star-outline";
+        }
+        else {
+            this.watchList.push(this.hit.Code);
+            this.starName = "star";
+        }
+        this.dataService.updatewatchList(this.watchList);
+    }
+    ngOnChanges() {
     }
 };
 OverviewComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__.Router },
-    { type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_2__.DetailsService },
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpClient }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router },
+    { type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_4__.DataService },
+    { type: _angular_common_HTTP__WEBPACK_IMPORTED_MODULE_7__.HttpClient },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.ModalController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.NavController }
 ];
 OverviewComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
         selector: 'app-overview',
         template: _raw_loader_overview_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_overview_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -23674,7 +25554,8 @@ let SearchProfileComponent = class SearchProfileComponent {
         this.approvedCountry = [];
         this.approvedIndustry = [];
         this.approvedGoodsAndServices = [];
-        this.followList = ['WMT'];
+        this.followList = [];
+        this.watchList = [];
         this.companyOptions = {
             slidesPerView: 2,
             spaceBetween: 1,
@@ -23686,7 +25567,6 @@ let SearchProfileComponent = class SearchProfileComponent {
         console.log("[ngOninit - SearchProfileComponent]");
         this.getUserInformation();
     }
-    ;
     /*-------------------------------------------------
         function: navigate to overview of the financial
                   instrument
@@ -23715,9 +25595,16 @@ let SearchProfileComponent = class SearchProfileComponent {
      ---------------------------------------------------*/
     getUserInformation() {
         this.dataService.getUserInformation().subscribe(res => {
+            if (res['followList'] == undefined) {
+                this.followList = [];
+            }
+            if (res['watchList'] == undefined) {
+                this.watchList = [];
+            }
             this.followList = res['followList'];
             this.watchList = res['watchList'];
             localStorage.setItem("watchList", JSON.stringify(this.watchList));
+            localStorage.setItem("followList", JSON.stringify(this.followList));
             this.availableBalance = res['availableBalance'];
         });
         return;
@@ -23742,44 +25629,279 @@ SearchProfileComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
 
 /***/ }),
 
-/***/ 59244:
-/*!***********************************************!*\
-  !*** ./src/app/services/data/data.service.ts ***!
-  \***********************************************/
+/***/ 75329:
+/*!***************************************************!*\
+  !*** ./src/app/main-content/tab/tab.component.ts ***!
+  \***************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DataService": function() { return /* binding */ DataService; }
+/* harmony export */   "TabComponent": function() { return /* binding */ TabComponent; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/fire/compat/firestore */ 52182);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_tab_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./tab.component.html */ 94837);
+/* harmony import */ var _tab_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tab.component.scss */ 22380);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 
 
 
-let DataService = class DataService {
-    constructor(fireStore) {
-        this.fireStore = fireStore;
+
+let TabComponent = class TabComponent {
+    constructor() { }
+    ngOnInit() { }
+};
+TabComponent.ctorParameters = () => [];
+TabComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+        selector: 'app-tab',
+        template: _raw_loader_tab_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_tab_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+    })
+], TabComponent);
+
+
+
+/***/ }),
+
+/***/ 37772:
+/*!***************************************************************!*\
+  !*** ./src/app/main-content/watchlist/watchlist.component.ts ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "WatchlistComponent": function() { return /* binding */ WatchlistComponent; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_watchlist_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./watchlist.component.html */ 98113);
+/* harmony import */ var _watchlist_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./watchlist.component.scss */ 44811);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ 35758);
+/* harmony import */ var rxjs_internal_operators_take__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/internal/operators/take */ 71056);
+/* harmony import */ var rxjs_internal_operators_take__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_take__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ 68307);
+/* harmony import */ var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/data/data.service */ 59244);
+/* harmony import */ var src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/details/details.service */ 52642);
+/* harmony import */ var src_app_shared_companyData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/companyData */ 64149);
+
+
+
+
+
+
+
+
+
+
+
+let WatchlistComponent = class WatchlistComponent {
+    constructor(router, detailsService, dataService) {
+        this.router = router;
+        this.detailsService = detailsService;
+        this.dataService = dataService;
+        this.isShowAll = false;
+        this.results = [];
+        this.limit = 3;
     }
+    ngOnInit() {
+        this.getUserInformation();
+        if (this.router.getCurrentNavigation().extras.state != undefined) {
+            if (this.isShowAll || this.router.getCurrentNavigation().extras.state.isShowAll === 'true') {
+                this.limit = 100;
+            }
+            else {
+                this.limit = 3;
+            }
+        }
+        this.watchList = JSON.parse(localStorage.getItem('watchList'));
+        console.log(this.watchList);
+        this.watchList.forEach(code => {
+            this.results.push(this.detailsService.getCompanyIndividual(code));
+        });
+        (0,rxjs__WEBPACK_IMPORTED_MODULE_5__.forkJoin)(this.results)
+            .pipe((0,rxjs_internal_operators_take__WEBPACK_IMPORTED_MODULE_6__.take)(1), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.tap)(data => {
+            this.companyInfoArray = data.reduce((o, m) => m.concat(o), []);
+            console.log(this.companyInfoArray);
+        }))
+            .subscribe(() => { }, error => {
+            console.log(error);
+        });
+    }
+    getImage(code) {
+        console.log(code);
+        let company = src_app_shared_companyData__WEBPACK_IMPORTED_MODULE_4__.companyData.filter(data => {
+            return data.Code == code.symbol;
+        });
+        console.log(company);
+        console.log(company[0]['URL']);
+        return company[0]['URL'];
+    }
+    toggleWatchList(symbol, i) {
+        let element = document.getElementById(i);
+        let name = element.getAttribute('name');
+        if (name === 'star') {
+            name = 'star-outline';
+            document.getElementById(i).setAttribute('name', name);
+            let indx = this.watchList.indexOf(symbol);
+            let index = this.companyInfoArray.findIndex(comp => comp.symbol == symbol);
+            this.watchList.splice(indx, 1);
+            this.companyInfoArray.splice(index, index >= 0 ? 1 : 0);
+            console.log(this.watchList);
+            //call a function to update the watch list of the database
+        }
+    }
+    /*---------------------------------------------------
+      function:to get the user information
+    ---------------------------------------------------*/
     getUserInformation() {
-        return this.fireStore.collection('Users').doc('6589090703').valueChanges();
+        this.dataService.getUserInformation().subscribe(res => {
+            if (res['followList'] == undefined) {
+                this.followList = [];
+            }
+            if (res['watchList'] == undefined) {
+                this.watchList = [];
+            }
+            this.followList = res['followList'];
+            this.watchList = res['watchList'];
+            localStorage.setItem("watchList", JSON.stringify(this.watchList));
+            localStorage.setItem("followList", JSON.stringify(this.followList));
+            this.availableBalance = res['availableBalance'];
+        });
+        return;
     }
-    updateFollowList(followList) {
-        this.fireStore.collection('Users').doc('6589090703').update({
-            followList: followList
+};
+WatchlistComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router },
+    { type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_3__.DetailsService },
+    { type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__.DataService }
+];
+WatchlistComponent.propDecorators = {
+    isShowAll: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_9__.Input }]
+};
+WatchlistComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
+        selector: 'app-watchlist',
+        template: _raw_loader_watchlist_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_watchlist_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+    })
+], WatchlistComponent);
+
+
+
+/***/ }),
+
+/***/ 15574:
+/*!**************************************************!*\
+  !*** ./src/app/portfolio/portfolio.component.ts ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PortfolioComponent": function() { return /* binding */ PortfolioComponent; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_portfolio_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./portfolio.component.html */ 96530);
+/* harmony import */ var _portfolio_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./portfolio.component.scss */ 20562);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ 35758);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ 15257);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ 68307);
+/* harmony import */ var src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/data/data.service */ 59244);
+/* harmony import */ var src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/details/details.service */ 52642);
+/* harmony import */ var _main_content_modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../main-content/modals/sell/sell.component */ 62527);
+
+
+
+
+
+
+
+
+
+
+let PortfolioComponent = class PortfolioComponent {
+    constructor(dataService, detailsService, modalCtrl) {
+        this.dataService = dataService;
+        this.detailsService = detailsService;
+        this.modalCtrl = modalCtrl;
+        this.totalQuantity = 0;
+        this.totalInvestment = 0;
+        this.currentValue = 0;
+        this.companyArray = [];
+        this.combinedArray = [];
+        this.totalCurrentPrice = 0;
+        this.results = [];
+        this.isShow = false;
+    }
+    ngOnInit() {
+        this.dataService.getTransactionDetails().subscribe((res) => {
+            console.log(res);
+            this.combinedArray = res;
+            console.log("combined Arrau" + this.combinedArray);
+            this.combinedArray.forEach(element => {
+                this.totalInvestment = this.totalInvestment + (element['price'] * element['quantity']);
+                console.log("this.totalInvestment" + this.totalInvestment);
+                // this.totalQuantity =  this.totalQuantity + element['quantity'];
+                this.results.push(this.detailsService.getCompanyPrice(element['code']));
+            });
+            (0,rxjs__WEBPACK_IMPORTED_MODULE_5__.forkJoin)(this.results)
+                .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.take)(1), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.tap)(data => {
+                data.forEach(element => {
+                    if (element != undefined) {
+                        this.companyArray.push((element['Global Quote']));
+                        this.totalCurrentPrice = this.totalCurrentPrice + parseInt(element['Global Quote']['05. price']);
+                    }
+                    console.log(this.totalCurrentPrice);
+                });
+                console.log("this.companyArray" + JSON.stringify(this.companyArray['05. price']));
+                this.isShow = true;
+            }))
+                .subscribe(() => { }, error => {
+                console.log(error);
+            });
+        });
+    }
+    /*---------------------------------------------
+      To display sell modal box
+    -----------------------------------------------*/
+    showModal(details, currentPrice) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, function* () {
+            const modal = yield this.modalCtrl.create({
+                component: _main_content_modals_sell_sell_component__WEBPACK_IMPORTED_MODULE_4__.SellComponent,
+                cssClass: 'my-custom-modal-css',
+                componentProps: {
+                    'details': {
+                        Code: details['Code'],
+                        quantity: details['quantity'],
+                        price: currentPrice
+                    }
+                },
+                backdropDismiss: false
+            });
+            return yield modal.present();
         });
     }
 };
-DataService.ctorParameters = () => [
-    { type: _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_0__.AngularFirestore }
+PortfolioComponent.ctorParameters = () => [
+    { type: src_app_services_data_data_service__WEBPACK_IMPORTED_MODULE_2__.DataService },
+    { type: src_app_services_details_details_service__WEBPACK_IMPORTED_MODULE_3__.DetailsService },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.ModalController }
 ];
-DataService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
-        providedIn: 'root'
+PortfolioComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
+        selector: 'app-portfolio',
+        template: _raw_loader_portfolio_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_portfolio_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
     })
-], DataService);
+], PortfolioComponent);
 
 
 
@@ -23796,11 +25918,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "DetailsService": function() { return /* binding */ DetailsService; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ 91841);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ 25917);
-
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ 91841);
 
 
 
@@ -23809,6 +25929,7 @@ let DetailsService = class DetailsService {
         this.http = http;
         this.alphaApiKey = "JRBZPDQLZW3ZCQD0";
         this.url = 'https://financialmodelingprep.com/api/v3/stock/gainers?apikey=ed23fa5d1c789cd88b40747876f4ce4d';
+        this.urlLosers = "https://financialmodelingprep.com/api/v3/stock/losers?apikey=ed23fa5d1c789cd88b40747876f4ce4d";
         this.financialStatement = [];
     }
     getDetails(code) {
@@ -23820,20 +25941,29 @@ let DetailsService = class DetailsService {
     }
     getGainers() {
         //mock data
-        return (0,rxjs__WEBPACK_IMPORTED_MODULE_0__.of)({ "mostGainerStock": [{ "ticker": "SPRB", "changes": 2.55, "price": "5.03", "changesPercentage": "102.822586", "companyName": "Spruce Biosciences, Inc." }, { "ticker": "BLPH", "changes": 0.82, "price": "3.19", "changesPercentage": "34.599163", "companyName": "Bellerophon Therapeutics, Inc." }, { "ticker": "AUID", "changes": 3.59, "price": "16.72", "changesPercentage": "27.341959", "companyName": "Ipsidy Inc." }, { "ticker": "IREN", "changes": 3.68, "price": "17.7", "changesPercentage": "26.24822", "companyName": "Iris Energy Limited" }, { "ticker": "GLTO", "changes": 0.52, "price": "2.82", "changesPercentage": "22.608696", "companyName": "Galecto, Inc." }, { "ticker": "ARQQ", "changes": 3.59, "price": "19.92", "changesPercentage": "21.98408", "companyName": "Arqit Quantum Inc." }, { "ticker": "SNCE", "changes": 2.04, "price": "12.17", "changesPercentage": "20.138203", "companyName": "Science 37 Holdings, Inc." }, { "ticker": "INZY", "changes": 1.25, "price": "7.54", "changesPercentage": "19.872814", "companyName": "Inozyme Pharma, Inc." }, { "ticker": "UEPS", "changes": 0.82, "price": "5.05", "changesPercentage": "19.385347", "companyName": "Net 1 UEPS Technologies, Inc." }, { "ticker": "RELV", "changes": 0.68, "price": "4.19", "changesPercentage": "19.373222", "companyName": "Reliv' International, Inc." }, { "ticker": "AMC", "changes": 4.67, "price": "29.12", "changesPercentage": "19.100204", "companyName": "AMC Entertainment Holdings, Inc." }, { "ticker": "BSN", "changes": 1.71, "price": "10.68", "changesPercentage": "19.0635", "companyName": "Broadstone Acquisition Corp." }, { "ticker": "TUFN", "changes": 1.66, "price": "10.55", "changesPercentage": "18.672663", "companyName": "Tufin Software Technologies Ltd." }, { "ticker": "NVTA", "changes": 2.86, "price": "18.32", "changesPercentage": "18.499352", "companyName": "Invitae Corporation" }, { "ticker": "ROIV", "changes": 1.69, "price": "10.95", "changesPercentage": "18.250536", "companyName": "Roivant Sciences Ltd." }, { "ticker": "FORG", "changes": 3.82, "price": "25.28", "changesPercentage": "17.800568", "companyName": "ForgeRock, Inc." }, { "ticker": "YCBD", "changes": 0.2, "price": "1.33", "changesPercentage": "17.69912", "companyName": "cbdMD, Inc." }, { "ticker": "INTG", "changes": 7.5, "price": "51.9", "changesPercentage": "16.891891", "companyName": "The InterGroup Corporation" }, { "ticker": "ORIC", "changes": 2.16, "price": "14.98", "changesPercentage": "16.848673", "companyName": "ORIC Pharmaceuticals, Inc." }, { "ticker": "DMTK", "changes": 2.67, "price": "18.89", "changesPercentage": "16.46116", "companyName": "DermTech, Inc." }, { "ticker": "BSN-UN", "changes": 1.57, "price": "11.16", "changesPercentage": "16.3712", "companyName": "Broadstone Acquisition Corp." }, { "ticker": "DYAI", "changes": 0.64, "price": "4.59", "changesPercentage": "16.202536", "companyName": "Dyadic International, Inc." }, { "ticker": "VCYT", "changes": 6.27, "price": "44.99", "changesPercentage": "16.193182", "companyName": "Veracyte, Inc." }, { "ticker": "AXGN", "changes": 1.41, "price": "10.27", "changesPercentage": "15.914231", "companyName": "AxoGen, Inc." }, { "ticker": "ELYM", "changes": 1.44, "price": "10.79", "changesPercentage": "15.401064", "companyName": "Eliem Therapeutics, Inc." }, { "ticker": "IBRX", "changes": 0.87, "price": "6.54", "changesPercentage": "15.343913", "companyName": "ImmunityBio, Inc." }, { "ticker": "TGTX", "changes": 2.42, "price": "18.24", "changesPercentage": "15.297092", "companyName": "TG Therapeutics, Inc." }, { "ticker": "CLVS", "changes": 0.42, "price": "3.17", "changesPercentage": "15.272731", "companyName": "Clovis Oncology, Inc." }, { "ticker": "BBIO", "changes": 5.6, "price": "42.65", "changesPercentage": "15.114716", "companyName": "BridgeBio Pharma, Inc." }, { "ticker": "VCEL", "changes": 5.26, "price": "40.82", "changesPercentage": "14.791896", "companyName": "Vericel Corporation" }] });
-        //return this.http.get<any>(this.url)
+        //return of({"mostGainerStock":[{"ticker":"SPRB","changes":2.55,"price":"5.03","changesPercentage":"102.822586","companyName":"Spruce Biosciences, Inc."},{"ticker":"BLPH","changes":0.82,"price":"3.19","changesPercentage":"34.599163","companyName":"Bellerophon Therapeutics, Inc."},{"ticker":"AUID","changes":3.59,"price":"16.72","changesPercentage":"27.341959","companyName":"Ipsidy Inc."},{"ticker":"IREN","changes":3.68,"price":"17.7","changesPercentage":"26.24822","companyName":"Iris Energy Limited"},{"ticker":"GLTO","changes":0.52,"price":"2.82","changesPercentage":"22.608696","companyName":"Galecto, Inc."},{"ticker":"ARQQ","changes":3.59,"price":"19.92","changesPercentage":"21.98408","companyName":"Arqit Quantum Inc."},{"ticker":"SNCE","changes":2.04,"price":"12.17","changesPercentage":"20.138203","companyName":"Science 37 Holdings, Inc."},{"ticker":"INZY","changes":1.25,"price":"7.54","changesPercentage":"19.872814","companyName":"Inozyme Pharma, Inc."},{"ticker":"UEPS","changes":0.82,"price":"5.05","changesPercentage":"19.385347","companyName":"Net 1 UEPS Technologies, Inc."},{"ticker":"RELV","changes":0.68,"price":"4.19","changesPercentage":"19.373222","companyName":"Reliv' International, Inc."},{"ticker":"AMC","changes":4.67,"price":"29.12","changesPercentage":"19.100204","companyName":"AMC Entertainment Holdings, Inc."},{"ticker":"BSN","changes":1.71,"price":"10.68","changesPercentage":"19.0635","companyName":"Broadstone Acquisition Corp."},{"ticker":"TUFN","changes":1.66,"price":"10.55","changesPercentage":"18.672663","companyName":"Tufin Software Technologies Ltd."},{"ticker":"NVTA","changes":2.86,"price":"18.32","changesPercentage":"18.499352","companyName":"Invitae Corporation"},{"ticker":"ROIV","changes":1.69,"price":"10.95","changesPercentage":"18.250536","companyName":"Roivant Sciences Ltd."},{"ticker":"FORG","changes":3.82,"price":"25.28","changesPercentage":"17.800568","companyName":"ForgeRock, Inc."},{"ticker":"YCBD","changes":0.2,"price":"1.33","changesPercentage":"17.69912","companyName":"cbdMD, Inc."},{"ticker":"INTG","changes":7.5,"price":"51.9","changesPercentage":"16.891891","companyName":"The InterGroup Corporation"},{"ticker":"ORIC","changes":2.16,"price":"14.98","changesPercentage":"16.848673","companyName":"ORIC Pharmaceuticals, Inc."},{"ticker":"DMTK","changes":2.67,"price":"18.89","changesPercentage":"16.46116","companyName":"DermTech, Inc."},{"ticker":"BSN-UN","changes":1.57,"price":"11.16","changesPercentage":"16.3712","companyName":"Broadstone Acquisition Corp."},{"ticker":"DYAI","changes":0.64,"price":"4.59","changesPercentage":"16.202536","companyName":"Dyadic International, Inc."},{"ticker":"VCYT","changes":6.27,"price":"44.99","changesPercentage":"16.193182","companyName":"Veracyte, Inc."},{"ticker":"AXGN","changes":1.41,"price":"10.27","changesPercentage":"15.914231","companyName":"AxoGen, Inc."},{"ticker":"ELYM","changes":1.44,"price":"10.79","changesPercentage":"15.401064","companyName":"Eliem Therapeutics, Inc."},{"ticker":"IBRX","changes":0.87,"price":"6.54","changesPercentage":"15.343913","companyName":"ImmunityBio, Inc."},{"ticker":"TGTX","changes":2.42,"price":"18.24","changesPercentage":"15.297092","companyName":"TG Therapeutics, Inc."},{"ticker":"CLVS","changes":0.42,"price":"3.17","changesPercentage":"15.272731","companyName":"Clovis Oncology, Inc."},{"ticker":"BBIO","changes":5.6,"price":"42.65","changesPercentage":"15.114716","companyName":"BridgeBio Pharma, Inc."},{"ticker":"VCEL","changes":5.26,"price":"40.82","changesPercentage":"14.791896","companyName":"Vericel Corporation"}]})
+        return this.http.get(this.url);
+    }
+    getLosers() {
+        //mock data
+        //return of({"mostGainerStock":[{"ticker":"SPRB","changes":2.55,"price":"5.03","changesPercentage":"102.822586","companyName":"Spruce Biosciences, Inc."},{"ticker":"BLPH","changes":0.82,"price":"3.19","changesPercentage":"34.599163","companyName":"Bellerophon Therapeutics, Inc."},{"ticker":"AUID","changes":3.59,"price":"16.72","changesPercentage":"27.341959","companyName":"Ipsidy Inc."},{"ticker":"IREN","changes":3.68,"price":"17.7","changesPercentage":"26.24822","companyName":"Iris Energy Limited"},{"ticker":"GLTO","changes":0.52,"price":"2.82","changesPercentage":"22.608696","companyName":"Galecto, Inc."},{"ticker":"ARQQ","changes":3.59,"price":"19.92","changesPercentage":"21.98408","companyName":"Arqit Quantum Inc."},{"ticker":"SNCE","changes":2.04,"price":"12.17","changesPercentage":"20.138203","companyName":"Science 37 Holdings, Inc."},{"ticker":"INZY","changes":1.25,"price":"7.54","changesPercentage":"19.872814","companyName":"Inozyme Pharma, Inc."},{"ticker":"UEPS","changes":0.82,"price":"5.05","changesPercentage":"19.385347","companyName":"Net 1 UEPS Technologies, Inc."},{"ticker":"RELV","changes":0.68,"price":"4.19","changesPercentage":"19.373222","companyName":"Reliv' International, Inc."},{"ticker":"AMC","changes":4.67,"price":"29.12","changesPercentage":"19.100204","companyName":"AMC Entertainment Holdings, Inc."},{"ticker":"BSN","changes":1.71,"price":"10.68","changesPercentage":"19.0635","companyName":"Broadstone Acquisition Corp."},{"ticker":"TUFN","changes":1.66,"price":"10.55","changesPercentage":"18.672663","companyName":"Tufin Software Technologies Ltd."},{"ticker":"NVTA","changes":2.86,"price":"18.32","changesPercentage":"18.499352","companyName":"Invitae Corporation"},{"ticker":"ROIV","changes":1.69,"price":"10.95","changesPercentage":"18.250536","companyName":"Roivant Sciences Ltd."},{"ticker":"FORG","changes":3.82,"price":"25.28","changesPercentage":"17.800568","companyName":"ForgeRock, Inc."},{"ticker":"YCBD","changes":0.2,"price":"1.33","changesPercentage":"17.69912","companyName":"cbdMD, Inc."},{"ticker":"INTG","changes":7.5,"price":"51.9","changesPercentage":"16.891891","companyName":"The InterGroup Corporation"},{"ticker":"ORIC","changes":2.16,"price":"14.98","changesPercentage":"16.848673","companyName":"ORIC Pharmaceuticals, Inc."},{"ticker":"DMTK","changes":2.67,"price":"18.89","changesPercentage":"16.46116","companyName":"DermTech, Inc."},{"ticker":"BSN-UN","changes":1.57,"price":"11.16","changesPercentage":"16.3712","companyName":"Broadstone Acquisition Corp."},{"ticker":"DYAI","changes":0.64,"price":"4.59","changesPercentage":"16.202536","companyName":"Dyadic International, Inc."},{"ticker":"VCYT","changes":6.27,"price":"44.99","changesPercentage":"16.193182","companyName":"Veracyte, Inc."},{"ticker":"AXGN","changes":1.41,"price":"10.27","changesPercentage":"15.914231","companyName":"AxoGen, Inc."},{"ticker":"ELYM","changes":1.44,"price":"10.79","changesPercentage":"15.401064","companyName":"Eliem Therapeutics, Inc."},{"ticker":"IBRX","changes":0.87,"price":"6.54","changesPercentage":"15.343913","companyName":"ImmunityBio, Inc."},{"ticker":"TGTX","changes":2.42,"price":"18.24","changesPercentage":"15.297092","companyName":"TG Therapeutics, Inc."},{"ticker":"CLVS","changes":0.42,"price":"3.17","changesPercentage":"15.272731","companyName":"Clovis Oncology, Inc."},{"ticker":"BBIO","changes":5.6,"price":"42.65","changesPercentage":"15.114716","companyName":"BridgeBio Pharma, Inc."},{"ticker":"VCEL","changes":5.26,"price":"40.82","changesPercentage":"14.791896","companyName":"Vericel Corporation"}]})
+        return this.http.get(this.urlLosers);
     }
     getCompanyIndividual(code) {
         let url2 = `https://financialmodelingprep.com/api/v3/quote/${code}?apikey=ed23fa5d1c789cd88b40747876f4ce4d`;
-        //return this.http.get<any>(url2);
-        return (0,rxjs__WEBPACK_IMPORTED_MODULE_0__.of)([{ "ticker": "SPRB", "changes": 2.55, "price": "5.03", "changesPercentage": "102.822586", "companyName": "Spruce Biosciences, Inc." }, { "ticker": "BLPH", "changes": 0.82, "price": "3.19", "changesPercentage": "34.599163", "companyName": "Bellerophon Therapeutics, Inc." }, { "ticker": "AUID", "changes": 3.59, "price": "16.72", "changesPercentage": "27.341959", "companyName": "Ipsidy Inc." }, { "ticker": "IREN", "changes": 3.68, "price": "17.7", "changesPercentage": "26.24822", "companyName": "Iris Energy Limited" }, { "ticker": "GLTO", "changes": 0.52, "price": "2.82", "changesPercentage": "22.608696", "companyName": "Galecto, Inc." }, { "ticker": "ARQQ", "changes": 3.59, "price": "19.92", "changesPercentage": "21.98408", "companyName": "Arqit Quantum Inc." }, { "ticker": "SNCE", "changes": 2.04, "price": "12.17", "changesPercentage": "20.138203", "companyName": "Science 37 Holdings, Inc." }, { "ticker": "INZY", "changes": 1.25, "price": "7.54", "changesPercentage": "19.872814", "companyName": "Inozyme Pharma, Inc." }, { "ticker": "UEPS", "changes": 0.82, "price": "5.05", "changesPercentage": "19.385347", "companyName": "Net 1 UEPS Technologies, Inc." }, { "ticker": "RELV", "changes": 0.68, "price": "4.19", "changesPercentage": "19.373222", "companyName": "Reliv' International, Inc." }, { "ticker": "AMC", "changes": 4.67, "price": "29.12", "changesPercentage": "19.100204", "companyName": "AMC Entertainment Holdings, Inc." }, { "ticker": "BSN", "changes": 1.71, "price": "10.68", "changesPercentage": "19.0635", "companyName": "Broadstone Acquisition Corp." }, { "ticker": "TUFN", "changes": 1.66, "price": "10.55", "changesPercentage": "18.672663", "companyName": "Tufin Software Technologies Ltd." }, { "ticker": "NVTA", "changes": 2.86, "price": "18.32", "changesPercentage": "18.499352", "companyName": "Invitae Corporation" }, { "ticker": "ROIV", "changes": 1.69, "price": "10.95", "changesPercentage": "18.250536", "companyName": "Roivant Sciences Ltd." }, { "ticker": "FORG", "changes": 3.82, "price": "25.28", "changesPercentage": "17.800568", "companyName": "ForgeRock, Inc." }, { "ticker": "YCBD", "changes": 0.2, "price": "1.33", "changesPercentage": "17.69912", "companyName": "cbdMD, Inc." }, { "ticker": "INTG", "changes": 7.5, "price": "51.9", "changesPercentage": "16.891891", "companyName": "The InterGroup Corporation" }, { "ticker": "ORIC", "changes": 2.16, "price": "14.98", "changesPercentage": "16.848673", "companyName": "ORIC Pharmaceuticals, Inc." }, { "ticker": "DMTK", "changes": 2.67, "price": "18.89", "changesPercentage": "16.46116", "companyName": "DermTech, Inc." }, { "ticker": "BSN-UN", "changes": 1.57, "price": "11.16", "changesPercentage": "16.3712", "companyName": "Broadstone Acquisition Corp." }, { "ticker": "DYAI", "changes": 0.64, "price": "4.59", "changesPercentage": "16.202536", "companyName": "Dyadic International, Inc." }, { "ticker": "VCYT", "changes": 6.27, "price": "44.99", "changesPercentage": "16.193182", "companyName": "Veracyte, Inc." }, { "ticker": "AXGN", "changes": 1.41, "price": "10.27", "changesPercentage": "15.914231", "companyName": "AxoGen, Inc." }, { "ticker": "ELYM", "changes": 1.44, "price": "10.79", "changesPercentage": "15.401064", "companyName": "Eliem Therapeutics, Inc." }, { "ticker": "IBRX", "changes": 0.87, "price": "6.54", "changesPercentage": "15.343913", "companyName": "ImmunityBio, Inc." }, { "ticker": "TGTX", "changes": 2.42, "price": "18.24", "changesPercentage": "15.297092", "companyName": "TG Therapeutics, Inc." }, { "ticker": "CLVS", "changes": 0.42, "price": "3.17", "changesPercentage": "15.272731", "companyName": "Clovis Oncology, Inc." }, { "ticker": "BBIO", "changes": 5.6, "price": "42.65", "changesPercentage": "15.114716", "companyName": "BridgeBio Pharma, Inc." }, { "ticker": "VCEL", "changes": 5.26, "price": "40.82", "changesPercentage": "14.791896", "companyName": "Vericel Corporation" }]);
+        return this.http.get(url2);
+        //return of([{"ticker":"SPRB","changes":2.55,"price":"5.03","changesPercentage":"102.822586","companyName":"Spruce Biosciences, Inc."},{"ticker":"BLPH","changes":0.82,"price":"3.19","changesPercentage":"34.599163","companyName":"Bellerophon Therapeutics, Inc."},{"ticker":"AUID","changes":3.59,"price":"16.72","changesPercentage":"27.341959","companyName":"Ipsidy Inc."},{"ticker":"IREN","changes":3.68,"price":"17.7","changesPercentage":"26.24822","companyName":"Iris Energy Limited"},{"ticker":"GLTO","changes":0.52,"price":"2.82","changesPercentage":"22.608696","companyName":"Galecto, Inc."},{"ticker":"ARQQ","changes":3.59,"price":"19.92","changesPercentage":"21.98408","companyName":"Arqit Quantum Inc."},{"ticker":"SNCE","changes":2.04,"price":"12.17","changesPercentage":"20.138203","companyName":"Science 37 Holdings, Inc."},{"ticker":"INZY","changes":1.25,"price":"7.54","changesPercentage":"19.872814","companyName":"Inozyme Pharma, Inc."},{"ticker":"UEPS","changes":0.82,"price":"5.05","changesPercentage":"19.385347","companyName":"Net 1 UEPS Technologies, Inc."},{"ticker":"RELV","changes":0.68,"price":"4.19","changesPercentage":"19.373222","companyName":"Reliv' International, Inc."},{"ticker":"AMC","changes":4.67,"price":"29.12","changesPercentage":"19.100204","companyName":"AMC Entertainment Holdings, Inc."},{"ticker":"BSN","changes":1.71,"price":"10.68","changesPercentage":"19.0635","companyName":"Broadstone Acquisition Corp."},{"ticker":"TUFN","changes":1.66,"price":"10.55","changesPercentage":"18.672663","companyName":"Tufin Software Technologies Ltd."},{"ticker":"NVTA","changes":2.86,"price":"18.32","changesPercentage":"18.499352","companyName":"Invitae Corporation"},{"ticker":"ROIV","changes":1.69,"price":"10.95","changesPercentage":"18.250536","companyName":"Roivant Sciences Ltd."},{"ticker":"FORG","changes":3.82,"price":"25.28","changesPercentage":"17.800568","companyName":"ForgeRock, Inc."},{"ticker":"YCBD","changes":0.2,"price":"1.33","changesPercentage":"17.69912","companyName":"cbdMD, Inc."},{"ticker":"INTG","changes":7.5,"price":"51.9","changesPercentage":"16.891891","companyName":"The InterGroup Corporation"},{"ticker":"ORIC","changes":2.16,"price":"14.98","changesPercentage":"16.848673","companyName":"ORIC Pharmaceuticals, Inc."},{"ticker":"DMTK","changes":2.67,"price":"18.89","changesPercentage":"16.46116","companyName":"DermTech, Inc."},{"ticker":"BSN-UN","changes":1.57,"price":"11.16","changesPercentage":"16.3712","companyName":"Broadstone Acquisition Corp."},{"ticker":"DYAI","changes":0.64,"price":"4.59","changesPercentage":"16.202536","companyName":"Dyadic International, Inc."},{"ticker":"VCYT","changes":6.27,"price":"44.99","changesPercentage":"16.193182","companyName":"Veracyte, Inc."},{"ticker":"AXGN","changes":1.41,"price":"10.27","changesPercentage":"15.914231","companyName":"AxoGen, Inc."},{"ticker":"ELYM","changes":1.44,"price":"10.79","changesPercentage":"15.401064","companyName":"Eliem Therapeutics, Inc."},{"ticker":"IBRX","changes":0.87,"price":"6.54","changesPercentage":"15.343913","companyName":"ImmunityBio, Inc."},{"ticker":"TGTX","changes":2.42,"price":"18.24","changesPercentage":"15.297092","companyName":"TG Therapeutics, Inc."},{"ticker":"CLVS","changes":0.42,"price":"3.17","changesPercentage":"15.272731","companyName":"Clovis Oncology, Inc."},{"ticker":"BBIO","changes":5.6,"price":"42.65","changesPercentage":"15.114716","companyName":"BridgeBio Pharma, Inc."},{"ticker":"VCEL","changes":5.26,"price":"40.82","changesPercentage":"14.791896","companyName":"Vericel Corporation"}]
+    }
+    getCompanyPrice(code) {
+        let url3 = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + code + "&apikey=" + this.alphaApiKey;
+        return this.http.get(url3);
     }
 };
 DetailsService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpClient }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient }
 ];
-DetailsService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
+DetailsService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
         providedIn: 'root'
     })
 ], DetailsService);
@@ -51871,6 +54001,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ 35173:
+/*!*****************************************************************!*\
+  !*** ./src/app/main-content/gain-loss/gain-loss.component.scss ***!
+  \*****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJnYWluLWxvc3MuY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
 /***/ 35744:
 /*!*****************************************************!*\
   !*** ./src/app/main-content/main-content.page.scss ***!
@@ -51880,6 +54022,30 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJtYWluLWNvbnRlbnQucGFnZS5zY3NzIn0= */");
+
+/***/ }),
+
+/***/ 29965:
+/*!************************************************************!*\
+  !*** ./src/app/main-content/modals/buy/buy.component.scss ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJidXkuY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
+/***/ 52074:
+/*!**************************************************************!*\
+  !*** ./src/app/main-content/modals/sell/sell.component.scss ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzZWxsLmNvbXBvbmVudC5zY3NzIn0= */");
 
 /***/ }),
 
@@ -51915,7 +54081,43 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("@charset \"UTF-8\";\n::ng-deep.ais-SearchBox-input {\n  width: 90% !important;\n  border-radius: 10px;\n  border: 1px solid gray;\n  margin-top: 10%;\n  padding-left: 42ßpx;\n}\n::ng-deep.ais-SearchBox-submitIcon {\n  background-color: transparent;\n  height: 15px;\n  width: 15px;\n  position: relative;\n  z-index: 1;\n  right: 300px;\n}\n::ng-deep.ais-SearchBox-submit {\n  background-color: transparent;\n}\n::ng-deep.ais-SearchBox-reset {\n  background-color: transparent;\n}\n::ng-deep.ais-SearchBox-resetIcon {\n  width: 10px;\n  height: 10px;\n  position: relative;\n  z-index: 1;\n  left: 275px;\n  bottom: 32px;\n  color: gray;\n}\n.my_class1 {\n  width: 110px;\n  --background:lightgray;\n  --height:20px;\n  border-radius: 20px;\n  margin-top: 10%;\n  --color:white;\n  font-size: 10px;\n}\n.my_class2 {\n  --color:white;\n  width: 110px;\n  --background: rgba(0,0,0,0.6) ;\n  --height:5px;\n  border-radius: 30px;\n  margin-top: 10%;\n  font-size: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlYXJjaC1wcm9maWxlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGdCQUFnQjtBQUVoQjtFQUNDLHFCQUFBO0VBQ0EsbUJBQUE7RUFDQSxzQkFBQTtFQUNBLGVBQUE7RUFDQSxtQkFBQTtBQUFEO0FBRUE7RUFDQyw2QkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0VBQ0EsWUFBQTtBQUNEO0FBRUE7RUFDQyw2QkFBQTtBQUNEO0FBQ0E7RUFDQyw2QkFBQTtBQUVEO0FBQUE7RUFDQyxXQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtBQUdEO0FBREE7RUFFQyxZQUFBO0VBQ0Esc0JBQUE7RUFDQSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSxlQUFBO0VBQ0EsYUFBQTtFQUNBLGVBQUE7QUFHRDtBQUFBO0VBRUMsYUFBQTtFQUNBLFlBQUE7RUFDQSw4QkFBQTtFQUNBLFlBQUE7RUFDQSxtQkFBQTtFQUNBLGVBQUE7RUFDQSxlQUFBO0FBRUQiLCJmaWxlIjoic2VhcmNoLXByb2ZpbGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcblxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtaW5wdXQge1xuXHR3aWR0aDo5MCUgIWltcG9ydGFudDtcblx0Ym9yZGVyLXJhZGl1czoxMHB4O1xuXHRib3JkZXI6MXB4IHNvbGlkIGdyYXk7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHRwYWRkaW5nLWxlZnQ6NDLDn3B4O1xufVxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtc3VibWl0SWNvbntcblx0YmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG5cdGhlaWdodDoxNXB4O1xuXHR3aWR0aDoxNXB4O1xuXHRwb3NpdGlvbjpyZWxhdGl2ZTtcblx0ei1pbmRleDoxO1xuXHRyaWdodDozMDBweDtcblx0XG59XG46Om5nLWRlZXAuYWlzLVNlYXJjaEJveC1zdWJtaXR7XG5cdGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtcmVzZXR7XG5cdGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtcmVzZXRJY29ue1xuXHR3aWR0aDoxMHB4O1xuXHRoZWlnaHQ6MTBweDtcblx0cG9zaXRpb246cmVsYXRpdmU7XG5cdHotaW5kZXg6MTtcblx0bGVmdDoyNzVweDtcblx0Ym90dG9tOjMycHg7XG5cdGNvbG9yOmdyYXk7XG59XG4ubXlfY2xhc3Mxe1xuXG5cdHdpZHRoOjExMHB4O1xuXHQtLWJhY2tncm91bmQ6bGlnaHRncmF5O1xuXHQtLWhlaWdodDoyMHB4O1xuXHRib3JkZXItcmFkaXVzOjIwcHg7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHQtLWNvbG9yOndoaXRlO1xuXHRmb250LXNpemU6IDEwcHg7XG5cdFxufVxuLm15X2NsYXNzMntcblxuXHQtLWNvbG9yOndoaXRlO1xuXHR3aWR0aDoxMTBweDtcblx0LS1iYWNrZ3JvdW5kOiByZ2JhKDAsMCwwLDAuNikgO1xuXHQtLWhlaWdodDo1cHg7XG5cdGJvcmRlci1yYWRpdXM6MzBweDtcblx0bWFyZ2luLXRvcDoxMCU7XG5cdGZvbnQtc2l6ZTogMTBweDtcblx0XG59XG5cbiJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("::ng-deep.ais-SearchBox-input {\n  width: 90% !important;\n  border-radius: 10px;\n  border: 1px solid gray;\n  margin-top: 10%;\n  padding-left: 42px;\n}\n@media only screen and (min-width: 369px) {\n  ::ng-deep.ais-SearchBox-input {\n    right: 490px;\n    margin-top: 8% !important;\n  }\n}\n@media only screen and (min-width: 587px) {\n  ::ng-deep.ais-SearchBox-input {\n    right: 690px;\n    margin-top: 8% !important;\n  }\n}\n@media only screen and (min-width: 815px) {\n  ::ng-deep.ais-SearchBox-input {\n    right: 890px;\n    margin-top: 5% !important;\n  }\n}\n@media only screen and (min-width: 1025px) {\n  ::ng-deep.ais-SearchBox-input {\n    margin-top: 5% !important;\n  }\n}\n::ng-deep.ais-SearchBox-submitIcon {\n  background-color: transparent;\n  height: 15px;\n  width: 15px;\n  position: relative;\n  z-index: 1;\n  right: 290px;\n}\n@media only screen and (min-width: 1025px) {\n  ::ng-deep.ais-SearchBox-submitIcon {\n    right: 1248px;\n  }\n}\n::ng-deep.ais-SearchBox-submit {\n  background-color: transparent;\n}\n::ng-deep.ais-SearchBox-reset {\n  background-color: transparent;\n}\n::ng-deep.ais-SearchBox-resetIcon {\n  width: 10px;\n  height: 10px;\n  position: relative;\n  z-index: 1;\n  left: 265px;\n  bottom: 32px;\n  color: gray;\n}\n.my_class1 {\n  width: 110px;\n  --background:lightgray;\n  --height:20px;\n  border-radius: 20px;\n  margin-top: 10%;\n  --color:white;\n  font-size: 10px;\n}\n.my_class2 {\n  --color:white;\n  width: 110px;\n  --background: rgba(0,0,0,0.6) ;\n  --height:5px;\n  border-radius: 30px;\n  margin-top: 10%;\n  font-size: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlYXJjaC1wcm9maWxlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0MscUJBQUE7RUFDQSxtQkFBQTtFQUNBLHNCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FBQUQ7QUFDQztFQU5EO0lBT0UsWUFBQTtJQUNBLHlCQUFBO0VBRUE7QUFDRjtBQURHO0VBVkg7SUFXSSxZQUFBO0lBQ0EseUJBQUE7RUFJRjtBQUNGO0FBSEc7RUFkSDtJQWVJLFlBQUE7SUFDQSx5QkFBQTtFQU1GO0FBQ0Y7QUFMRztFQWxCSDtJQW1CSSx5QkFBQTtFQVFGO0FBQ0Y7QUFMQTtFQUNDLDZCQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxZQUFBO0FBUUQ7QUFQQztFQVBEO0lBUUUsYUFBQTtFQVVBO0FBQ0Y7QUFOQTtFQUNDLDZCQUFBO0FBU0Q7QUFQQTtFQUNDLDZCQUFBO0FBVUQ7QUFSQTtFQUNDLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0FBV0Q7QUFUQTtFQUNDLFlBQUE7RUFDQSxzQkFBQTtFQUNBLGFBQUE7RUFDQSxtQkFBQTtFQUNBLGVBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtBQVlEO0FBVEE7RUFDQyxhQUFBO0VBQ0EsWUFBQTtFQUNBLDhCQUFBO0VBQ0EsWUFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtFQUNBLGVBQUE7QUFZRCIsImZpbGUiOiJzZWFyY2gtcHJvZmlsZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuOjpuZy1kZWVwLmFpcy1TZWFyY2hCb3gtaW5wdXQge1xuXHR3aWR0aDo5MCUgIWltcG9ydGFudDtcblx0Ym9yZGVyLXJhZGl1czoxMHB4O1xuXHRib3JkZXI6MXB4IHNvbGlkIGdyYXk7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHRwYWRkaW5nLWxlZnQ6NDJweDtcblx0QG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiAzNjlweCkge1xuXHRcdHJpZ2h0OjQ5MHB4O1xuXHRcdG1hcmdpbi10b3A6IDglICFpbXBvcnRhbnQ7XG5cdCAgfVxuXHQgIEBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogNTg3cHgpIHtcblx0XHQgIHJpZ2h0OjY5MHB4O1xuXHRcdCAgbWFyZ2luLXRvcDogOCUgIWltcG9ydGFudDtcblx0XHR9XG5cdCAgQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA4MTVweCkge1xuXHRcdCAgcmlnaHQ6ODkwcHg7XG5cdFx0ICBtYXJnaW4tdG9wOiA1JSAhaW1wb3J0YW50O1xuXHQgIH1cblx0ICBAbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDEwMjVweCkge1xuXHRcdCAgbWFyZ2luLXRvcDogNSUgIWltcG9ydGFudDtcblx0ICB9XG5cbn1cbjo6bmctZGVlcC5haXMtU2VhcmNoQm94LXN1Ym1pdEljb257XG5cdGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xuXHRoZWlnaHQ6MTVweDtcblx0d2lkdGg6MTVweDtcblx0cG9zaXRpb246cmVsYXRpdmU7XG5cdHotaW5kZXg6MTtcblx0cmlnaHQ6MjkwcHg7XG5cdEBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogMTAyNXB4KSB7XG5cdFx0cmlnaHQ6MTI0OHB4O1xuXHR9XG5cdFxuICBcbn1cbjo6bmctZGVlcC5haXMtU2VhcmNoQm94LXN1Ym1pdHtcblx0YmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59XG46Om5nLWRlZXAuYWlzLVNlYXJjaEJveC1yZXNldHtcblx0YmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG59XG46Om5nLWRlZXAuYWlzLVNlYXJjaEJveC1yZXNldEljb257XG5cdHdpZHRoOjEwcHg7XG5cdGhlaWdodDoxMHB4O1xuXHRwb3NpdGlvbjpyZWxhdGl2ZTtcblx0ei1pbmRleDoxO1xuXHRsZWZ0OjI2NXB4O1xuXHRib3R0b206MzJweDtcblx0Y29sb3I6Z3JheTtcbn1cbi5teV9jbGFzczF7XG5cdHdpZHRoOjExMHB4O1xuXHQtLWJhY2tncm91bmQ6bGlnaHRncmF5O1xuXHQtLWhlaWdodDoyMHB4O1xuXHRib3JkZXItcmFkaXVzOjIwcHg7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHQtLWNvbG9yOndoaXRlO1xuXHRmb250LXNpemU6IDEwcHg7XG5cdFxufVxuLm15X2NsYXNzMntcblx0LS1jb2xvcjp3aGl0ZTtcblx0d2lkdGg6MTEwcHg7XG5cdC0tYmFja2dyb3VuZDogcmdiYSgwLDAsMCwwLjYpIDtcblx0LS1oZWlnaHQ6NXB4O1xuXHRib3JkZXItcmFkaXVzOjMwcHg7XG5cdG1hcmdpbi10b3A6MTAlO1xuXHRmb250LXNpemU6IDEwcHg7XG5cdFxufVxuXG4iXX0= */");
+
+/***/ }),
+
+/***/ 22380:
+/*!*****************************************************!*\
+  !*** ./src/app/main-content/tab/tab.component.scss ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ0YWIuY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
+/***/ 44811:
+/*!*****************************************************************!*\
+  !*** ./src/app/main-content/watchlist/watchlist.component.scss ***!
+  \*****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ3YXRjaGxpc3QuY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
+/***/ 20562:
+/*!****************************************************!*\
+  !*** ./src/app/portfolio/portfolio.component.scss ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwb3J0Zm9saW8uY29tcG9uZW50LnNjc3MifQ== */");
 
 /***/ }),
 
@@ -51927,7 +54129,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<header style=\"margin:0px 15px 5px 15px;height:20%;align-items:center\">\n  <ion-text class=\"sub-title\">Dashboard</ion-text>\n</header>\n<ion-content style=\"margin:0px 15px 5px 15px;--background: #ebf2fb;\">\n  <ion-row  style=\"margin:0px15px 5px 15px\"> \n    <ion-col size-xs=\"7\">\n       <ion-text style=\"float:left;font-size:16px;font-weight:900;float:left;margin:0px 15px 5px 15px;\">Gainers and Losers</ion-text>\n    </ion-col>\n    <ion-col size-xs=\"3\" offset-xs=\"2\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>   \n  </ion-row>\n    <ion-grid style=\"margin:0px 15px 5px 15px;padding-top:0px;\">\n    <ion-row  style=\"display:block;padding:0px;margin:0px\" class=\"ion-no-padding ion-no-margin\">\n      <ion-col size-xs=\"6\"  *ngFor=\"let hit of gainerData | slice:0:1\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" style=\"padding:0px;margin:0px\">\n          <ion-card class=\"flash-card\" (click)=\"getOverView(hit)\" style=\"width:50%\">\n            <div style=\"border-radius: 50%;border:1px solid rgba(128,128,128,0.1);height:50px;width:50px; text-align: center;\n            align-items: center;margin:5px;\">\n              <img src=\"../assets/icon/placeholder.jpeg\" alt=\"logo\"  style=\"height:30px;width:30px;margin-top:25%;\"/>\n            </div>\n             <ion-text  class=\"text\" style=\"margin:2px 2px 0px 5px;font-size:12px;\">{{hit.companyName}}</ion-text>\n              <ion-text style=\"font-weight:normal;margin:2px 2px 0px 5px;\" class=\"text\">{{hit.price}}</ion-text>\n            <ion-col>\n                <ion-chip color=\"success small-text\" size=\"small\">+{{hit.changes}}</ion-chip>\n                <ion-text class=\"small-text\">{{hit.changesPercentage | number :0}}%</ion-text>\n            </ion-col>\n         </ion-card>\n      </ion-col>\n    </ion-row >\n  </ion-grid> \n  <ion-row  style=\"margin:0px 20px 5px 20px\"> \n    <ion-col size-xs=\"7\">\n       <ion-text style=\"float:left;font-size:16px;font-weight:900;float:left;margin:0px;\">Your Watchlist</ion-text>\n    </ion-col>\n    <ion-col size-xs=\"3\" offset-xs=\"2\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>   \n  </ion-row>\n  <ion-row class=\"ion-no-margin ion-no-padding\" *ngFor = \"let data of companyInfoArray| keyvalue;let i=index\">\n    <ion-col size-xs=\"12\">\n    <ion-item style=\"border:1px solid lightgray;margin:5px 15px 0px 15px;\" >\n      <ion-icon id={{i}} color=\"tertiary\" (click)=\"toggleWatchList(data.value.symbol,i)\" style=\"font-size:20px;float:right;padding:5px;\" name={{starName}}></ion-icon>\n      <img src=\"{{getImage(data)}}\" style=\"width:15px;height:15px\"/>\n      <ion-text>{{data.value.symbol}}</ion-text>\n       <ion-chip >{{data.value.previousClose-data.value.price |number:0}}</ion-chip>\n        <ion-text>{{data.value.price}}</ion-text>\n        <!--<ion-icon ios=\"ios-more\" md=\"md-more\"></ion-icon>-->\n    </ion-item>\n  </ion-col>\n  </ion-row>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"dashboard-header\">\n  <div style=\"float:left;align-items: left;text-align:left\">\n    <ion-text class=\"title\">Dashboard</ion-text>\n  </div>\n  <div style=\"float:right;margin-top:2px;\">\n    <ion-icon routerLink=\"/main-content/search-profile\" slot=\"end\"  name=\"search\"></ion-icon>\n  </div>\n</header>\n<ion-content style=\"margin:0px 15px 5px 15px;--background: #ebf2fb;\">\n  <ion-row  style=\"margin:0px15px 5px 15px\"> \n    <ion-col size-xs=\"7\">\n       <ion-text style=\"float:left;font-size:16px;font-weight:900;float:left;margin:0px 15px 5px 15px;\">Gainers and Losers</ion-text>\n    </ion-col>\n    <ion-col size-xs=\"3\" offset-xs=\"2\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>   \n  </ion-row>\n   <app-gain-loss></app-gain-loss>\n  <ion-row  style=\"margin:0px 20px 5px 20px\"> \n    <ion-col size-xs=\"7\">\n       <ion-text style=\"float:left;font-size:16px;font-weight:900;float:left;margin:0px;\">Your Watchlist</ion-text>\n    </ion-col>\n    <ion-col size-xs=\"3\" offset-xs=\"2\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAllWatchList()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>   \n  </ion-row>\n <app-watchlist></app-watchlist>\n</ion-content>\n<ion-footer>\n  <app-tab></app-tab>\n</ion-footer>");
+
+/***/ }),
+
+/***/ 5873:
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/gain-loss/gain-loss.component.html ***!
+  \*******************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-grid class=\"gain-grid\">\n  <ion-row  class=\"ion-no-padding ion-no-margin\">\n    <ion-col size-xs=\"6\" offset=\"0\" *ngFor=\"let hit of gainerData | slice:0:limit\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" >\n        <ion-card class=\"flash-card\" style=\"width:90%;\">\n          <div class=\"div-card\">\n            <img src=\"../assets/icon/placeholder.jpeg\" alt=\"logo\">\n          </div>\n           <ion-text  class=\"text\" style=\"margin:2px 2px 0px 5px;font-size:12px;\">{{hit.companyName}}</ion-text>\n            <ion-text style=\"font-weight:normal;margin:2px 2px 0px 5px;\" class=\"text\">{{hit.price}}</ion-text>\n          <ion-col>\n              <ion-chip color=\"success small-text\" size=\"small\">+{{hit.changes}}</ion-chip>\n              <ion-text class=\"small-text\">{{hit.changesPercentage | number :0}}%</ion-text>\n          </ion-col>\n       </ion-card>\n    </ion-col>\n    <ion-col size-xs=\"6\" offset=\"0\" *ngFor=\"let hit of loserData | slice:0:limit\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" >\n      <ion-card class=\"flash-card\"  style=\"width:90%;\">\n        <div class=\"div-card\">\n          <img src=\"../assets/icon/placeholder.jpeg\" alt=\"logo\" />\n        </div>\n         <ion-text  class=\"text\" style=\"margin:2px 2px 0px 5px;font-size:12px;\">{{hit.companyName}}</ion-text>\n          <ion-text style=\"font-weight:normal;margin:2px 2px 0px 5px;\" class=\"text\">{{hit.price}}</ion-text>\n        <ion-col>\n            <ion-chip color=\"danger small-text\" size=\"small\">-{{hit.changes}}</ion-chip>\n            <ion-text class=\"small-text\">{{hit.changesPercentage | number :0}}%</ion-text>\n        </ion-col>\n     </ion-card>\n    </ion-col>\n  </ion-row >\n</ion-grid> ");
 
 /***/ }),
 
@@ -51940,6 +54154,30 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>main-content</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n</ion-content>\n\n\n");
+
+/***/ }),
+
+/***/ 85332:
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/modals/buy/buy.component.html ***!
+  \**************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<header  class=\"header\" style=\"z-index:1000\">\n    <ion-text style=\"font-weight:900\">{{details.Code}}</ion-text>\n    <ion-label style=\"font-size:12px;\">Max Buy Capacity: {{details.volume}}</ion-label>\n    <ion-icon name='close-circle' (click)='dismiss()' style='height:20px;width:20px;float:right'></ion-icon> \n</header>\n<ion-content class=\"content\">\n  <ion-grid>\n    <ion-row style=\"margin:10px;padding:10px\" >\n      <ion-col size-xs=\"12\" >\n          <ion-label style=\"font-weight:bold\" >Quantity</ion-label>\n          <input type=\"number\" [(ngModel)]=\"quantity\" style=\"width:80px;margin-left:58px;font-size:12px;\" placeholder=\"Stock Qty\"/>\n        </ion-col>\n        <ion-col size-xs=\"12\" >\n          <ion-label style=\"font-weight:bold\" >Current Price</ion-label>\n          <ion-text (Click)=\"buy()\" style=\"margin-left:27px;\">${{details.price}}</ion-text>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n  <ion-button id=\"buyBtn\" color=\"success\" style=\"margin-left:35%;color:white\" (click)=\"buy()\">Buy Now</ion-button>\n</ion-content>  \n\n\n");
+
+/***/ }),
+
+/***/ 60724:
+/*!****************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/modals/sell/sell.component.html ***!
+  \****************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<header  class=\"header\" style=\"z-index:1000\" style=\"background-color: #ff304b;\">\n\n    <ion-text style=\"font-weight:900\">{{details['Code']}}</ion-text>\n    <ion-label style=\"font-size:12px;\">Max Buy Capacity: {{details['quantity']}}</ion-label>\n    \n    <ion-icon name='close-circle' (click)='dismiss()' style='height:20px;width:20px;float:right'></ion-icon> \n</header>\n<ion-content class=\"content\">\n  <ion-grid>\n    <ion-row style=\"margin:10px;padding:10px\" >\n      <ion-col size-xs=\"12\" >\n          <ion-label style=\"font-weight:bold\" >Quantity</ion-label>\n          <input type=\"number\" [(ngModel)]=\"quantity\" style=\"width:80px;margin-left:58px;font-size:12px;\" placeholder=\"Stock Qty\"/>\n        </ion-col>\n        <ion-col size-xs=\"12\" >\n          <ion-label style=\"font-weight:bold\" >Current Price</ion-label>\n          <ion-text (Click)=\"buy()\" style=\"margin-left:27px;\">${{details.price}}</ion-text>\n        </ion-col>\n    </ion-row>\n  </ion-grid>\n  <ion-button id=\"buyBtn\" color=\"success\" style=\"margin-left:35%;color:white;\"  color=\"secondary\" (click)=\"buy()\">Sell</ion-button>\n</ion-content>  \n");
 
 /***/ }),
 
@@ -51963,7 +54201,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<header style=\"margin:20px\">\n  <ion-toolbar>\n    <ion-grid>\n      <ion-row style=\"display:block;\" class=\"ion-no-margin ion-no-padding\">\n        <ion-icon   style=\"font-size:20px;padding:5px;font-weight:900\" name = \"arrow-back\"></ion-icon>\n        <ion-icon  (click)=\"navigateShare()\" style=\"font-size:20px;float:right;padding:5px\"  name = \"share-outline\"></ion-icon>\n        <ion-icon  style=\"font-size:20px;float:right;padding:5px;\" name = \"star-outline\"></ion-icon>\n     \n      </ion-row>\n      <ion-row class=\"ion-no-margin ion-no-padding\" style=\"padding-top:0px;padding-bottom:0px;\">\n        <ion-text style=\"font-size:14px;padding-left:5px;margin-top:0px;\" class=\"text\">{{hit.Code}}</ion-text>\n      </ion-row>\n      <ion-row style=\"display:block;margin-top:0px\">\n        <div > \n          <ion-text class = \"sub-title\">\n            {{hit.Name}}\n         </ion-text>\n          <ion-img src={{hit.URL}} style=\"height:30px;width:30px;float:right;padding:5px\"></ion-img>\n        </div>\n      </ion-row>\n    </ion-grid>\n  </ion-toolbar>\n</header>\n<ion-content  style=\"margin:20px\">\n  <div style=\"height:200px;\" >\n   <!-- <ngx-charts-bar-vertical \n    [scheme]=\"colorScheme\"\n    [results]=\"data\"\n    [gradient]=\"verticalBarOptions.gradient\"\n    [xAxis]=\"verticalBarOptions.showXAxis\"\n    [yAxis]=\"verticalBarOptions.showYAxis\"\n    [legend]=\"verticalBarOptions.showLegend\"\n    [showXAxisLabel]=\"verticalBarOptions.showXAxisLabel\"\n    [showYAxisLabel]=\"verticalBarOptions.showYAxisLabel\"\n    [xAxisLabel]=\"verticalBarOptions.xAxisLabel\"\n    [yAxisLabel]=\"verticalBarOptions.yAxisLabel\"\n    [barPadding]=\"verticalBarOptions.barPadding\"\n    [showGridLines]=\"verticalBarOptions.showGridLines\"\n  ></ngx-charts-bar-vertical>-->\n </div>\n <ion-grid>\n  <ion-row>\n    <ion-button color=\"primary button-medium\" style=\"width:80%;margin:30px\">Follow</ion-button>\n  </ion-row>\n  <ion-row  style=\"margin:20px;\"> \n    <ion-col size=\"2\">\n       <ion-text style=\"float:left;font-size:20px;padding:5px;font-weight:900;float:left\">News</ion-text>\n    </ion-col>\n    <ion-col size=\"4\" offset=\"6\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>\n  </ion-row>\n  <app-news></app-news>\n  <ion-row>\n </ion-row>\n</ion-grid>\n </ion-content>\n <ion-footer style=\"margin-left:20px;margin-top:10px;font-size:20px;border:1px solid light\">\n  <ion-icon routerLink=\"/main-content/dashboard\" name=\"home-outline\"></ion-icon>\n  <ion-icon style=\"margin-left:70%;\" name=\"person-outline\"></ion-icon>\n</ion-footer>\n \n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<header style=\"margin:20px\">\n  <ion-toolbar>\n    <ion-grid>\n      <ion-row style=\"display:block;\" class=\"ion-no-margin ion-no-padding\">\n        <ion-icon style=\"font-size:20px;padding:5px;font-weight:900\" name = \"arrow-back\" (click) = \"back();\"></ion-icon>\n        <ion-icon  (click)=\"share()\" style=\"font-size:20px;float:right;padding:5px\"  name = \"share-outline\"></ion-icon>\n        <ion-icon  style=\"font-size:20px;float:right;padding:5px;border-color: black;\" color=\"tertiary\" (click)=\"toggleWatchList()\" name = {{starName}}></ion-icon>\n      </ion-row>\n      <ion-row class=\"ion-no-margin ion-no-padding\" style=\"padding-top:0px;padding-bottom:0px;\">\n        <ion-text style=\"font-size:14px;padding-left:5px;margin-top:0px;\" class=\"text\">{{hit.Code}}</ion-text>\n      </ion-row>\n      <ion-row style=\"display:block;margin-top:0px\">\n        <div > \n          <ion-text class = \"sub-title\">\n            {{hit.Name}}\n         </ion-text>\n          <ion-img src={{hit.URL}} style=\"height:30px;width:30px;float:right;padding:5px\"></ion-img>\n        </div>\n      </ion-row>\n    </ion-grid>\n  </ion-toolbar>\n</header>\n<ion-content  style=\"margin:20px\">\n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button  (click)=\"showModal()\" color=\"success\" style=\" --border-radius:15px;width:80px;height:40px;color:white;padding:2px;\">\n      <ion-icon style=\"padding-right:50x;font-size:14px;\" name=\"add\"></ion-icon>\n      <ion-label style=\"padding-left:10px;\">Buy</ion-label>\n    </ion-fab-button>\n    <ion-fab-button  color=\"secondary\" style=\" --border-radius:15px;width:80px;height:40px;color:white;margin-top:10px;\">\n      <ion-icon style=\"padding-right:50x;font-size:14px;\" name=\"remove\"></ion-icon>\n      <ion-label style=\"padding-left:10px;\"> Sell</ion-label>\n    </ion-fab-button>\n  </ion-fab>\n \n  <div style=\"height:200px;\" >\n    <div style=\"display:flex;flex-direction:row;padding:20px;align-items:center;justify-content: space-evenly;\">\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('daily')\">1d</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_DAILY',7)\">7d</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_DAILY',30)\">30d</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_DAILY',90)\">90d</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_WEEKLY',24)\">6m</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_WEEKLY',52)\">1y</ion-button>\n      <ion-button color=\"light\" class=\"button-small\" style=\"font-size:10px\" (click)=\"changeTime('TIME_SERIES_MONTHLY')\">All</ion-button>\n    </div>\n    <ngx-charts-line-chart\n    [view]=\"view\"\n    [scheme]=\"colorScheme\"\n    [legend]=\"legend\"\n    [showXAxisLabel]=\"showXAxisLabel\"\n    [showYAxisLabel]=\"showYAxisLabel\"\n    [xAxis]=\"xAxis\"\n    [yAxis]=\"yAxis\"\n    [xAxisLabel]=\"xAxisLabel\"\n    [yAxisLabel]=\"yAxisLabel\"\n    [timeline]=\"timeline\"\n    [results]=\"ngxData.data\"\n    [rangeFillOpacity] =\"rangeFillOpacity\"\n></ngx-charts-line-chart>\n </div>\n <ion-grid>\n    <ion-button color=\"primary button-medium\" style=\"width:80%;margin-left:10%;\" [ngClass]=\"followList.includes(hit.Code) === true ? 'my_class1' : 'my_class2'\" (click)=\"updateFollowList()\">{{followList.includes(hit.Code) === true ? \"Followed\" : \"Follow\"}}</ion-button>\n  <ion-row  style=\"margin:20px;\"> \n    <ion-col size=\"2\">\n       <ion-text style=\"float:left;font-size:20px;padding:5px;font-weight:900;float:left\">News</ion-text>\n    </ion-col>\n    <ion-col size=\"4\" offset=\"6\">\n      <ion-text style=\"float:right;color:blue;font-size:14px;\" (click)=\"seeAll()\">See all<ion-icon style=\"padding-left:5px;\"name=\"arrow-forward\"></ion-icon></ion-text>\n    </ion-col>\n  </ion-row>\n  <app-news></app-news>\n  <ion-row>\n </ion-row>\n</ion-grid>\n\n<!--<ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\" color=\"primary\">\n  <ion-fab-button id=\"trigger-buy\" color=\"success\" style=\" --border-radius:15px;width:80px;height:30px;color:white\">\n    <ion-icon name=\"add\"></ion-icon>\n    <ion-label>Buy</ion-label>\n  </ion-fab-button>\n</ion-fab>\n<ion-fab >\n<ion-fab-button color=\"secondary\" style=\"--border-radius:15px;width:80px;height:30px;color:white\">\n  <ion-icon name=\"remove\"></ion-icon>\n  <ion-label>Sell</ion-label>\n</ion-fab-button>\n</ion-fab>-->\n </ion-content>\n <ion-footer >\n     <app-tab></app-tab>\n</ion-footer>\n\n\n \n\n");
 
 /***/ }),
 
@@ -51975,7 +54213,43 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n  \n <!-- <ion-content style=\"--background: #ebf2fb;top:35%;\" >\n  <ion-grid style=\"position:relative;justify-content: center;\">\n\t<ion-row justify-content-center align-items-center >\n\t  <ion-col size-xs=\"6\" offset=\"0\" *ngFor=\"let company of companiesList\" class =\"ion-text-center ion-no padding\" style=\"padding:0px;padding-bottom:4px;\" >\n\t\t <ion-card   style=\"height:130px;align-items: center;display: flex;flex-direction: column;align-items: center; \n\t\t justify-content: center;margin-bottom:0px;margin-top:2px;\">\n\t\t\t<img src=\"{{company.URL}}\" alt=\"logo\" align=\"left\" style=\"height:20px;width:20px;\"/>\n\t\t\t<!--<ion-text class=\"ion-margin-top\">{{company.Name}}</ion-text>\n\t\t</ion-card>\n\t  </ion-col>\n\t</ion-row>\n\t</ion-grid>\n  </ion-content>-->\n \n  <ion-content style=\"--background: #ebf2fb;padding-top:0px;position:absolute;\">\n\t<ais-instantsearch [config]=\"config\" style=\"border:1px solid transparent;z-index:0;\">\n\t\t<ais-current-refinements></ais-current-refinements>\n\t\t<ais-refinement-list attribute=\"Code\"></ais-refinement-list>\n\t\t<ais-configure [searchParameters]=\"{ hitsPerPage: 6 }\"></ais-configure>\n\t\t<ion-toolbar style=\"margin-top:-10px;height:30%;position:relative;z-index:1;top:-5%;padding:10px;\">\n\t\t\t<ion-buttons slot=\"end\">\n\t\t\t  <ion-back-button></ion-back-button>\n\t\t\t</ion-buttons>\n\t\t\t<ion-title>Welcome1!</ion-title>\n\t\t\t<ion-text class=\"text\" style=\"margin-top:40px;margin-left:23px;\">Choose your interests to follow and </ion-text><ion-text class=\"text\" style=\"margin:23px\">trade on your free time!</ion-text>\n\t\t\t<ais-search-box ></ais-search-box>\n\t\t  </ion-toolbar>\n\t\t<ais-hits>\n\t\t<ng-template let-hits=\"hits\">\n\t\t  <ion-grid style=\"position:relative;justify-content: center;margin-top:-25px\">\n\t\t\t<ion-row justify-content-center align-items-center  >\n\t\t\t  <ion-col  size-xs=\"6\" offset=\"0\" *ngFor=\"let hit of hits\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" style=\"padding:0px;padding-bottom:4px;\">\n\t\t\t\t<ion-card   style=\"height:180px;align-items:center;display: flex;flex-direction: column;\n\t\t\t\tjustify-content: center;margin:6px 8px 2px 10px;background-color:rgba(255,255,255);box-shadow:2px 0px 2px 0px lightgray\" (click)=\"getOverView(hit)\">\n\t            <div style=\"border-radius: 50%;border:1px solid rgba(128,128,128,0.1);height:50px;width:50px; text-align: center;\n\t\t\t\talign-items: center;\">\n\t\t\t\t<img src=\"{{hit.URL}}\" alt=\"logo\"  style=\"height:26px;width:26px;margin-top:25%;\"/></div>\n\t\t\t\t<ion-text style=\"font-size:16px\" class=\"ion-margin-top\">{{hit.Name}}</ion-text>\n\t\t\t\t<ion-button class=\"button-small\" (click)=\"toggle(hit.Code)\" [ngClass]=\"followList.includes(hit.Code) === true ? 'my_class1' : 'my_class2'\" >{{followList.includes(hit.Code) === true ? \"followed\" : \"follow\"}}</ion-button>\n\t\t\t</ion-card>\n\t\t\t</ion-col>\n\t\t\t</ion-row >\n\t\t  </ion-grid> \n\t\t  </ng-template>\n\t\t</ais-hits>\n\t\t<!--<ais-pagination></ais-pagination>-->\n\t</ais-instantsearch>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n  <ion-content class=\"dashboard-content\" >\n\t<ais-instantsearch [config]=\"config\" style=\"border:1px solid transparent;z-index:0;\">\n\t\t<ais-current-refinements></ais-current-refinements>\n\t\t<ais-refinement-list attribute=\"Code\"></ais-refinement-list>\n\t\t<ais-configure [searchParameters]=\"{ hitsPerPage: 6 }\"></ais-configure>\n\t\t<ion-toolbar>\n\t\t\t<ion-buttons slot=\"end\">\n\t\t\t  <ion-back-button></ion-back-button>\n\t\t\t</ion-buttons>\n\t\t\t<ion-text class=\"title\">Welcome!</ion-text><br/>\n\t\t\t<p class=\"text\">Choose your interests to follow and trade on your terms!</p>\n\t\t\t<ais-search-box ></ais-search-box>\n\t\t  </ion-toolbar>\n\t\t<ais-hits>\n\t\t<ng-template let-hits=\"hits\">\n\t\t  <ion-grid>\n\t\t\t<ion-row justify-content-center align-items-center  >\n\t\t\t  <ion-col  size-xs=\"6\" offset=\"0\" *ngFor=\"let hit of hits\"  class=\"ais-Hits-item\" class =\"ion-text-center ion-no padding\" style=\"padding:0px;padding-bottom:4px;\">\n\t\t\t\t<ion-card   style=\"height:180px;align-items:center;display: flex;flex-direction: column;\n\t\t\t\tjustify-content: center;margin:6px 8px 2px 10px;background-color:rgba(255,255,255);box-shadow:2px 0px 2px 0px lightgray\" (click)=\"getOverView(hit)\">\n\t            <div style=\"border-radius: 50%;border:1px solid rgba(128,128,128,0.1);height:50px;width:50px; text-align: center;\n\t\t\t\talign-items: center;\">\n\t\t\t\t<img src=\"{{hit.URL}}\" alt=\"logo\"  style=\"height:26px;width:26px;margin-top:25%;\"/></div>\n\t\t\t\t<ion-text style=\"font-size:16px\" class=\"ion-margin-top\">{{hit.Name}}</ion-text>\n\t\t\t\t<ion-button class=\"button-small\" (click)=\"toggle(hit.Code)\" [ngClass]=\"followList.includes(hit.Code) === true ? 'my_class1' : 'my_class2'\" >{{followList.includes(hit.Code) === true ? \"followed\" : \"follow\"}}</ion-button>\n\t\t\t</ion-card>\n\t\t\t</ion-col>\n\t\t\t</ion-row >\n\t\t  </ion-grid> \n\t\t  </ng-template>\n\t\t</ais-hits>\n\t\t<!--<ais-pagination></ais-pagination>-->\n\t</ais-instantsearch>\n</ion-content>\n\n\n");
+
+/***/ }),
+
+/***/ 94837:
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/tab/tab.component.html ***!
+  \*******************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-icon routerLink=\"/main-content/dashboard\" name=\"home-outline\"></ion-icon>\n<ion-icon style=\"margin-left:70%;\" routerLink=\"/main-content/portfolio\" routerLinkActive=\"active-link\" name=\"person-outline\"></ion-icon>");
+
+/***/ }),
+
+/***/ 98113:
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/main-content/watchlist/watchlist.component.html ***!
+  \*******************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-row class=\"ion-no-margin ion-no-padding\" *ngFor = \"let data of companyInfoArray|slice:0 :limit;let i=index \">\n  <ion-col size-xs=\"12\">\n  <div style=\"border:1px solid lightgray;margin:5px 15px 0px 15px;display: flex;flex-direction: row;justify-content: space-evenly;background-color: white;font-size:13px;vertical-align: middle;align-items:center;border-radius:5px;height:100%;\" >\n    <ion-icon id={{i}} color=\"tertiary\" (click)=\"toggleWatchList(data.symbol,i)\" style=\"font-size:15px\"  name={{starName}}></ion-icon>\n    <img src=\"{{getImage(data)}}\" style=\"width:15px;height:15px\" />             \n    <ion-text>{{data.symbol}}</ion-text>\n     <ion-text class=\"small\"  [ngClass]=\"data.previousClose>data.price ? 'text-success' : 'text-danger'\">{{data.previousClose-data.price |number:0}}</ion-text>\n      <ion-text>{{data.price}}</ion-text>\n      <!--<ion-icon ios=\"ios-more\" md=\"md-more\"></ion-icon>-->\n  </div>\n</ion-col>\n</ion-row>");
+
+/***/ }),
+
+/***/ 96530:
+/*!******************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/portfolio/portfolio.component.html ***!
+  \******************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<header style=\"height:10%;margin-bottom:100px;\">\n  <ion-title style=\"font-weight:bold;margin-top:15px;\">\n    Portfolio\n  </ion-title>\n  <!--<div  class=\"height:40%;\">\n    <ion-card class=\"ion-padding ion-margin\" style=\"padding-bottom:10px;height:100%;align-items:center;\">\n      \n      <ion-label class=\"ion-padding ion-margin\">Total Investment</ion-label>\n      <ion-label class=\"ion-padding\">Current value</ion-label>\n      <ion-text>{{totalInvestment}}</ion-text>\n     <ion-text>{{currentValue}}</ion-text>\n     \n    </ion-card>\n  </div>-->\n</header>\n<ion-content style=\"margin:0px 15px 5px 15px;--background: #ebf2fb;;\" *ngIf =\"isShow\">\n      <ion-item *ngFor = \"let details of combinedArray,let i=index\" style=\"margin:10px;\" >\n          <div style=\"float:left;display:flex;flex-direction:column;width:50%;\" (click)=\"showModal(details,companyArray[i]['05. price'])\">\n           <ion-label style=\"float:left\"> {{details['name']}}</ion-label>\n           <ion-text class=\"medium-text\"> {{details['code']}}</ion-text>\n           <ion-text class=\"small-text\">Bought price: {{details.price}}</ion-text>\n          </div>\n          <div style=\"float:left;display:flex;flex-direction:column;width:60%;text-align:right;\">\n            <ion-label  > {{companyArray[i]['05. price'] |number :0}}<span style=\"font-size: 11px;color:gray;padding-left:2px;\">(Current price)</span></ion-label>\n             <ion-label style=\"font-size: 13px;color:gray;\" [ngClass]=\"companyArray[i]['05. price']>details.price? 'text-danger' : 'text-success'\">{{companyArray[i]['05. price']-details.price | number : 0}}<span style=\"font-size: 11px;color:gray;padding-left:2px;\">({{((companyArray[i]['05. price']-details.price)/(details.price))*100 | number: 0}}%)</span></ion-label>\n             <ion-label style=\"font-size: 11px;color:gray;\">Quantity: {{details['quantity']}}</ion-label>\n          </div>\n        </ion-item>\n  </ion-content>\n  <ion-footer >\n    <app-tab></app-tab>\n</ion-footer>\n\n  ");
 
 /***/ })
 

@@ -17,6 +17,10 @@ import { DetailsService } from '../services/details/details.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BuyComponent } from './modals/buy/buy.component';
 import { SellComponent } from './modals/sell/sell.component';
+import { PortfolioComponent } from '../portfolio/portfolio.component';
+import { TabComponent } from './tab/tab.component';
+import { GainLossComponent } from './gain-loss/gain-loss.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
 
 
 @NgModule({
@@ -34,7 +38,12 @@ import { SellComponent } from './modals/sell/sell.component';
                   NewsComponent,
                   DashboardComponent,
                   BuyComponent,
-                  SellComponent],
+                  SellComponent,
+                  PortfolioComponent,
+                  TabComponent,
+                  GainLossComponent,
+                  WatchlistComponent],
+  entryComponents:[BuyComponent],
   providers:[DataService,DetailsService]
 })
 export class MainContentPageModule {}
