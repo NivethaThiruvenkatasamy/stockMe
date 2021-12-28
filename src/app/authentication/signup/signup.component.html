@@ -3,8 +3,9 @@
   <div class="card-holder">
     <ion-card class="ion-padding">
       <ion-text class= "text">Enter Mobile Number</ion-text>
-      <input type="text" ng2TelInput  [(ngModel)]="phoneNumber" (countryChange)="getCountryCode($event.dialCode)" style="border:none;border-bottom: 1px solid gray;outline:transparent;" />
-    </ion-card>
+      <div class="input-container">
+        <input type="text" ng2TelInput  [(ngModel)]="phoneNumber" (countryChange)="getCountryCode($event.dialCode)" style="border:none;border-bottom: 1px solid gray;outline:transparent;" />
+      </div>    </ion-card>
   </div>
 </ion-header>
 <ion-content class="auth-content">

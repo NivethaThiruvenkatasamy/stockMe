@@ -21,8 +21,6 @@ export class BuyComponent implements OnInit {
     quantity:2,
     createdDate:this.d,
     isBuy:true
-
-
   };
  @Input() details;
  public quantity: number;
