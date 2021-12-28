@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import algoliasearch from 'algoliasearch/lite';
 import {DataService}  from 'src/app/services/data/data.service'
 
@@ -21,7 +22,8 @@ export class SearchProfileComponent implements OnInit {
     searchClient,
   }
   
-  constructor(private router:Router,private dataService:DataService) { }
+  constructor(private router:Router,private dataService:DataService,
+              private navController: NavController) { }
 
   ngOnInit() {
     console.log("[ngOninit - SearchProfileComponent]");
@@ -46,10 +48,14 @@ export class SearchProfileComponent implements OnInit {
     function: navigate to overview of the financial
               instrument
   -------------------------------------------------*/ 
-  getOverView(hit:string): void{
+  getOverView(hit:any): void{
     this.dataService.updateFollowList(this.followList);
     this.router.navigate(['/main-content/overview'],{ state: { hit } })
     return;
+  }
+
+  back(){
+    this.navController.back();
   }
 
   /*------------------------------------------------

@@ -33,6 +33,20 @@ export class PortfolioComponent implements OnInit {
      console.log(res);
      this.combinedArray = res;
      console.log("combined Arrau"+this.combinedArray)
+     this.combinedArray = [...this.combinedArray.reduce((r, o) => {
+      const key = o.code;
+      
+      const item = r.get(key) || Object.assign({}, o, {
+       total: 0,
+        quantity: 0
+      });
+      console.log(o.total);
+      item.total += o. total;
+      item. quantity += o.quantity;
+    
+      return r.set(key, item);
+    }, new Map).values()];
+    
      this.combinedArray.forEach(element => {
         this.totalInvestment =  this.totalInvestment + (element['price'] * element['quantity']);
         console.log("this.totalInvestment"+this.totalInvestment);
@@ -89,7 +103,7 @@ export class PortfolioComponent implements OnInit {
     cssClass: 'my-custom-modal-css',
     componentProps: {
       'details':{
-        Code: details['Code'],
+        Code: details['code'],
         quantity: details['quantity'],
         price: currentPrice
       }

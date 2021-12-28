@@ -1,7 +1,7 @@
 <ion-grid class="gain-grid">
   <ion-row  class="ion-no-padding ion-no-margin">
     <ion-col size-xs="6" offset="0" *ngFor="let hit of gainerData | slice:0:limit"  class="ais-Hits-item" class ="ion-text-center ion-no padding" >
-        <ion-card class="flash-card" style="width:90%;">
+        <ion-card class="flash-card" style="width:90%;" (click) = "getOverView(hit)">
           <div class="div-card">
             <img src="../assets/icon/placeholder.jpeg" alt="logo">
           </div>
@@ -14,7 +14,7 @@
        </ion-card>
     </ion-col>
     <ion-col size-xs="6" offset="0" *ngFor="let hit of loserData | slice:0:limit"  class="ais-Hits-item" class ="ion-text-center ion-no padding" >
-      <ion-card class="flash-card"  style="width:90%;">
+      <ion-card class="flash-card"  style="width:90%;" (click) = "getOverView(hit)">
         <div class="div-card">
           <img src="../assets/icon/placeholder.jpeg" alt="logo" />
         </div>

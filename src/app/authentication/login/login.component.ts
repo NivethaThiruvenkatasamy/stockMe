@@ -69,7 +69,7 @@ getCountryCode(event){
 -----------------------------------------------------*/
 getOTP(){
   this.phoneNumber = this.countryCode+this.phoneNumber;
-   localStorage.setItem('phoneNo',JSON.stringify(this.phoneNumber))
+   localStorage.setItem('phoneNo',this.phoneNumber)
     this.phoneNumber = '+'+this.phoneNumber;
     console.log("phoneNumber"+this.phoneNumber);
     return new Promise<any>((resolve, reject) => {

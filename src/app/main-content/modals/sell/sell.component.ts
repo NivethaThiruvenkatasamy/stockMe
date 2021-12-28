@@ -34,12 +34,12 @@ export class SellComponent implements OnInit {
     this.modalCtrl.dismiss();  
   }
   sell(){
-    console.log(this.tran);
+    console.log(this.details['Code']);
     this.tran.code = this.details.Code,
     this.tran.price = this.details.price,
-    this.tran.quantity = this.quantity,
+    this.tran.quantity = -this.quantity,
     this.tran.phoneNo = parseInt(localStorage.getItem('userId')),
-    this.tran.total = this.quantity * this.details.price,
+    this.tran.total = -(this.quantity * this.details.price),
     this.tran.isBuy = false,
     this.tran.createdDate = this.d
     this.dataService.createTransactionBuy(this.tran);

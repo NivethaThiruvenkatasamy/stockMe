@@ -40,4 +40,16 @@ export class GainLossComponent implements OnInit {
       }
     }
   }
+  /*-------------------------------------------------
+    function: navigate to overview of the financial
+              instrument
+  -------------------------------------------------*/ 
+  getOverView(comp:any): void{
+    let hit={Code:"",Name:""};
+    hit.Code = comp.symbol;
+    hit.Name = comp.companyName;
+   
+    this.router.navigate(['/main-content/overview'],{ state: { hit } })
+    return;
+  }
 }

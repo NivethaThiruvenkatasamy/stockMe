@@ -4,12 +4,10 @@
   </ion-title>
   <!--<div  class="height:40%;">
     <ion-card class="ion-padding ion-margin" style="padding-bottom:10px;height:100%;align-items:center;">
-      
       <ion-label class="ion-padding ion-margin">Total Investment</ion-label>
       <ion-label class="ion-padding">Current value</ion-label>
       <ion-text>{{totalInvestment}}</ion-text>
      <ion-text>{{currentValue}}</ion-text>
-     
     </ion-card>
   </div>-->
 </header>
@@ -18,10 +16,10 @@
           <div style="float:left;display:flex;flex-direction:column;width:50%;" (click)="showModal(details,companyArray[i]['05. price'])">
            <ion-label style="float:left"> {{details['name']}}</ion-label>
            <ion-text class="medium-text"> {{details['code']}}</ion-text>
-           <ion-text class="small-text">Bought price: {{details.price}}</ion-text>
+           <ion-text class="small-text">Bought price: {{details.price * details['quantity']}}</ion-text>
           </div>
           <div style="float:left;display:flex;flex-direction:column;width:60%;text-align:right;">
-            <ion-label  > {{companyArray[i]['05. price'] |number :0}}<span style="font-size: 11px;color:gray;padding-left:2px;">(Current price)</span></ion-label>
+            <ion-label  > {{companyArray[i]['05. price'] * details['quantity'] |number :0}}<span style="font-size: 11px;color:gray;padding-left:2px;">(Current price)</span></ion-label>
              <ion-label style="font-size: 13px;color:gray;" [ngClass]="companyArray[i]['05. price']>details.price? 'text-danger' : 'text-success'">{{companyArray[i]['05. price']-details.price | number : 0}}<span style="font-size: 11px;color:gray;padding-left:2px;">({{((companyArray[i]['05. price']-details.price)/(details.price))*100 | number: 0}}%)</span></ion-label>
              <ion-label style="font-size: 11px;color:gray;">Quantity: {{details['quantity']}}</ion-label>
           </div>

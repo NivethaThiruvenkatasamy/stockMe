@@ -7,20 +7,19 @@
 	padding-left:42px;
 	@media only screen and (min-width: 369px) {
 		right:490px;
-		margin-top: 8% !important;
+		margin-top: 2% !important;
 	  }
 	  @media only screen and (min-width: 587px) {
 		  right:690px;
-		  margin-top: 8% !important;
+		  margin-top: 2% !important;
 		}
 	  @media only screen and (min-width: 815px) {
 		  right:890px;
-		  margin-top: 5% !important;
+		  margin-top: 2% !important;
 	  }
 	  @media only screen and (min-width: 1025px) {
 		  margin-top: 5% !important;
 	  }
-
 }
 ::ng-deep.ais-SearchBox-submitIcon{
 	background-color: transparent;
