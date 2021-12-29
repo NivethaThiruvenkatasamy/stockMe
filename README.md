@@ -33,3 +33,5 @@ Navigate to repo in a terminal: cd stockMe
 Install dependencies : npm i
 
 Run locally in a browser: ionic serve
+
+To see as a website : https://trading-app-demo-ba0a7.web.app/
