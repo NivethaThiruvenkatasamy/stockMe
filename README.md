@@ -4,7 +4,7 @@
 
 ## Features
 
-**Login page, powered by FireBase Auth:** User can signup and login using their mobile number and otp.
+**Login page, Signup page powered by FireBase Auth:** User can signup and login using their mobile number and otp.
 
 **Dashboard** : Displays the list of top gainers and losers and the watchlist of the user. They can also remove the financial instruments from their watchlist
 
