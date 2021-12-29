@@ -16,12 +16,20 @@
 
 
 Tech Details
+
 Native runtime: Capacitor 3
+
 Frameworks: Ionic Framework 5 and Angular 12
 
 **How to Run**
+
+
 Install the Ionic CLI: npm install -g @ionic/cli
+
 Clone this repository: git clone https://github.com/NivethaThiruvenkatasamy/stockMe.git
+
 Navigate to repo in a terminal: cd stockMe
+
 Install dependencies : npm i
+
 Run locally in a browser: ionic serve
