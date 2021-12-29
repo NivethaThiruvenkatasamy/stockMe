@@ -1,5 +1,8 @@
-**StockMe** is a Demo trading app(mobile-first view) that allows users to view list of financial instruments, their overview and buy and sell stocks of certain financial instruments. View the status of the stocks in Portfolio. Add the financial instruments to the watchlist and followList.
+# StockMe
 
+**StockMe** is a Demo stock trading app(mobile-first view) that allows users to view list of financial instruments, their overview and buy and sell stocks of certain financial instruments. 
+* View the status of the stocks in Portfolio
+* Add the financial instruments to the Watchlist and Followlist
 
 
 ## Features
@@ -15,23 +18,25 @@
 **Search - Profile Page Powered by Algolia search**: search a financial instrument by using their code or company name and see an overview of the financial instrument by clicking on the card
 
 
-**Tech Details**
+## Technical Details
 
-Native runtime: Capacitor 3
+**Native runtime:** *Capacitor 3*
 
-Frameworks: Ionic Framework 5 and Angular 12
+**Frameworks:** *Ionic Framework 5 and Angular 12*
 
-**How to Run**
+## How to Run
 
 
-Install the Ionic CLI: npm install -g @ionic/cli
+Install the Ionic CLI: `npm install -g @ionic/cli`
 
-Clone this repository: git clone https://github.com/NivethaThiruvenkatasamy/stockMe.git
+Clone this repository: `git clone https://github.com/NivethaThiruvenkatasamy/stockMe.git`
 
-Navigate to repo in a terminal: cd stockMe
+Navigate to repo in a terminal: `cd stockMe`
 
-Install dependencies : npm i
+Install dependencies : `npm i`
 
-Run locally in a browser: ionic serve
+Run locally in a browser: `ionic serve`
 
-To see as a website : https://trading-app-demo-ba0a7.web.app/
+## 
+
+Web URL : https://trading-app-demo-ba0a7.web.app/
